@@ -223,7 +223,14 @@ namespace ElMaitre.Web.Controllers
             };
             var result = await UserManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
-                return BadRequest(result.Errors.Select(s => s.Description));
+            {
+                string Temp = result.Errors.Select(s => s.Code).FirstOrDefault();
+                if(Temp == "DuplicateUserName")
+                    return BadRequest("هذا المستخدم موجود من قبل .");
+                else
+                    return BadRequest(result.Errors.Select(s => s.Description));
+            }
+                
 
             if (model.IsLawyer)
             {

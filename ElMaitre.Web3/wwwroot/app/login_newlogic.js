@@ -153,7 +153,7 @@ function AccountViewModel() {
                   
                 },
                 error: function (res) {
-                    $(".modal-body #message").text(getErrorMessage(res));
+                    $(".modal-body #message").text(res.responseText);
                     $('#alert').modal('show');
                     hideloading(e);
                 }
