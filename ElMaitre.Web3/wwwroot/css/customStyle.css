@@ -1,0 +1,39 @@
+/* --------------------------------
+
+style
+
+-------------------------------- */
+
+
+
+
+#top_bar,#menu_navbar{
+    background-color:transparent;
+    box-shadow: none;
+}
+
+.cd-auto-hide-header{
+    background-color:transparent;
+}
+
+.shrink{
+    background-color: #ffffff !important;
+}
+
+.grayColor{
+    background-color:#f5f7fa !important;
+}
+
+#top_bar .nav-item {
+    border-right: 0px solid #dfdfdf;
+}
+
+
+
+.Border{
+    border-right: 1px solid #dfdfdf !important;
+}
+
+#how_it_works,#about_us,#icon_option,#newSection, #call-action{
+    min-height: calc(100vh - 110px);
+}

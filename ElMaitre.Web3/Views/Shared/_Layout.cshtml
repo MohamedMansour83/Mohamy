@@ -1,0 +1,585 @@
+﻿@model ElMaitre.Web.ViewModels.BaseViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />*@
+    @*<link href="~/css/lightslider.min.css" rel="stylesheet" />*@
+    <link href="~/css/responsive-calendar.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/dist/css/lightslider.min.css">
+    <link rel="stylesheet" href="~/dist/css/animate.css">
+    <link rel="stylesheet" href="~/dist/css/sticky-header.css">
+    <link rel="stylesheet" href="~/dist/css/index.css">
+    <link rel="stylesheet" href="http://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+    @*<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">*@
+    @*<link href="~/css/all.css" rel="stylesheet" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous"/>*@
+    @*<environment exclude="Development">
+            <link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+                  asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+                  asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+            <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        </environment>*@
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/bootstrap.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/knockout/knockout-3.3.0.js"></script>
+    <script src="~/lib/knockout/knockout.mapping-latest.js"></script>
+    <script src="~/js/lightslider.js" charset="utf-8"></script>
+    @*<script src="~/js/sticky-header.js" charset="utf-8"></script>*@
+    <script src="~/js/popper.min.js" charset="utf-8"></script>
+
+    @if (!Model.IsLtr)
+    {
+        <link rel="stylesheet" href="~/css/style_rtl.css">
+    }
+    <style type="text/css">
+        .rounded-circle {
+            max-height: 100px;
+        }
+        .danger{
+            color:red;
+        }
+        #cover-spin {
+            position: fixed;
+            width: 100%;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            background-color: rgba(255,255,255,0.7);
+            z-index: 9999;
+            display: none;
+        }
+
+        @@-webkit-keyframes spin {
+            from {
+                -webkit-transform: rotate(0deg);
+            }
+
+            to {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @@keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        #cover-spin::after {
+            content: '';
+            display: block;
+            position: absolute;
+            left: 48%;
+            top: 40%;
+            width: 40px;
+            height: 40px;
+            border-style: solid;
+            border-color: black;
+            border-top-color: transparent;
+            border-width: 4px;
+            border-radius: 50%;
+            -webkit-animation: spin .8s linear infinite;
+            animation: spin .8s linear infinite;
+        }
+    </style>
+    <style>
+        .logo-white {
+            display: none
+        }
+    </style>
+    <script>
+
+
+        $(document).ready(function () {
+
+            $('#logout_link').click(function (event) {
+                // Do something before following the link
+
+                //FB.logout(function (response) { });
+
+                FB.getLoginStatus(function (response) {
+                    if (response && response.status === 'connected') {
+                        FB.logout(function (response) {
+                            //document.location.reload();
+                             // console.log(response);
+                        });
+                    }
+                });
+
+                // Get url from the <a> href attribute
+                var url = $(this).attr('href');
+
+                // Open the url in the current window. Set to "_blank" instead of "_self" to open in a new window.
+                window.open(url, "_self");
+
+                // Prevent default action (e.g. following the link)
+                event.preventDefault();
+            });
+            //if (localStorage.getItem('UsrName') != "" && localStorage.getItem('UsrName') != null) {
+            //    $("#a1").hide();
+            //    $("#a2").show();
+            //    $("#usr").text(localStorage.getItem('UsrName'));
+
+            //    if (localStorage.getItem('isLawyer') == 'true') {
+            //        $("#user").hide();
+            //        $("#lawyer").show();
+            //        $("#usr1").text(localStorage.getItem('UsrName'));
+            //        $("#menu-lawyers").hide();
+            //        $("#menu-contracts").hide();
+
+            //    } else {
+            //        $("#user").show();
+            //        $("#lawyer").hide();
+            //        $("#menu-lawyers").show();
+            //        $("#menu-contracts").show();
+
+            //    }
+            //} else {
+            //    $("#a1").show();
+            //    $("#a2").hide();
+            //}
+            $(".nav-item").click(function () {
+                localStorage.setItem("active-menue", this.id);
+            })
+
+            var pathname = $(location).attr('pathname');
+            if (pathname == "/") {
+                $("#menu-home").addClass("active");
+                return;
+            }
+
+            var active = localStorage.getItem("active-menue");
+            if (active != null) {
+                $(".nav-item").removeClass("active");
+                $("#" + active).addClass("active");
+            }
+
+            $(window).resize(function () {
+                if ($(window).width() >= 980) {
+
+                    // when you hover a toggle show its dropdown menu
+                    $(".navbar .dropdown-toggle").hover(function () {
+                        $(this).parent().toggleClass("show");
+                        $(this).parent().find(".dropdown-menu").toggleClass("show");
+                    });
+
+                    // hide the menu when the mouse leaves the dropdown
+                    $(".navbar .dropdown-menu").mouseleave(function () {
+                        $(this).removeClass("show");
+                    });
+
+                    // do something here
+                }
+            });
+
+
+
+        });
+
+
+        function send() {
+            if ($("#num").val() != '')
+                $("#msg").text("تم الارسال");
+        }
+
+
+    </script>
+    @*<environment exclude="Development">
+            <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                    asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                    asp-fallback-test="window.jQuery"
+                    crossorigin="anonymous"
+                    integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
+            </script>
+            <script src="http://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                    asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                    crossorigin="anonymous"
+                    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+            </script>
+            <script src="~/js/site.min.js" asp-append-version="true"></script>
+            <script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-3.3.0.js"></script>
+
+        </environment>*@
+
+    <script async defer crossorigin="anonymous" src="http://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=588635874900758&autoLogAppEvents=1"></script>
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '588635874900758',
+                cookie: true,
+                xfbml: true,
+                version: 'v3.2'
+            });
+        };
+
+         (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "http://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+    </script>
+    @RenderSection("Scripts", required: false)
+</head>
+<body>
+    <header id="hdr" class="cd-auto-hide-header navbar-dark">
+        <div id="top_bar">
+            <div class="container">
+                <div class="row">
+                    <div class="col col-md-6 justify-content-md-start justify-content-sm-sart justify-content-center  d-none d-sm-flex">
+                        <ul class="nav">
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   href="http://www.facebook.com/Mohamyco-407410813367744" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#"><i class="fab fa-twitter"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/account/ExternalLogin?provider=Google"><i class="fab fa-google-plus-g"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col col-md-6 d-flex d-flex justify-content-md-end justify-content-sm-sart justify-content-center">
+                        @if (!Model.IsAuthenticated)
+                        {
+                            <ul id="a1" class="nav">
+                                <li class="nav-item">
+                                    <a class="nav-link" href='/Account/Login'><i class="fas fa-sign-in-alt mr-2"></i>@Localizer["LogIn"]</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href='/Account/Login#register'><i class="fas fa-user-plus mr-2"></i>@Localizer["sign up"]</a>
+                                </li>
+                            </ul>
+                        }
+                        else
+                        {
+                            <ul id="a1" class="nav">
+                                @if (Model.IsLawyer)
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link" href='/Account/LawyerProfile'><i class="fas fa-sign-in-alt mr-2"></i><strong>@Model.UserName</strong></a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link" href='/Account/UserProfile'><i class="fas fa-sign-in-alt mr-2"></i><strong>@Model.UserName</strong></a>
+                                    </li>
+                                }
+                                <li class="nav-item">
+                                    <a class="nav-link" href='/Account/LogOut' id="logout_link"><i class="fas fa-user-plus mr-2"></i>@Localizer["LogOut"]</a>
+                                </li>
+                            </ul>
+                        }
+                        @*<ul id="a2" class="nav" style="display:none">
+                                <li class="nav-item">
+                                    <a id="user" class="nav-link" href='/Account/UserProfile'><i class="fas fa-sign-in-alt mr-2"></i><strong id="usr"></strong></a>
+                                    <a id="lawyer" class="nav-link hidden" href='/Account/LawyerProfile'><i class="fas fa-sign-in-alt mr-2"></i><strong id="usr1"></strong></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href='/Account/LogOut'><i class="fas fa-user-plus mr-2"></i>Log Out</a>
+                                </li>
+                            </ul>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section id="menu_navbar">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg">
+                    <a class="navbar-brand" href="/">
+                        <img src="/images/logo.png" class="logo-dark" alt="logo">
+                        <img src="/images/logo-white.png" class="logo-white" alt="logo">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                        <ul class="navbar-nav">
+                            <li id="menu-home" class="nav-item active">
+                                <a class="nav-link" href="/">@Localizer["Home"] <span class="sr-only">(current)</span></a>
+                            </li>
+                            @if (!Model.IsLawyer)
+                            {
+                                <li id="menu-lawyers" class="nav-item">
+                                    <a class="nav-link" href='/Lawyer'>@Localizer["Lawyers"]</a>
+                                </li>
+                                @*<li id="menu-contracts" class="nav-item">
+                                        <a class="nav-link" href="/Contract">@Localizer["Contracts"]</a>
+                                    </li>*@
+                                <span class="mega-menu">
+                                    <li class="nav-item dropdown">
+                                        @*<a class="nav-link dropdown-toggle" href="/Contract"
+                                               id="navbarDropdown" role="button"
+                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                @Localizer["Contracts"]
+                                            </a>*@
+                                        <a class="nav-link" href="javascript:void(0)"
+                                           role="button">
+                                            @Localizer["Contracts"]
+                                        </a>
+                                        <div class="dropdown-menu shadow-lg"
+                                             aria-labelledby="navbarDropdown" style="height:22em; display:none">
+
+
+                                            <div class="container">
+                                                <div class="row my-4">
+                                                    <div class="col-12">
+                                                        <h5 class="text-uppercase font-weight-bold">@Localizer["Categories"]</h5>
+                                                    </div>
+
+                                                </div>
+
+                                                @{
+                                                    var prop = Model.IsLtr ? "valueEn" : "value";
+                                                }
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <ul class="nav flex-column" style="height: 60%;" data-bind="foreach: contractCategories">
+                                                            <li class="nav-item d-flex align-items-center mb-3">
+                                                                <i class="far fa-address-book"></i>
+                                                                <a class="nav-link active mega-link" data-bind="attr:{href:'/Contract/Index/'+id}, text: @prop"></a>
+                                                            </li>
+                                                            @*<li class="nav-item d-flex align-items-center mb-3">
+                                                                    <i class="far fa-address-book"></i>
+                                                                    <a class="nav-link mega-link" href="#">Cat 2</a>
+                                                                </li>
+                                                                <li class="nav-item d-flex align-items-center mb-3">
+                                                                    <i class="far fa-address-book"></i>
+                                                                    <a class="nav-link mega-link" href="#">Cat 3</a>
+                                                                </li>
+
+                                                                <li class="nav-item d-flex align-items-center mb-3">
+                                                                    <i class="far fa-address-book"></i>
+                                                                    <a class="nav-link mega-link" href="#">Cat 4</a>
+                                                                </li>
+                                                                <li class="nav-item d-flex align-items-center mb-3">
+                                                                    <i class="far fa-address-book"></i>
+                                                                    <a class="nav-link mega-link" href="#">Cat 5</a>
+                                                                </li>
+                                                                <li class="nav-item d-flex align-items-center mb-3">
+                                                                    <i class="far fa-address-book"></i>
+                                                                    <a class="nav-link mega-link" href="#">Cat 6</a>
+                                                                </li>*@
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-md-4 text-center">
+                                                        <a href="">
+                                                            <img src="~/images/contacts.png" alt="" class="img-fluid">
+                                                        </a>
+                                                        <p class="mt-2">@Localizer["ImgCallActions"]</p>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </span>
+
+
+
+
+
+                                <li id="menu-blogs" class="nav-item">
+                                    @*<a class="nav-link" href="/Blog">@Localizer["Blogs"]</a>*@
+                                    <a class="nav-link" href="javascript:void(0)">@Localizer["Blogs"]</a>
+                                </li>
+                                <li id="menu-FAQ" class="nav-item">
+                                    @*<a class="nav-link" href="/FAQ">@Localizer["FAQ"]</a>*@
+                                    <a class="nav-link" href="javascript:void(0)">@Localizer["FAQ"]</a>
+                                </li>
+                            }
+                            @if (Model.IsAuthenticated && Model.IsLawyer)
+                            {
+                                <span class="mega-menu">
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="/Question" id="navbarDropdown-1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            @Localizer["Questions and answers"]
+                                        </a>
+                                        <div class="dropdown-menu shadow-lg" aria-labelledby="navbarDropdown" style="height:22em; overflow:hidden">
+
+
+                                            <div class="container">
+                                                <div class="row my-4">
+                                                    <div class="col-12">
+                                                        <h5 class="text-uppercase font-weight-bold">@Localizer["Categories"]</h5>
+                                                    </div>
+
+                                                </div>
+
+                                                @{
+                                                    var prop = Model.IsLtr ? "valueEn" : "value";
+                                                }
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <ul class="nav flex-column" style="height: 60%;" data-bind="foreach: QACategories">
+                                                            <li class="nav-item d-flex align-items-center mb-3">
+                                                                <i class="far fa-address-book"></i>
+                                                                <a class="nav-link active mega-link" data-bind="attr:{href:'/Question/Index/'+id}, text: @prop"></a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-md-4 text-center">
+                                                        <a href="">
+                                                            <img src="~/images/contacts.png" alt="" class="img-fluid">
+                                                        </a>
+                                                        <p class="mt-2">@Localizer["ImgCallActions"]</p>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </span>
+                            }
+                            <li id="menu-contactus" class="nav-item">
+                                <a class="nav-link" href="/ContactUs">@Localizer["Contact us"]</a>
+                            </li>
+                            @if (!Model.IsLawyer)
+                            {
+                                <a href="/Lawyer/Index">
+                                    <button id="btn-calltolawyer" class="button button-sm invisible">
+                                        <span>@Localizer["Calltolawyer"]</span>
+                                    </button>
+                                </a>
+
+                            }
+
+                            <li class="nav-item ml-lg-5 language">
+                                @if (Model.IsLtr)
+                                {
+                                    <a class="nav-link" asp-action="SetLanguage" asp-route-culture="ar-EG" asp-controller="Base" asp-route-returnUrl="@Context.Request.Path">  <i class="fas fa-globe"></i> العربية</a>
+                                }
+                                else
+                                {
+                                    <a class="nav-link" asp-action="SetLanguage" asp-route-culture="en-US" asp-controller="Base" asp-route-returnUrl="@Context.Request.Path">  <i class="fas fa-globe"></i> English</a>
+                                    @*<a class="nav-link" href="#">  <i class="fas fa-globe"></i> English</a>*@
+                                }
+
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </section>
+    </header>
+
+    <script src="~/app/common.js"></script>
+    <div id="bdy">
+        @RenderBody()
+    </div>
+    <footer class="pt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 who_are_we mb-4 mb-md-0">
+                    <h6>@Localizer["footer_WhoAre"]</h6>
+                    <img class="my-2" src="/images/logo-footer.png" alt="logo">
+                    <p class="mt-2">@Localizer["footer_WhoAre_desc"]</p>
+                    @*<a><strong>@Localizer["footer_more"]</strong><i class="fas fa-arrow-right ml-4"></i></a>*@
+                </div>
+                <div class="col-md-4 Contact_us mb-4 mb-md-0">
+                    <h6>@Localizer["Contact us"]</h6>
+                    <!-- <p class="my-2">This is a simple hero unit, a simple jumbotron-style component for calling extra attention.</p> -->
+                    <ul class="mt-3">
+                        <li><i class="fas fa-map-marker"></i>@Localizer["footer_address"]</li>
+                        <li><i class="far fa-envelope"></i>@Localizer["footer_emal"]</li>
+                        <li><i class="fas fa-mobile-alt"></i>@Localizer["footer_phone"]</li>
+                    </ul>
+                </div>
+                <div class="col-md-4 subscribe mb-4 mb-md-0">
+                    <h6>@Localizer["footer_subscribe"]</h6>
+                    @*<p class="my-2">@Localizer["simple hero"]</p>*@
+                    <div class="input-group mt-4">
+                        <input id="num" type="text" class="form-control" placeholder="@Localizer["number"]" aria-label="Text input with dropdown button">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="button" onclick="send()">@Localizer["send"]</button>
+                        </div>
+                        <br />
+                        <span id="msg" style="margin: 5px;"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom_bar py-4 mt-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 d-none d-md-block">
+                        <div class="footer_links">
+                            <a class="active" href="#">@Localizer["Home"]</a>
+                            <a class="" href="#">@Localizer["Lawyers"]</a>
+                            <a class="" href="#">@Localizer["footer_join"]</a>
+                            <a class="" href="#">@Localizer["footer_news"]</a>
+                            <a class="" href="#">@Localizer["footer_profile"]</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-center text-md-right">
+                        <div class="copyright"><a href="#">@Localizer["footer_CopyRight"]</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div id="cover-spin"></div>
+
+    <div class="modal" tabindex="-1" role="dialog" id="alert">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">@Localizer["Alert"]</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <span id="message"></span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">@Localizer["OK"]</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" tabindex="-1" role="dialog" id="alert-confirm">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">@Localizer["Confirm"]</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <span id="message-confirm"></span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btn-confirm-ok">@Localizer["Yes"]</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">@Localizer["Cancel"]</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js" asp-append-version="true"></script>
+
+</body>
+</html>

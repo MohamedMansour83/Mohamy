@@ -1,0 +1,22 @@
+<input type="text" class="form-control form-control-sm"
+       placeholder="{{this.sessionkey}}" [(ngModel)]="this.sessionId"
+       [ngModelOptions]="{standalone:true}" style="width:100%"
+       [style.display]="false ? 'block' : 'none'"/>
+
+<button class="smallBtn"
+        (click)="onBtnClicked()"
+        [disabled]="this.sessionId == undefined || isLoading"
+                        [class.disabled]="this.sessionId == undefined || isLoading"
+        [style.display]="false ? 'block' : 'none'"
+        >
+  {{this.startSession}}
+</button>
+<div id="preview" #preview
+     [style.display]="isClicked ? 'block' : 'none'">
+  <div *ngIf="isInitializing">Loading preview... Please wait.</div>
+</div>
+
+<div class="d-flex end-metting align-items-center" >
+  <p class="mb-0 mr-3 d-none d-md-block">Leave Room</p>
+  <button   (click)="leaveRoom()" class="btn" type="button" [style.display]="isInitializing ? 'none' : 'block'"><i class="fas fa-phone"></i></button>
+</div>

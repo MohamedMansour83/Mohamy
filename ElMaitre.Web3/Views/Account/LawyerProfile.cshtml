@@ -1,0 +1,685 @@
+﻿@model ElMaitre.Web.ViewModels.ProfileViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@{
+	ViewData["Title"] = Localizer["Profile"];
+}
+<script>
+	$("header").removeClass("navbar-dark");
+	$("#menu_navbar").addClass("shadow");
+	$("#top_bar").addClass("shadow-sm");
+</script>
+<link href="~/css/bootstrap-tagsinput.css" rel="stylesheet" />
+<style>
+
+
+	.cd-auto-hide-header {
+		background-color: #ffffff
+	}
+
+	.btn-primary.disabled, .btn-primary:disabled {
+		background-color: gray !important;
+		border-color: gray !important;
+	}
+</style>
+<section id="header_image_inner">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="main-ttl inner_pages_ttl text-center my-4 py-3">
+					<h2>@Localizer["Profile"]</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+@Html.Partial("~/Views/Shared/UserNotification.cshtml")
+
+<div class="inner_pages">
+	<section class="user_profile">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4 my-4">
+					<div class="card shadow user_profile_image px-3 py-4">
+						<img id="img-profile" class="shadow card-img-top rounded-circle" data-bind="attr:{src:ProfileImg}" style="height: 180px;" />
+						<a id="img-upload" href="#" style="font-size: 20px;color: black;position: absolute;right: 24%;"><i class="fas fa-camera"></i></a>
+						<input id="file-profile" style="display:none" type="file" data-bind="event: { change: function() { uploadImageProfile($element.files[0]) } }" />
+						@{
+							var username = Model.IsLtr ? "NameEn" : "Name";
+							<h4 class="font-weight-bold" data-bind="text: @username"></h4>
+						}
+						<p class="m-0"><i class="far fa-envelope mr-2"></i><span data-bind="text: Email"></span></p>
+						<p class="m-0 mt-2"><i class="far fa-calendar-alt mr-2"></i><span data-bind="text: Age"></span>&nbsp; @Localizer["years"]</p>
+						<div class="card user_profile_tabs">
+							<div class="card-header">
+								<ul class="nav nav-tabs card-header-tabs" id="outerTab" role="tablist">
+									<li class="nav-item">
+										<a class="nav-link active" data-toggle="tab" href="#tabc" aria-controls="tabc" role="tab" aria-expanded="true"><i class="fas fa-calendar-alt mx-3"></i>@Localizer["Reservations"]</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" data-toggle="tab" href="#tab-calendar" aria-controls="tabc-calendar" role="tab" aria-expanded="true"><i class="fas fa-calendar-alt mx-3"></i>@Localizer["Calendar"]</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" data-toggle="tab" href="#tabb" aria-controls="tabb" role="tab"><i class="fas fa-cogs mx-3"></i>@Localizer["Settings"]</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" data-toggle="tab" href="#taba" aria-controls="taba" role="tab"><i class="fas fa-microphone mx-3"></i>@Localizer["Systemtest"]</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" data-toggle="tab" href="#tabpane4" aria-controls="tabb" role="tabpane4"><i class="fas fa-money-bill-alt mx-3"></i>@Localizer["Balance"]</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" data-toggle="tab" href="#tabpane5" aria-controls="tabb" role="tabpane5"><i class="fas fa-star mx-3"></i>@Localizer["Rating"]</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" data-toggle="tab" href="#tabpane6" aria-controls="tabb" role="tabpane6"><i class="fas fa-star mx-3"></i>@Localizer["Services"]</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-8 my-4">
+					<div class="card shadow">
+						<div class="row py-3 mx-0 h-100">
+							<div class="col-md-12">
+								<div class="tab-content">
+									<div class="tab-pane active" id="tabc" role="tabpanel">
+										<div class="card mb-2" data-bind="foreach: Sessions">
+											<div class="row user_booking_data mx-0 d-flex align-items-center py-3">
+												<div class="col-md-3 text-center">
+													<div class="lawyer_image">
+														<img class="shadow card-img-top rounded-circle" src="/images/personal-img.jpg" alt="Card image cap">
+													</div>
+												</div>
+												<div class="col-md-9">
+													<div class="row">
+														<div class="col-md-10">
+															<div class="session_detail">
+																@{
+																	var lName = Model.IsLtr ? "Appointment.LawyerNameEn" : "Appointment.LawyerName";
+																	<h5 class="text-center text-md-left mt-3 mt-md-0"><strong data-bind="text: @lName"></strong></h5>
+
+																}
+																<div class="payment-info d-flex align-items-center justify-content-center justify-content-md-start">
+																	<p>
+																		<i class="far fa-calendar-alt mr-2"></i>
+																	</p><p data-bind="text: Appointment.DateTxt">
+																	</p>
+																</div>
+																<div class="payment-info d-flex align-items-center  justify-content-center justify-content-md-start">
+																	<i class="far fa-calendar mr-2"></i>
+																	<p>
+																		@Localizer["From"] &nbsp;<strong data-bind="text: Appointment.TimeFrom"></strong>&nbsp;@Localizer["To"]&nbsp;<strong data-bind="text: Appointment.TimeTo"></strong>
+																	</p>
+																</div>
+																<div class="payment-info d-flex align-items-center  justify-content-center justify-content-md-start">
+																	<i class="far fa-clock mr-2"></i>
+																	<p>@Localizer["SessionDuration"]<label class="label label-success">&nbsp;<span data-bind="text: Duration"></span>&nbsp; @Localizer["Mins"] </label></p>
+																</div>
+																<div>
+																	<a href="#" data-bind="click: $parent.openSessioNotes"><i class="fas fa-sticky-note" style="font-size: 20px;"></i></a>
+																</div>
+															</div>
+														</div>
+														<div class="col-md-2">
+															<span data-bind="click: $parent.openSession"><i class="fas fa-sign-in-alt" style="font-size: 48px; cursor:pointer"></i></span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="tab-pane" id="tabb" role="tabpanel">
+										<div class="inner_tabs">
+											<ul class="nav nav-tabs" id="myTab" role="tablist">
+												<li class="nav-item">
+													<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">@Localizer["Personalinformation"]</a>
+												</li>
+												<li class="nav-item">
+													<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">@Localizer["Changpassword"]</a>
+												</li>
+											</ul>
+										</div>
+										<div class="tab-content p-3" id="myTabContent">
+											<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+												<form class="">
+													<div class="form-group">
+														<label for="exampleFormControlInput1">@Localizer["Name"]</label>
+														<input type="text" class="form-control" id="exampleFormControlInput1" data-bind="value: Name">
+													</div>
+													<div class="form-group">
+														<label for="exampleFormControlInput1">@Localizer["NameEn"]</label>
+														<input type="text" class="form-control" id="exampleFormControlInput1" data-bind="value: NameEn">
+													</div>
+													<div class="form-group">
+														<label for="datepicker">@Localizer["Date"]</label>
+														<input type="text" id="datepicker" class="form-control hasDatepicker" data-bind="value: DateOfBirth">
+													</div>
+													<div class="form-group">
+														<label for="phone-number">@Localizer["Phone"]</label>
+														<input type="text" id="phone-number" class="form-control" data-bind="value: PhoneNumber" />
+													</div>
+													<div class="form-group">
+														<label for="spetialization">@Localizer["Spetialization"]</label>
+														@{
+															var prop = Model.IsLtr ? "'NameEn'" : "'Name'";
+															<select class="custom-select" id="spetialization"
+																	data-bind="options: Spetializations,
+																optionsText: @prop,
+																optionsValue :'Id',
+																value: SpetializationId,
+																optionsCaption: '@Localizer["SpetializationCaption"]'"></select>
+														}
+													</div>
+													<div class="form-group">
+														<label for="experience">@Localizer["Experience"]</label>
+														@{
+															var prop3 = Model.IsLtr ? "'ValueEn'" : "'Value'";
+															<select class="custom-select" id="experience"
+																	data-bind="options: Experiences,
+																optionsText: @prop3,
+																optionsValue :'Id',
+																value: ExperienceId,
+                                                                    event: { change: $root.experienceChanged },
+																optionsCaption: '@Localizer["ExperienceCaption"]'"></select>
+														}
+													</div>
+													<div class="form-group">
+														<label for="province">@Localizer["Province"]</label>
+														@{
+															var prop2 = Model.IsLtr ? "'ValueEn'" : "'Value'";
+															<select class="custom-select" id="province"
+																	data-bind="options: Provinces,
+																optionsText: @prop2,
+																optionsValue :'Id',
+																value: ProvinceId,
+																optionsCaption: '@Localizer["ProvinceCaption"]'"></select>
+														}
+													</div>
+													<div class="form-group">
+														<label for="session-price">@Localizer["SessionPrice"]</label>
+														<input type="text" id="session-price" class="form-control" data-bind="value: Price" disabled />
+													</div>
+													<div class="form-group">
+														<label for="descriptio">@Localizer["Description"]</label>
+														<textarea id="descriptio" type="text" rows="5" class="form-control" data-bind="value: Description"></textarea>
+													</div>
+													<div class="form-group" style="display:none">
+														<label for="descriptio">@Localizer["DescriptionEn"]</label>
+														<textarea id="descriptio" type="text" rows="5" class="form-control" data-bind="value: DescriptionEn"></textarea>
+													</div>
+													<div class="form-group">
+														<label for="certificate">@Localizer["Certificates"]</label>
+														<textarea id="certificate" type="text" rows="5" class="form-control" data-bind="value: Certificates"></textarea>
+													</div>
+													<div class="form-group" style="display:none">
+														<label for="certificate">@Localizer["CertificatesEn"]</label>
+														<textarea id="certificate" type="text" rows="5" class="form-control" data-bind="value: CertificatesEn"></textarea>
+													</div>
+													<div class="form-group">
+														<label for="customRadioInline1">@Localizer["Gender"]</label>
+														<div class="">
+															<div class="custom-control custom-radio custom-control-inline">
+																<input type="radio" id="customRadioInline3" name="customRadioInline3" class="custom-control-input" data-bind="checked: Gender, checkedValue: 0">
+																<label class="custom-control-label" for="customRadioInline3">@Localizer["Male"]</label>
+															</div>
+															<div class="custom-control custom-radio custom-control-inline">
+																<input type="radio" id="customRadioInline4" name="customRadioInline3" class="custom-control-input" data-bind="checked: Gender, checkedValue: 1">
+																<label class="custom-control-label" for="customRadioInline4">@Localizer["Female"]</label>
+															</div>
+														</div>
+													</div>
+													<div class="form-group">
+														<label for="VideoURL">@Localizer["VideoURL"]</label>
+														<input type="text" id="VideoURL" class="form-control" placeholder="@Localizer["VideoURL"]" data-bind="value: VideoURL">
+													</div>
+													<button href="#" class="button  button-reveal w-100" data-bind="click: SaveSetting">
+														<i class="fas fa-check"></i>
+														<span>@Localizer["Save"]</span>
+													</button>
+												</form>
+											</div>
+											<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+												<form class="">
+													<div class="form-group">
+														<label for="password">@Localizer["Currentpassword"]</label>
+														<input type="password" class="form-control" id="currentpassword" data-bind="value: ChangePasswordModel.OldPassword">
+													</div>
+													<div class="form-group">
+														<label for="password">@Localizer["Newpassword"]</label>
+														<input type="password" class="form-control" id="newpassword" data-bind="value: ChangePasswordModel.Password">
+													</div>
+													<div class="form-group">
+														<label for="cpassword">@Localizer["Confirmpassword"]</label>
+														<input type="password" class="form-control" id="cpassword" data-bind="value: ChangePasswordModel.ConfirmPassword">
+													</div>
+													<button href="#" class="button  button-reveal w-100" data-bind="click: ChangePassword">
+														<i class="fas fa-check"></i>
+														<span>@Localizer["Save"]</span>
+													</button>
+												</form>
+											</div>
+										</div>
+									</div>
+									<div class="tab-pane" id="taba" role="tabpanel">
+										<div class="row system-feature-box my-4 mx-0">
+											<div class="col-md-4">
+												<div class="feature-box fbox-center fbox-border fbox-dark fbox-effect noborder">
+													<div class="fbox-icon">
+														<a href="#"><i class="fas fa-video"></i></a>
+													</div>
+													<h6>@Localizer["TestCamera"]</h6>
+													<button href="#" class="button  button-reveal">
+														<i class="fas fa-video"></i>
+														<span>@Localizer["Test"]</span>
+													</button>
+												</div>
+											</div>
+											<div class="col-md-4">
+												<div class="feature-box fbox-center fbox-border fbox-dark fbox-effect noborder">
+													<div class="fbox-icon">
+														<a href="#"><i class="fas fa-microphone"></i></a>
+													</div>
+													<h6>@Localizer["TestMicrophone"]</h6>
+													<button href="#" class="button  button-reveal">
+														<i class="fas fa-microphone"></i>
+														<span>@Localizer["Test"]</span>
+													</button>
+												</div>
+											</div>
+											<div class="col-md-4">
+												<div class="feature-box fbox-center fbox-border fbox-dark fbox-effect noborder">
+													<div class="fbox-icon">
+														<a href="#"><i class="fas fa-volume-up"></i></a>
+													</div>
+													<h6>@Localizer["TestSound"]</h6>
+													<button href="#" class="button  button-reveal">
+														<i class="fas fa-volume-up"></i>
+														<span>@Localizer["Test"]</span>
+													</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="tab-pane" id="tabpane4" role="tabpane4">
+										<div class="row">
+											<div class="col-md-12 pricing-action-area">
+												<div class="pricing pricing--rabten shadow-sm ">
+													<div class="pricing--item">
+														<div class="d-flex align-items-center justify-content-center">
+															<i class="fas fa-money-bill-alt"></i>
+															<h3 class="pricing--title mr-3">Your balance</h3>
+															<div class="pricing--price">
+																<span class="pricing--anim pricing--anim--1">
+																	556  <span class="pricing--currency">LE</span>
+																</span>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-12 balance">
+												<div class="accordion" id="accordion">
+													<div class="card">
+														<div class="card-header" id="headingOne">
+															<h5 class="mb-0 d-flex align-items-center">
+																<i class="far fa-circle"></i>
+																<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+																	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
+																</button>
+															</h5>
+														</div>
+														<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+														</div>
+													</div>
+													<div class="card">
+														<div class="card-header" id="headingTwo">
+															<h5 class="mb-0 d-flex align-items-center">
+																<i class="far fa-circle danger"></i>
+																<button class="danger btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+																	Lorem ipsum dolor sit amet, consectetur adipiscing
+																</button>
+															</h5>
+														</div>
+														<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+														</div>
+													</div>
+													<div class="card">
+														<div class="card-header" id="headingThree">
+															<h5 class="mb-0 d-flex align-items-center">
+																<i class="far fa-circle success"></i>
+																<button class="success btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+																	Lorem ipsum dolor sit amet dolor sit amet dolor sit amet, consectetur Lorem ipsum dolor sit amet dolor sit amet dolor sit amet, consectetur .
+																</button>
+															</h5>
+														</div>
+														<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="tab-pane" id="tabpane5" role="tabpane5">
+										<div class="row align-items-center rating">
+											<div class="col-md-3 text-center">
+												<h2 data-bind="text: Rating.LawyerRate"></h2>
+												<ul class="rating p-0 mb-2">
+													<li class="fas fa-star" data-bind="css: Rating.LawyerRate() > 0? 'active' : ''"></li>
+													<li class="fas fa-star" data-bind="css: Rating.LawyerRate() > 1? 'active' : ''"></li>
+													<li class="fas fa-star" data-bind="css: Rating.LawyerRate() > 2? 'active' : ''"></li>
+													<li class="fas fa-star" data-bind="css: Rating.LawyerRate() > 3? 'active' : ''"></li>
+													<li class="fas fa-star" data-bind="css: Rating.LawyerRate() > 4? 'active' : ''"></li>
+												</ul>
+											</div>
+											<div class="col-md-6">
+												<div class="d-flex align-items-center rating_progress">
+													<p>5</p>
+													<li class="success fas fa-star"></li>
+													<div class="progress mx-3">
+														<div class="progress-bar progress-bar-striped bg-success" role="progressbar" data-bind="attr:{style:'width:'+calculateRate(Rating.Rate5)+'%'}" aria-valuenow=60 aria-valuemin=0 aria-valuemax=100></div>
+													</div>
+													<p data-bind="text: Rating.Rate5"></p>
+												</div>
+												<div class="d-flex align-items-center rating_progress">
+													<p>4</p>
+													<li class="info fas fa-star"></li>
+													<div class="progress mx-3">
+														<div class="progress-bar progress-bar-striped bg-info" role="progressbar" data-bind="attr:{style:'width:'+calculateRate(Rating.Rate4)+'%'}" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+													</div>
+													<p data-bind="text: Rating.Rate4"></p>
+												</div>
+												<div class="d-flex align-items-center rating_progress">
+													<p>3</p>
+													<li class="warning fas fa-star"></li>
+													<div class="progress mx-3">
+														<div class="progress-bar progress-bar-striped bg-warning" role="progressbar" data-bind="attr:{style:'width:'+calculateRate(Rating.Rate3)+'%'}" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+													</div>
+													<p data-bind="text: Rating.Rate3"></p>
+												</div>
+												<div class="d-flex align-items-center rating_progress">
+													<p>2</p>
+													<li class="warning-2 fas fa-star"></li>
+													<div class="progress mx-3">
+														<div class="progress-bar progress-bar-striped bg-warning-2" role="progressbar" data-bind="attr:{style:'width:'+calculateRate(Rating.Rate2)+'%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+													</div>
+													<p data-bind="text: Rating.Rate2"></p>
+												</div>
+												<div class="d-flex align-items-center rating_progress">
+													<p>1</p>
+													<li class="danger fas fa-star"></li>
+													<div class="progress mx-3">
+														<div class="progress-bar progress-bar-striped bg-danger" role="progressbar" data-bind="attr:{style:'width:'+calculateRate(Rating.Rate1)+'%'}" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+													</div>
+													<p data-bind="text: Rating.Rate1"></p>
+												</div>
+											</div>
+											<div class="col-md-3">
+												<div class="pricing pricing--rabten m-0">
+													<div class="pricing--item p-0">
+														<h3 class="pricing--title">@Localizer["Totalrating"]</h3>
+														<div class="pricing--price m-0">
+															<span class="pricing--anim pricing--anim--1 m-0" data-bind="text: Rating.TotalRating"></span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="row mt-4">
+											<div class="col-md-12">
+												<div class="question_card p-3 mb-3" data-bind="foreach: Rating.Reviews">
+													<div class="row user_question">
+														<div class="col-md-2 text-center">
+															<img class="shadow card-img-top rounded-circle" src="/images/personal-img.jpg" alt="Card image cap">
+														</div>
+														<div class="col-md-10">
+															<div class="d-flex align-items-center mb-3">
+																@{
+																	var v = Model.IsLtr ? "NameEn" : "Name";
+																	<h5 class="mr-1" data-bind="text: @v"></h5><strong>:</strong>
+																}
+																&nbsp;
+																<p data-bind="text: Title"></p>
+															</div>
+															<ul class="rating p-0 mb-2">
+																<li class="fas fa-star" data-bind="css: Rate > 0? 'active' : ''"></li>
+																<li class="fas fa-star" data-bind="css: Rate > 1? 'active' : ''"></li>
+																<li class="fas fa-star" data-bind="css: Rate > 2? 'active' : ''"></li>
+																<li class="fas fa-star" data-bind="css: Rate > 3? 'active' : ''"></li>
+																<li class="fas fa-star" data-bind="css: Rate > 4? 'active' : ''"></li>
+															</ul>
+														</div>
+													</div>
+													<form class="text-right">
+														<input type="text" class="form-control" data-bind="value: ReplyMessage,  attr: { id:'txt-reply_'+Id}" placeholder="@Localizer["Replymessage"]">
+														<button href="#" class="button  button-reveal" data-bind="click: $root.reply">
+															<i class="fas fa-check"></i>
+															<span>@Localizer["Send"]</span>
+														</button>
+													</form>
+													<div data-bind="foreach: Replies">
+														<div class="row user_question col-12" style="padding: 10px;">
+															<div class="col-md-2 text-center">
+																<img style="width:40%" class="shadow card-img-top rounded-circle" src="/images/personal-img.jpg" alt="Card image cap">
+															</div>
+															<div class="col-md-10">
+																<div class="d-flex align-items-center mb-3" style="font-size:small">
+																	@{
+																		var u = Model.IsLtr ? "NameEn" : "Name";
+																		<strong class="mr-1" data-bind="text:  @u"></strong>
+																	}
+																	<p data-bind="text: Title"></p>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="tab-pane" id="tabpane6" role="tabpane6">
+										<div class="row mt-4">
+											<div class="col-md-12 mb-3 mt-3">
+												<h5>@Localizer["SelectedServices"]</h5>
+											</div>
+											<div class="col-md-12">
+												<div class="bootstrap-tagsinput" data-bind="foreach: Services" style="width: 100%;padding: 15px">
+													@{
+														var v1 = Model.IsLtr ? "TitleEn" : "Title";
+													}
+													<span class="tag label label-info" style="background-color: #5bc0de; padding: .2em .6em .3em;font-weight: 700;line-height: 2;border-radius: .25em;" data-bind="text: @v1"></span>
+												</div>
+											</div>
+											<div class="col-md-12 mb-3 mt-3">
+												<h5>@Localizer["EditYourServices"]</h5>
+											</div>
+											<div class="col-md-12">
+												<div class="accordion" id="accordionExample_services">
+													<div class="card" data-bind="foreach: ServiceCategories">
+														<div class="card-header" data-bind="attr:{id:'id_'+Id()}">
+															<h5 class="mb-0">
+																<button class="btn btn-link" type="button" data-toggle="collapse" aria-expanded="true" data-bind="attr:{'aria-controls':'id_collapse_'+Id(), 'data-target':'#id_collapse_'+Id()}">
+																	@{
+																		var nm = Model.IsLtr ? "NameEn" : "Name";
+																		<span data-bind="text: @nm"></span>
+
+																	}
+																</button>
+															</h5>
+														</div>
+														<div data-bind="attr:{id:'id_collapse_'+Id(), 'aria-labelledby':'id_'+Id()}" class="collapse" data-parent="#accordionExample_services">
+															<div class="card-body">
+																<div class="custom-control" data-bind="foreach: Services">
+																	<div class="custom-control custom-checkbox">
+																		<input type="checkbox" class="custom-control-input" data-bind="checked:$root.isHasService(Id()), value: Id, attr: { name: 'cb-exp_'+Id(), id:'cb-exp_'+Id()}, click:$root.serviceChecked" />
+																		<label class="custom-control-label" data-bind="text: @v1, attr: { for: 'cb-exp_'+Id()}"></label>
+
+																		<br />
+																		<div>
+																			<label for="PriceCompany" data-bind="if: $root.checkCategory(CategoryId())">@Localizer["PriceCompany"]</label>
+																			<label for="PriceLawyer" data-bind="ifnot: $root.checkCategory(CategoryId())">@Localizer["PriceLawyer"]</label>
+																			<input type="text" class="form-control-sm" id="PriceLawyer"
+																				   data-bind="enable:$root.isHasService(Id()), value : PriceLawyer, valueUpdate: 'afterkeydown'" />
+																		</div>
+																		<div>
+																			<label for="PriceCompany2" data-bind="if: $root.checkCategory(CategoryId())">@Localizer["PriceCompany2"]</label>
+																			<label for="PriceLevel2Lawyer" data-bind="ifnot: $root.checkCategory(CategoryId())">@Localizer["PriceLevel2Lawyer"]</label>
+																			<input type="text" class="form-control-sm" id="PriceLevel2Lawyer"
+																				   data-bind="enable:$root.isHasService(Id()), value : PriceLevel2Lawyer, valueUpdate: 'afterkeydown'" />
+																		</div>
+																		<button type="button" class="btn btn-primary" data-bind="enable:$root.isHasService(Id()) && PriceLawyer() != 0 && PriceLevel2Lawyer() != 0, click:$root.serviceClicked">
+																			@Localizer["AddService"]
+																		</button>
+
+																	</div>
+																</div>
+															</div>
+														</div>
+
+													</div>
+
+												</div>
+
+											</div>
+										</div>
+									</div>
+									<div class="tab-pane" id="tab-calendar" role="tab-calendar">
+										<div class="row center-block">
+											<!-- Responsive calendar - START -->
+											<div class="responsive-calendar" style="margin:auto;">
+												<div class="controls">
+													<a class="float-left" data-go="prev">
+														<div class="d-inline"><i class="fas fa-chevron-left"></i></div>
+													</a>
+													<h4><span data-head-year></span> <span data-head-month></span></h4>
+													<a class="float-right" data-go="next">
+														<div class="d-inline"><i class="fas fa-angle-right"></i></div>
+													</a>
+												</div>
+												<div class="day-headers">
+													<div class="day header">Mon</div>
+													<div class="day header">Tue</div>
+													<div class="day header">Wed</div>
+													<div class="day header">Thu</div>
+													<div class="day header">Fri</div>
+													<div class="day header">Sat</div>
+													<div class="day header">Sun</div>
+												</div>
+												<div class="days" data-group="days">
+												</div>
+											</div>
+											<!-- Responsive calendar - END -->
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	@*Modal times*@
+	<div class="modal" tabindex="-1" role="dialog" id="myModal">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">@Localizer["Time"]</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					@*<ul data-bind="foreach: timesModel" style="width: 100%; list-style-type: none;">
+							<li style="float:left; padding:4px;">
+								<input type="checkbox" data-bind="click: $parent.addTime, value: id, attr: {id: 'checkBox' + id}">
+								<label data-bind="text: name, attr:{for: 'checkBox'+id}" />
+							</li>
+						</ul>*@
+					<div class="row">
+						<div class="col-md-10">
+							<select class="custom-select"
+									data-bind="options: timesModel,
+									optionsText: 'Time',
+									optionsValue :'Id',
+									value: selectedTime.Id,
+									optionsCaption: 'select time'"></select>
+						</div>
+						<div class="col-md-2">
+							<input type="button" class="btn btn-secondary  w-100 h-100" data-bind="click: addTime" value="+" />
+						</div>
+					</div>
+					<div class="row col-md-12">
+						<ul data-bind="foreach: selectedTimes" style="width: 100%; list-style-type: none;margin-left: -5%;margin-top: 2%;">
+							<li style="float:left; padding:4px; padding-left: 20px;">
+								<input type="checkbox" checked data-bind="click: $parent.removeTime, value: Id, attr: {id: 'checkBox' + Id}">
+								<label data-bind="text: Time, attr:{for: 'checkBox'+Id}" />
+							</li>
+						</ul>
+					</div>
+					<div id="result-message" class="row col-md-12">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-bind="click: Save"><i class="fa fa-refresh fa-spin mr-1 d-none"></i>@Localizer["Save"]</button>
+					<button type="button" data- class="btn btn-secondary" data-dismiss="modal">@Localizer["Cancel"]</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal" tabindex="-1" role="dialog" id="session-notes">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">@Localizer["Notes"]</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="question_card p-3 mb-3" data-bind="foreach: SessionNotes">
+						<div class="user_question d-flex align-items-center mb-3">
+							<img style="max-width:10%" class="mr-2 shadow card-img-top rounded-circle" src="/images/personal-img.jpg" alt="Card image cap">
+							@{
+								var usr = Model.IsLtr ? "UserNameEn" : "UserName";
+								<h8 class="mr-1" data-bind="text: @usr"></h8>
+							}
+							:&nbsp;<p data-bind="text: Title" style="font-size:medium"></p>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">@Localizer["Cancel"]</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+@Html.Hidden("saveMsg", Localizer["saveMsg"].Value)
+@Html.HiddenFor(s => s.IsLtr);
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+@*<script src="~/js/sticky-header.js"></script>*@
+<script src="~/js/responsive-calendar.min.js"></script>
+<script src="~/app/lawyer-profile.js?id=1"></script>
+<script src="~/lib/bootstrap/dist/bootstrap.min.js"></script>
+<link href="~/css/pricing.css" rel="stylesheet" />
+<script>
+     
+    var data = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.User));
+    var viewmodel = new LawyerProfileViewModel();
+    viewmodel.init(data);
+    ko.applyBindings(viewmodel, document.getElementById('bdy'));
+    jQuery(function ($) {
+        $("#datepicker").datepicker();
+
+
+        $("#img-upload").click(function () {
+            $("#file-profile").trigger('click');
+        });
+
+
+
+    });
+</script>

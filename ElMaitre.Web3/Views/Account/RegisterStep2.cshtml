@@ -1,0 +1,250 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+	Layout = null;
+	ViewData["Title"] = Localizer["LoginTitle"];
+}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<link rel="stylesheet" href="~/css/lightslider.min.css">
+	<link rel="stylesheet" href="~/css/index.css">
+	<link rel="stylesheet" href="~/css/jquery-ui-calender.css">
+	<link rel="stylesheet" href="http://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	@if (!Model.IsLtr)
+	{
+		<link rel="stylesheet" href="~/css/style_rtl.css">
+	}
+	<script src="~/lib/jquery/dist/jquery.js"></script>
+
+
+</head>
+<body>
+
+	<section id="login_page">
+		<div class="row">
+			<div class="col-md-6 d-none d-md-block">
+				<div class="login_page_slider">
+					<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+						@*<ol class="carousel-indicators">
+								<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+								<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+								<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+							</ol>*@
+						<div class="carousel-caption d-none d-md-block text-center">
+							<a href="/">
+								<img src="../images/logo-footer.png" alt="logo">
+							</a>
+						</div>
+						<div class="carousel-inner">
+							@*<div class="carousel-item active">
+									<div class="login_img_bg"></div>
+									<div class="login_img" style="background-image: url('/images/login_img_1.jpg')"></div>
+									<div class="carousel-caption d-none d-md-block text-center">
+										<h2>@Localizer["HowLawyerWork"]</h2>
+									</div>
+								</div>*@
+							<div class="carousel-item active">
+								<div class="login_img_bg"></div>
+								<div class="login_img" style="background-image: url('/images/PIC1.jpg')"></div>
+								<div class="carousel-caption d-none d-md-block text-center">
+									<h2>@Localizer["OurAttorneys"]</h2>
+								</div>
+							</div>
+							@*<div class="carousel-item">
+									<div class="login_img_bg"></div>
+									<div class="login_img" style="background-image: url('/images/login_img_1.jpg')"></div>
+									<div class="carousel-caption d-none d-md-block text-center">
+										<h2>@Localizer["OurAttorneys"]</h2>
+									</div>
+								</div>*@
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="login_form d-flex justify-content-center align-items-center my-5">
+					<div class="container">
+						<a href="/">
+							<img class="login_logo d-block mb-4" src="../images/logo.png" alt="logo">
+						</a>
+						<!-- Nav tabs -->
+						<div class=" d-flex justify-content-center align-items-center">
+							<ul class="nav nav-tabs" role="tablist">
+								<li role="presentation" class="m-1"><a id="reg" href="#register" aria-controls="register" role="tab" data-toggle="tab">@Localizer["Register"]</a></li>
+							</ul>
+						</div>
+						<!-- Tab panes -->
+						<div id="bdy">
+							<div class="tab-content">
+								<div role="tabpanel" class="tab-pane active" id="register">
+									<div class="main-ttl text-center">
+										<h2>@Localizer["RegisterToNewAccount"]</h2>
+										<p class="lead">@Localizer["CreateAccount"]</p>
+									</div>
+
+									<form class="shadow-sm">
+										<div class="form-group">
+											<div class="custom-control custom-radio custom-control-inline">
+												<input type="radio" id="reg-radio1" name="reg-radio1" class="custom-control-input" data-bind="checked: registerModel.IsLawyer, checkedValue: false">
+												<label class="custom-control-label" for="reg-radio1">@Localizer["Client"]</label>
+											</div>
+											<div class="custom-control custom-radio custom-control-inline">
+												<input type="radio" id="reg-radio2" name="reg-radio1" class="custom-control-input" data-bind="checked: registerModel.IsLawyer, checkedValue: true">
+												<label class="custom-control-label" for="reg-radio2">@Localizer["Lawyer"]</label>
+											</div>
+										</div>
+										<div class="form-group" style="display:none">
+											<label for="exampleFormControlInput1">@Localizer["Username"]</label>
+											<input type="text" class="form-control" id="name" placeholder="@Localizer["Username"]" data-bind="value: registerModel.UserName">
+										</div>
+										<div class="form-group" style="display:none">
+											<label for="exampleFormControlInput1">@Localizer["EnterEmail"]</label>
+											<input type="email" class="form-control" id="reg-email" placeholder="name@example.com" data-bind="textInput: registerModel.Email">
+											@*<input type="text" class="form-control" id="reg-fbid" data-bind="textInput: self1.registerModel.FbId">*@
+											<input type="hidden" id="fbid" data-bind="value: registerModel.FbId">
+											<div style="text-align:center">
+												<img src="" style="height:80px; display:none" id="fb_url" />
+											</div>
+										</div>
+                                        <div class="form-group">
+                                            <label for="exampleFormControlInput1">@Localizer["PhoneNumber"]</label>
+                                            <input type="tel" class="form-control" id="reg-phone" minlength="11" maxlength="11" placeholder="@Localizer["PhoneNumberEx"]" data-bind="textInput: registerModel.PhoneNumber">
+                                            <span class="reg-mobileempty danger" style="display:none">@Localizer["mobilenumberempty"]</span>
+                                            <span class="reg-mobile danger" style="display:none">@Localizer["mobilenumberfailed"]</span>
+                                        </div>
+										<div class="form-group">
+											<label for="exampleInputPassword1">@Localizer["Password"]</label>
+											<input type="password" class="form-control" id="reg-password" placeholder="@Localizer["Password"]" data-bind="value: registerModel.Password">
+										</div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">@Localizer["CPassword"]</label>
+                                            <input type="password" class="form-control" id="conf-pass" placeholder="@Localizer["Password"]" data-bind="value: registerModel.ConfirmPassword">
+                                            <span class="reg-CPasswordempty danger" style="display:none">@Localizer["cPasswordempty"]</span>
+                                        </div>
+                                        @*<div class="form-group">
+                                            <label for="exampleInputPassword1">@Localizer["Date"]</label>
+                                            <input type="date" id="datepicker" class="form-control" placeholder="MM / YY" data-bind="value: registerModel.DateOfBirth">
+                                            <span class="reg-Date danger" style="display:none">@Localizer["DateEmpty"]</span>
+                                        </div>*@
+										<div class="form-group row d-flex align-items-center">
+											<label for="staticEmail" class="col-sm-2 col-form-label">@Localizer["Gender"]</label>
+											<div class="col-sm-10">
+												<div class="custom-control custom-radio custom-control-inline">
+													<input type="radio" id="customRadioInline3" name="customRadioInline3" class="custom-control-input" data-bind="checked: registerModel.Gender, checkedValue: false">
+													<label class="custom-control-label" for="customRadioInline3">@Localizer["Male"]</label>
+												</div>
+												<div class="custom-control custom-radio custom-control-inline">
+													<input type="radio" id="customRadioInline4" name="customRadioInline3" class="custom-control-input" data-bind="checked: registerModel.Gender, checkedValue: true">
+													<label class="custom-control-label" for="customRadioInline4">@Localizer["Female"]</label>
+												</div>
+											</div>
+										</div>
+										<div class="custom-control custom-checkbox" style="display:none">
+											<input type="checkbox" class="custom-control-input" id="customCheck1" data-bind="checked: registerModel.AcceptTerms">
+											<label class="custom-control-label" for="customCheck1">@Localizer["AcceptTerms"]</label>
+										</div>
+										<div class="text-center my-2">
+											<button class="btn btn-primary" type="button" data-bind="click: Register">
+												<i class="fa fa-refresh fa-spin mr-1 d-none"></i>
+												@Localizer["RegisterToNewAccount"]
+											</button>
+										</div>
+									</form>
+								</div>
+								<div role="tabpanel" class="tab-pane" id="forgotpassword">
+									<div class="main-ttl text-center">
+										<h2>@Localizer["ForgotPassword"]</h2>
+									</div>
+									<form class="shadow-sm">
+										<div class="form-group">
+											<label for="f-email">@Localizer["Email"]</label>
+											<input type="email" data-bind="textInput: loginModel.UserName" class="form-control" id="f-email" placeholder="name@example.com">
+										</div>
+										<div class="text-center my-2">
+											<button class="btn btn-primary" type="button" data-bind="click: ForgotPassword">@Localizer["Submit"]</button>
+										</div>
+										<!-- <div class="text-center">
+										  <a href="#"> Create new account</a>
+										</div> -->
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<div class="modal" tabindex="-1" role="dialog" id="alert">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">@Localizer["Alert"]</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<span id="message"></span>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal" id="ok_btn">@Localizer["OK"]</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<script src="~/js/lightslider.js" charset="utf-8"></script>
+	<script src="http://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	@*<script src="~/js/responsive-calendar.min.js" charset="utf-8"></script>*@
+	<script src="~/js/sticky-header.js" charset="utf-8"></script>
+	<script src="~/js/popper.min.js" charset="utf-8"></script>
+	<script src="~/lib/bootstrap/dist/bootstrap.min.js"></script>
+	<script src="~/lib/knockout/knockout-3.3.0.js"></script>
+	<script src="~/app/login_newlogic.js?id=1"></script>
+	<script>
+        //jQuery(function ($) {
+        //    $("#datepicker").datepicker();
+        //});
+
+	</script>
+
+	
+	<script>
+        $(function () {
+            var p = $(location).attr('hash');
+            if (p != '') {
+                $(p).addClass("active");
+                $("#reg").addClass("active show");
+                $("#home").removeClass("active");
+                $("#h").removeClass("active show");
+            }
+
+            $("#forgotpass").click(function () {
+                $("#home").removeClass("active");
+                $("#register").removeClass("active");
+                $("#forgotpassword").addClass("active");
+                $("#h").removeClass("active show");
+            });
+
+            $(".show").mousedown(function () {
+                $(this).prev().attr('type', 'text');
+            }).mouseup(function () {
+                $(this).prev().attr('type', 'password');
+            }).mouseout(function () {
+                $(this).prev().attr('type', 'password');
+            });
+        });
+
+	</script>
+</body>
+</html>

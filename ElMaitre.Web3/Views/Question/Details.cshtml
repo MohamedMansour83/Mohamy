@@ -1,0 +1,55 @@
+﻿@model ElMaitre.Web.ViewModels.BaseViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@{
+    ViewData["Title"] = Localizer["Question"];
+}
+<script>
+    $("header").removeClass("navbar-dark");
+    $("#menu_navbar").addClass("shadow");
+    $("#top_bar").addClass("shadow-sm");
+</script>
+<style>
+
+    .cd-auto-hide-header {
+        background-color: #ffffff
+    }
+</style>
+<section id="header_image_inner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="main-ttl inner_pages_ttl text-center my-4 py-3">
+                    <h2>@Localizer["Question"]</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="inner_pages">
+    <section class="questions">
+        <div class="container">
+            <div class="row py-4">
+                <div class="col-md-12 mb-4">
+                    <div class="card shadow">
+                        <div class="question_card p-3 mb-3">
+                            <div class="user_question d-flex align-items-center mb-3">
+                                <img class="mr-2 shadow card-img-top rounded-circle" src="/images/personal-img.jpg" alt="Card image cap">
+                                <h5 class="mr-1" data-bind="text: question().userName"></h5>:
+                                <p data-bind="text: question().title"></p>
+                            </div>
+                            <div class="question_card p-3 mb-3" data-bind="foreach: question().answers">
+                                <div style="padding-left:70px" class="user_question d-flex align-items-center mb-3">
+                                    <img style="max-width:3%" class="mr-2 shadow card-img-top rounded-circle" src="/images/personal-img.jpg" alt="Card image cap">
+                                    <h8 class="mr-1" data-bind="text: userName"></h8>:
+                                    <p data-bind="text: title" style="font-size:small"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<script src="~/app/question-details.js?id=1"></script>

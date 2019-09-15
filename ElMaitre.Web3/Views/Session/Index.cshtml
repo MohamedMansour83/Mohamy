@@ -1,0 +1,45 @@
+﻿@model ElMaitre.Web.ViewModels.BaseViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@{
+    ViewData["Title"] = Localizer["title"];
+}
+<script>
+    $("header").removeClass("navbar-dark");
+    $("#menu_navbar").addClass("shadow");
+    $("#top_bar").addClass("shadow-sm");
+</script>
+<style>
+
+    .cd-auto-hide-header {
+        background-color: #ffffff
+    }
+</style>
+<section id="header_image_inner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="main-ttl inner_pages_ttl text-center my-4 py-3">
+                    <h2>@Localizer["Session"]</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="inner_pages">
+    <section class="">
+        <div class="container">
+            <div class="row">
+                <div id="dv" class="card shadow" style="padding:5%; margin:auto; width:50%;">
+                    <span style="text-align:center" class="align-content-center font-weight-bold" data-bind="text: txtMessage"></span>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</div>
+@Html.Hidden("SessionFinished", Localizer["SessionFinished"].Value)
+@Html.Hidden("SessionNotStarted", Localizer["SessionNotStarted"].Value)
+@Html.Hidden("StartTheSessionAlert", Localizer["StartTheSessionAlert"].Value)
+<script src="~/app/session.js"></script>
+

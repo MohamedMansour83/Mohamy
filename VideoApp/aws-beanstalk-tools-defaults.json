@@ -1,0 +1,11 @@
+
+{
+    "comment" : "This file is used to help set default values when using the dotnet CLI extension Amazon.ElasticBeanstalk.Tools. For more information run \"dotnet eb --help\" from the project root.",
+    "profile" : "Mohamy",
+    "region"  : "us-west-2",
+    "application" : "app3",
+    "environment" : "App3-env",
+    "iis-website" : "Default Web Site",
+    "app-path"    : "/video",
+    "enable-xray" : false
+}

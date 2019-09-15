@@ -1,0 +1,112 @@
+﻿@model ElMaitre.Web.ViewModels.BaseViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@{
+    ViewData["Title"] = Localizer["title"];
+}
+<script>
+    $("header").removeClass("navbar-dark");
+    $("#menu_navbar").addClass("shadow");
+    $("#top_bar").addClass("shadow-sm");
+</script>
+<style>
+    .cd-auto-hide-header {
+        background-color: #ffffff
+    }
+</style>
+<section id="header_image_inner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="main-ttl inner_pages_ttl text-center my-4 py-3">
+                    <h2>@Localizer["Lawyer"]</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="inner_pages">
+    <section class="filter">
+        <div class="container">
+            <div class="row py-4">
+                <div class="col-md-12">
+                    <div class="input-group rounded shadow">
+                        <input type="text" class="form-control" placeholder="@Localizer["NameOfLawyer"]" data-bind="value: searchModel.Name" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        @{
+                            var prop = Model.IsLtr ? "'nameEn'" : "'name'";
+                            <select class="custom-select" id="specializations"
+                                    data-bind="options: Spetializations,
+                                            optionsText: @prop,
+                                            optionsValue :'id',
+                                            value: searchModel.Specialization,
+                                            optionsCaption: '@Localizer["NameOfSpecialization"]'"></select>
+                        }
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="button" data-bind="click: Search">@Localizer["Search"]</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    @*data-bind="click: $parent.goToDetails.bind($data)"*@
+    <section class="lawyer_cards" >
+        <div class="container">
+            <div class="row" data-bind="foreach: Lawyers">
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4  mt-5">
+                    <i class="fas fa-circle" data-bind="style: { color: isOnline? 'green' : 'transparent' }" style="position: relative;top: 26px;z-index: 1000;left: 6px; font-size:x-small"></i>
+                    <a href='#' class="lawyer_list_link">
+                        <div class="card">
+                            @*<div class="stamp">
+                        <div class="stamp-inner shadow">
+                        </div>
+                    </div>*@
+                            <img class="shadow card-img-top rounded-circle" data-bind="attr:{src:profileImg}" alt="Card image cap">
+                            <div class="card-body p-3">
+                                <ul class="rating p-0 mb-2">
+                                    <li class="fas fa-star" data-bind="css: rate > 0? 'active' : ''"></li>
+                                    <li class="fas fa-star" data-bind="css: rate > 1? 'active' : ''"></li>
+                                    <li class="fas fa-star" data-bind="css: rate > 2? 'active' : ''"></li>
+                                    <li class="fas fa-star" data-bind="css: rate > 3? 'active' : ''"></li>
+                                    <li class="fas fa-star" data-bind="css: rate > 4? 'active' : ''"></li>
+                                </ul>
+                                @{
+                                    var name = Model.IsLtr ? "nameEn" : "name";
+                                    var specialization = Model.IsLtr ? "specializationEn" : "specialization";
+                                    <h5 class="card-title m-0"><span style="color:#51d3c3">@Localizer["Lawyer"]</span> <span data-bind="text: @name"></span></h5>
+                                    <p class="card-text" style="line-break:loose" data-bind="text: @specialization"></p>
+                                }
+                                <p class="card-text mt-2"><strong>@Localizer["Fees"]:</strong> <span data-bind="text: $parent.setCurrency(fees)"></span>&nbsp;@Localizer["EGP"]</p>
+                                <button href="#" class="button  button-reveal mt-3"  data-bind="attr:{id:id},click: $root.selectLawyer">
+                                    <i class="fas fa-angle-left"></i>
+                                    <span>@Localizer["Select"]</span>
+                                </button>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+
+
+
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center mb-4">
+                    <button href="#" class="button  button-reveal">
+                        <i class="fas fa-chevron-down"></i>
+                        <span>@Localizer["Loadmore"]</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    
+</div>
+@Html.Partial("~/Views/Shared/UserNotification.cshtml")
+
+<script src="~/app/select-lawyer.js?id=1"></script>
+
+

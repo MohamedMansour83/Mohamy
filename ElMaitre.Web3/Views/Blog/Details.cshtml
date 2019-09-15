@@ -1,0 +1,59 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@{
+    ViewData["Title"] = Localizer["title"];
+}
+<script>
+    $("header").removeClass("navbar-dark");
+    $("#menu_navbar").addClass("shadow");
+    $("#top_bar").addClass("shadow-sm");
+</script>
+<style>
+
+    .cd-auto-hide-header {
+        background-color: #ffffff
+    }
+</style>
+<section id="header_image_inner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="main-ttl inner_pages_ttl text-center my-4 py-3">
+                    <h2>@Localizer["blogs"]</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="inner_pages">
+    <section class="blogs">
+        <div class="container">
+            <div class="row py-4">
+                <div class="card-deck">
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <div class="card">
+                                <img class="card-img-top" data-bind="attr:{src:'/'+blog().imagePath}" alt="Card image cap">
+                                <div class="card-footer">
+                                    <small class="text-muted"><i class="fas fa-calendar-alt mr-2"></i>Last updated 3 mins ago</small>
+                                </div>
+                                <div class="card-body">
+                                    @{
+                                        var name = Model.IsLtr ? "blog().nameEn" : "blog().name";
+                                        var desc = Model.IsLtr ? "blog().descriptionEn" : "blog().description";
+                                        <h5 class="card-title" data-bind="text: @name"></h5>
+                                        <p class="card-text" data-bind="text: @desc"></p>
+                                    }
+                                    @*<h5 class="card-title" data-bind="text: blog().name"></h5>
+                                        <p class="card-text" data-bind="text: blog().description"></p>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+@Html.Partial("~/Views/Shared/UserNotification.cshtml")
+<script src="~/app/blog-details.js"></script>

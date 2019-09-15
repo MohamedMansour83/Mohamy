@@ -1,0 +1,64 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+<script src="~/app/countdown-timer.min.js"></script>
+<div class="countdown-fixed" data-bind="visible: VM.hasNotification">
+    <div class="countdown-timer-wrapper" data-toggle="modal" data-target=".bd-example-modal-lg">
+        <div class="timer" id="countdown"></div>
+    </div>
+</div>
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+
+        <div class="modal-content countdown-modal">
+
+            <div class="modal-body p-0">
+
+                <!-- <div class="modal-body p-0"> -->
+                <div class="row">
+                    <div class="col-lg-4 p-0 d-none d-lg-block">
+                        <div class="counter-bg" style="background: url(./dist/images/countdown-bg.jpg) left center;">
+                        </div>
+                       
+                    </div>
+                    <div class="col-lg-8 p-0">
+                        <div class="countdown-content">
+                            <div>
+                                <div class="text-center countdown-text">
+                                    <h3>
+                                        @Localizer["Alert"]
+                                    </h3>
+                                    <p>@Localizer["sessionWith"] @*<strong data-bind="text: VM.isLawyer2() ? VM.notification().userName : VM.notification().lawyerName"></strong> @Localizer["after"]*@</p>
+                                </div>
+                                <div class="countdown-timer-wrapper">
+                                    <div class="timer" id="countdown2"></div>
+                                </div>
+                            </div>
+                            <div class="row count-down-action">
+                                <div class="col-md-12 d-block d-md-flex align-items-center justify-content-center text-center">
+                                    <h6 class="mr-0 mr-md-4 "><i class="fas fa-sign-in-alt mr-2"></i></h6>
+                                    <button href="#" class="button  button-reveal" data-bind="click:VM.openSession">
+                                        <i class="fas fa-play"></i>
+                                        <span>@Localizer["OpenSession"]</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="area">
+                            <div class="lines">
+                                <div class="line"></div>
+                                <div class="line"></div>
+                                <div class="line"></div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

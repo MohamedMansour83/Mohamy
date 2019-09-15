@@ -1,0 +1,439 @@
+﻿@model ElMaitre.Web.ViewModels.BaseViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@{
+    ViewData["Title"] = Localizer["title"];
+}
+
+<section id="header_image_inner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="main-ttl inner_pages_ttl text-center my-4 py-3">
+                    <h2>@Localizer["title"]</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="inner_pages">
+    <section class="">
+
+        <div class="" style="height: 100vh; position: relative;">
+            @*<iframe style ="wi"width="100%" height="100%;" src="http://www.youtube.com/embed/tgbNymZ7vqY"></iframe>*@
+            <div class="remotevideos videoContainer mediaplayer">
+            </div>
+            <div class="secanmd-video mediaplayer">
+                <video id="myVideo" controls autoplay></video>
+                @*<iframe width="100%" height="200" src="http://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1"></iframe>*@
+            </div>
+            <div class="d-flex end-metting align-items-center">
+                <p class="mb-0 mr-3 d-none d-md-block">End metting</p>
+                <button class="btn" type="button" data-bind="click: EndSession"><i class="fas fa-phone"></i></button>
+
+            </div>
+            <div class="call-chat">
+
+                <button class="open-button" onclick="openForm()"><i class="fas fa-comments"></i> Chat</button>
+
+                <div class="chat-popup" id="myForm">
+                    <form action="/action_page.php" class="form-container">
+                        <div class="card shadow chat">
+                            <div class="panel panel-default">
+                                <div class="panel-heading top-bar">
+                                    <div class="col-md-12">
+                                        <h6 class="panel-title mb-0" data-bind="text: userName"><span class="glyphicon glyphicon-comment"></span></h6>
+                                    </div>
+                                </div>
+                                <div class="panel-body msg_container_base">
+                                    <div class="row msg_container base_sent">
+                                        <div class="col-md-11 col-10">
+                                            <div class="messages msg_sent">
+                                                <p>that mongodb thing looks good, huh? tiny master db, and huge document store</p>
+                                                <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1 col-2 avatar">
+                                            <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">
+                                        </div>
+                                    </div>
+                                    <div class="row msg_container base_receive">
+                                        <div class="col-md-1 col-2 avatar">
+                                            <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">
+                                        </div>
+                                        <div class="col-md-11 col-10">
+                                            <div class="messages msg_receive">
+                                                <p>that mongodb thing looks good, huh? tiny master db, and huge document store</p>
+                                                <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row msg_container base_receive">
+                                        <div class="col-md-1 col-2 avatar">
+                                            <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">
+                                        </div>
+                                        <div class="col-md-11 col-10">
+                                            <div class="messages msg_receive">
+                                                <p>that mongodb thing looks good, huh? tiny master db, and huge document store</p>
+                                                <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row msg_container base_sent">
+                                        <div class="col-md-11 col-10">
+                                            <div class="messages msg_sent">
+                                                <p>that mongodb thing looks good, huh? tiny master db, and huge document store</p>
+                                                <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1 col-2 avatar">
+                                            <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-footer">
+                                    <div class="input-group">
+                                        <input id="btn-input" type="text" class="form-control input-sm chat_input" placeholder="Write your message here..." />
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary btn-sm" id="btn-chat">Send</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="close-chat" onclick="closeForm()"><i class="fas fa-times"></i></a>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+
+        </section>
+    @*<h2>Trace</h2>
+        <div id="immediate"></div>*@
+</div>
+<div class="modal" tabindex="-1" role="dialog" id="myModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@Localizer["Time"]</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="padding:30px">
+                <form>
+                    <div class="form-group row">
+                        <label for="rating">@Localizer["Rating"]</label>
+                        <ul class="rating p-0 mb-2">
+                            <li class="fas fa-star" style="zoom:1.5" data-value="1" data-bind="click:changeRate "></li>
+                            <li class="fas fa-star" style="zoom:1.5" data-value="2" data-bind="click: changeRate "></li>
+                            <li class="fas fa-star" style="zoom:1.5" data-value="3" data-bind="click: changeRate "></li>
+                            <li class="fas fa-star" style="zoom:1.5" data-value="4" data-bind="click: changeRate "></li>
+                            <li class="fas fa-star" style="zoom:1.5" data-value="5" data-bind="click: changeRate "></li>
+                        </ul>
+                    </div>
+                    <div class="form-group row">
+                        <label for="review">@Localizer["Review"]</label>
+                        <textarea id="review" type="text" rows="5" class="form-control" data-bind="value: reviewText"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bind="click: Save">@Localizer["Send"]</button>
+                <button type="button" data- class="btn btn-secondary" data-bind="click: Close">@Localizer["Close"]</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" tabindex="-1" role="dialog" id="notify-modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@Localizer["Alert"]</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="padding:30px">
+                <div class="form-group row">
+                    <label for="rating">@Localizer["UserClosedTheSession"]</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bind="click: EndSession">@Localizer["Yes"]</button>
+                <button type="button" data- class="btn btn-secondary" data-dismiss="modal">@Localizer["No"]</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="display:none" class="row msg_container base_receive temp_base_receive">
+    <div class="col-md-1 avatar">
+        <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">
+    </div>
+    <div class="col-md-11">
+        <div class="messages msg_receive">
+            <p class="msg"></p>
+            @*<time datetime="2009-11-13T20:00">Timothy • 51 min</time>*@
+        </div>
+    </div>
+</div>
+<div style="display:none" class="row msg_container base_sent temp_base_sent">
+    <div class="col-md-11 col-xs-10">
+        <div class="messages msg_sent">
+            <p class="msg" style="text-align:right"></p>
+            @*<time datetime="2009-11-13T20:00">Timothy • 51 min</time>*@
+        </div>
+    </div>
+    <div class="col-md-1 col-xs-2 avatar">
+        <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">
+    </div>
+</div>
+<script src="~/js/math.min.js"></script>
+<script src="~/app/session-call.js"></script>
+<script src="~/js/XSockets.latest.js"></script>
+<script src="~/js/XSockets.WebRTC.latest.js"></script>
+<script src="~/js/video-controls.js"></script>
+<script src="~/app/handlingTwilioIntegeraio.js"></script>
+<style>
+     .cd-auto-hide-header {
+        background-color: #ffffff
+    }
+    .remotevideos video {
+        width: 100%;
+    }
+
+    .mediaplayer video {
+        width: 100%;
+    }
+
+    /*.player {
+        margin: auto;
+        padding: 10px;
+        width: 90%;
+        max-width: 900px;
+        min-width: 320px;
+    }
+
+    .mediaplayer {
+        position: relative;
+        height: 0;
+        width: 100%;
+        padding-bottom: 56.25%;
+    }
+
+        .mediaplayer video, .mediaplayer .polyfill-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+        }*/
+
+
+
+
+    video {
+        border-radius: 6px;
+    }
+
+    /* video container */
+    .videoContainer {
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+        background: #000;
+        color: #ccc;
+        border-radius: 6px;
+        border: 1px solid rgba(0,0,0,0.8);
+        box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    }
+
+        .videoContainer:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            box-shadow: inset 0 1px 2px rgba(255,255,255,0.3);
+            z-index: 6;
+            border-radius: 6px;
+            pointer-events: none;
+        }
+
+    /* video caption css */
+    .caption {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 5px 10px;
+        color: #ddd;
+        font-size: 14px;
+        font-weight: 300;
+        text-align: center;
+        background: rgba(0,0,0,0.4);
+        text-transform: uppercase;
+        border-radius: 6px 6px 0 0;
+        -webkit-backface-visibility: hidden;
+        -moz-backface-visibility: hidden;
+        -ms-backface-visibility: hidden;
+    }
+
+    /*** VIDEO CONTROLS CSS ***/
+    /* control holder */
+    .control {
+        color: #ccc;
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        z-index: 5;
+        display: none;
+    }
+    /* control bottom part */
+    .btmControl {
+        clear: both;
+    }
+
+    .control .btnPlay {
+        float: left;
+        width: 34px;
+        height: 30px;
+        padding: 5px;
+        background: rgba(0,0,0,0.5);
+        cursor: pointer;
+        border-radius: 6px 0 0 6px;
+        border: 1px solid rgba(0,0,0,0.7);
+        box-shadow: inset 0 0 1px rgba(255,255,255,0.5);
+    }
+
+    .control .icon-play {
+        background: url(http://s.cdpn.io/6035/vp_sprite.png) no-repeat -11px 0;
+        width: 6px;
+        height: 9px;
+        display: block;
+        margin: 4px 0 0 8px;
+    }
+
+    .control .icon-pause {
+        background: url(http://s.cdpn.io/6035/vp_sprite.png) no-repeat -34px -1px;
+        width: 8px;
+        height: 9px;
+        display: block;
+        margin: 4px 0 0 8px;
+    }
+
+    .control .selected {
+        font-size: 15px;
+        color: #ccc;
+    }
+
+    .control .sound {
+        width: 30px;
+        height: 30px;
+        float: left;
+        background: rgba(0,0,0,0.5);
+        border: 1px solid rgba(0,0,0,0.7);
+        border-left: none;
+        box-shadow: inset 0 0 1px rgba(255,255,255,0.5);
+        cursor: pointer;
+    }
+
+    .control .icon-sound {
+        background: url(http://s.cdpn.io/6035/vp_sprite.png) no-repeat -19px 0;
+        width: 13px;
+        height: 10px;
+        display: block;
+    }
+
+    .control .muted .icon-sound {
+        width: 7px !important;
+    }
+
+    .control .btnFS {
+        width: 30px;
+        height: 30px;
+        border-radius: 0 6px 6px 0;
+        float: left;
+        background: rgba(0,0,0,0.5);
+        border: 1px solid rgba(0,0,0,0.7);
+        border-left: none;
+        box-shadow: inset 0 0 1px rgba(255,255,255,0.5);
+    }
+
+    .control .icon-fullscreen {
+        background: url(http://s.cdpn.io/6035/vp_sprite.png) no-repeat 0 0;
+        width: 10px;
+        height: 10px;
+        display: block;
+    }
+
+    /* PROGRESS BAR CSS */
+    /* Progress bar */
+    .progress-bar {
+        height: 30px;
+        padding: 10px;
+        background: rgba(0,0,0,0.6);
+        border: 1px solid rgba(0,0,0,0.7);
+        border-left: none;
+        box-shadow: inset 0 0 1px rgba(255,255,255,0.5);
+        float: left;
+    }
+
+    .progress {
+        width: 240px;
+        height: 7px;
+        position: relative;
+        cursor: pointer;
+        background: rgba(0,0,0,0.4); /* fallback */
+        box-shadow: 0 1px 0 rgba(255,255,255,0.1), inset 0 1px 1px rgba(0,0,0,1);
+        border-radius: 10px;
+    }
+
+        .progress span {
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: block;
+            border-radius: 10px;
+        }
+
+    .timeBar {
+        z-index: 10;
+        width: 0;
+        background: -webkit-linear-gradient(top, rgba(107,204,226,1) 0%,rgba(29,163,208,1) 100%);
+        box-shadow: 0 0 7px rgba(107,204,226,.5);
+    }
+
+    .bufferBar {
+        z-index: 5;
+        width: 0;
+        background: rgba(255,255,255,0.2);
+    }
+
+    /* VOLUME BAR CSS */
+    /* volume bar */
+    .volume {
+        position: relative;
+        cursor: pointer;
+        width: 70px;
+        height: 10px;
+        float: right;
+        margin-top: 10px;
+        margin-right: 10px;
+    }
+
+    .volumeBar {
+        display: block;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: #eee;
+        z-index: 10;
+    }
+</style>

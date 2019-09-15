@@ -1,0 +1,42 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@{
+    ViewData["Title"] = Localizer["title"];
+    Layout = null;
+
+}
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="stylesheet" href="~/css/lightslider.min.css">
+    <link rel="stylesheet" href="~/css/index.css">
+    <link rel="stylesheet" href="~/css/jquery-ui-calender.css">
+    <link rel="stylesheet" href="http://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+</head>
+<body>
+    <section id="header_image_inner">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="main-ttl inner_pages_ttl text-center my-4 py-3">
+                        <h2>@Localizer["title"]</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="inner_pages">
+        <section class="user_profile">
+            <div class="container">
+                <div class="row text-center" style="padding:50px">
+                    <strong class="text-center" style="color:green">
+                        @Localizer["EmailConfirmed"] .
+                    </strong>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

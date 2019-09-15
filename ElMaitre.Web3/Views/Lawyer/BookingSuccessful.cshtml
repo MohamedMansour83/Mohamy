@@ -1,0 +1,58 @@
+﻿@model ElMaitre.Web.ViewModels.BaseViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@{
+    ViewData["Title"] = Localizer["Title"];
+}
+<script>
+    $("header").removeClass("navbar-dark");
+    $("#menu_navbar").addClass("shadow");
+    $("#top_bar").addClass("shadow-sm");
+</script>
+<style>
+
+    .cd-auto-hide-header {
+        background-color: #ffffff
+    }
+</style>
+<section id="header_image_inner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="main-ttl inner_pages_ttl text-center my-4 py-3">
+                    <h2>@Localizer["SuccessBooking"]</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="inner_pages">
+    <section class="steps">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 mt-4 ">
+                    <div class="alert alert-success text-center" role="alert">
+                        <i class="far fa-check-circle"></i>
+                        @Localizer["SuccessBookingDesc"]
+                    </div>
+                </div>
+                <div class="col-md-12  mb-5">
+                    <div class="card shadow text-center p-4">
+                        @Localizer["OneStepRemaining"]
+
+                        <div class="form-group">
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="@Localizer["Message"]" data-bind="value: Note"></textarea>
+                        </div>
+                        <div class="text-center my-2">
+                            <button href="#" class="button  button-reveal w-50" data-bind="click: SendNote">
+                                <i class="fas fa-check"></i>
+                                <span>@Localizer["Send"]</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<script src="~/app/success-booking.js?id=1"></script>

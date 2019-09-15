@@ -1,0 +1,27 @@
+﻿@model ElMaitre.Web.ViewModels.BaseViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = "Forbidden Access";
+}
+<section id="header_image_inner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="main-ttl inner_pages_ttl text-center my-4 py-3">
+                    <h2>@Localizer["HowLawyerWork"]</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="inner_pages">
+    <section class="user_profile">
+        <div class="container">
+            <div class="row">
+                <h2 style="padding: 33px;color: red;">Forbidden Access</h2>
+            </div>
+        </div>
+    </section>
+</div>

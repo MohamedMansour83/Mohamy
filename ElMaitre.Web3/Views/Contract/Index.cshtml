@@ -1,0 +1,75 @@
+﻿@model ElMaitre.Web.ViewModels.BaseViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@{
+    ViewData["Title"] = @Localizer["title"];
+}
+<script>
+    $("header").removeClass("navbar-dark");
+    $("#menu_navbar").addClass("shadow");
+    $("#top_bar").addClass("shadow-sm");
+</script>
+<style>
+
+    .cd-auto-hide-header {
+        background-color: #ffffff
+    }
+</style>
+<section id="header_image_inner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="main-ttl inner_pages_ttl text-center my-4 py-3">
+                    <h2>@Localizer["title"]</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="inner_pages">
+    <section class="filter">
+        <div class="container">
+            <div class="row py-4">
+                <div class="col-md-12">
+                    <div class="input-group rounded shadow">
+                        <input type="text" class="form-control" placeholder="@Localizer["Name"]" data-bind="value: filterModel.name" aria-label="Recipient's username" aria-describedby="basic-addon2">
+
+                        @{
+                            var prop = Model.IsLtr ? "'valueEn'" : "'value'";
+                            <select class="custom-select" id="inputGroupSelect01"
+                                    data-bind="options: categories,
+                                            optionsText: @prop,
+                                            optionsValue :'id',
+                                            value: filterModel.categoryId,
+                                            optionsCaption: '@Localizer["Category"]'"></select>
+                        }
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="button" data-bind="click: search">@Localizer["Search"]</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="Contracts">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 mb-4" data-bind="foreach: contracts">
+                    <a href="Contract_details.html" class="Contracts_link">
+                    </a><div class="card shadow p-3">
+                        <a data-bind="attr: { 'href': '@Url.Action("Details", "Contract")/' + id }" class="Contracts_link">
+                            @{
+                                var name = Model.IsLtr ? "nameEn" : "name";
+                                var desc = Model.IsLtr ? "descriptionEn" : "description";
+                                <h3 data-bind="text: @name"></h3>
+                                <p data-bind="text: @desc"></p>
+                            }
+                        </a><a data-bind="attr:{href:path}" download class="download_pdf"><i class="fas fa-file-pdf mr-2"></i>@Localizer["Download"]</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+@Html.Partial("~/Views/Shared/UserNotification.cshtml")
+<script src="~/app/contracts.js"></script>

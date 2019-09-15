@@ -1,0 +1,54 @@
+﻿
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@{
+    ViewData["Title"] = Localizer["title"];
+}
+<script>
+    $("header").removeClass("navbar-dark");
+    $("#menu_navbar").addClass("shadow");
+    $("#top_bar").addClass("shadow-sm");
+</script>
+<style>
+
+    .cd-auto-hide-header {
+        background-color: #ffffff
+    }
+</style>
+<section id="header_image_inner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="main-ttl inner_pages_ttl text-center my-4 py-3">
+                    <h2>@Localizer["Contracts"]</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="inner_pages">
+    <section class="Contracts">
+        <div class="container">
+            <div class="row ">
+                <div class="col-md-12 my-4 text-center">
+                    <div class="card shadow p-3">
+                        @{
+                            var name = Model.IsLtr ? "contract().nameEn" : "contract().name";
+                            var desc = Model.IsLtr ? "contract().descriptionEn" : "contract().description";
+                            <h3 data-bind="text: @name"></h3>
+                            <p data-bind="text: @desc"></p>
+                        }
+                        @*<h3 data-bind="text: contract().name"></h3>
+                            <p data-bind="text: contract().description"></p>*@
+                        <a data-bind="attr:{href:contract().path}" download class="download_pdf"><i class="fas fa-file-pdf mr-2"></i>@Localizer["Download"]</a>
+                        <div class="my-3">
+                            <embed data-bind="attr:{src:pdfPath}" width="80%" height="1000" alt="pdf" pluginspage="http://www.adobe.com/products/acrobat/readstep2.html" internalinstanceid="5">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+@Html.Partial("~/Views/Shared/UserNotification.cshtml")
+<script src="~/app/contract-details.js"></script>

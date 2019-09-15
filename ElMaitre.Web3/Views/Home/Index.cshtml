@@ -1,0 +1,511 @@
+﻿@model ElMaitre.Web.ViewModels.HomeViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@{
+    ViewData["Title"] = Localizer["Home Page"];
+}
+<link href="~/css/customStyle.css" rel="stylesheet" type="text/css" />
+<script src="~/js/customeJs.js"></script>
+<style>
+    #content-slider {
+        height: 100% !important
+    }
+
+    select {
+        padding: 0 !important;
+    }
+</style>
+
+
+<div id="header_image">
+    @Html.Partial("~/Views/Shared/UserNotification.cshtml")
+    <div class="wrapper" style="overflow:hidden;">
+        <div class="row jumbotron-container d-flex justify-content-center align-items-center">
+            <div class="comp-wrap  relative">
+                <img src="dist/images/laptop.png" class="comp-img" data-no-retina="">
+                <video class="comp-gif" loop autoplay muted>
+                    <source src="dist/video/movie.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            @*<div class="comp-wrap  relative">
+                    <img src="dist/images/laptop.png" class="comp-img" data-no-retina="">
+                    <video id="vid" autoplay muted loop class="comp-gif">
+                        <source src="dist/videos/banner-video.mp4" type="video/mp4">
+                        <source src="dist/videos/banner-video.mp4" type="video/ogg">
+                    </video>
+
+                </div>*@
+            <div class="col-lg-6 offset-lg-3">
+                <div class="jumbotron">
+
+                    <div class="">
+                        <div class="center nobg">
+                            <h3 class="h1 t700 fadeInDown animated" data-animate="bounceInUp">
+                                @Localizer["Home_header_desc"]
+                            </h3>
+                        </div>
+                        <!-- <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p> -->
+                    </div>
+                    @*<div class="input-group p-3 rounded">
+                            <select class="custom-select" id="inputGroupSelect01">
+                                <option selected>Name of specialization...</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">Search</button>
+                            </div>
+                        </div>*@
+                    @if (!Model.IsLawyer)
+                    {
+                        <div class="input-group p-3 rounded">
+                            <input type="text" class="form-control" placeholder="@Localizer["Lawyer_name"]"
+                                   data-bind="value: searchModel.Name" aria-label="Recipient's username"
+                                   aria-describedby="basic-addon2" style="display:none">
+                            @{
+                                var prop = Model.IsLtr ? "'nameEn'" : "'name'";
+                                <select class="custom-select" id="inputGroupSelect01"
+                                        data-bind="options: Spetializations,
+                                                optionsText: @prop,
+                                                optionsValue :'id',
+                                                value: searchModel.Specialization,
+                                                optionsCaption: '@Localizer["Specialization"]'"></select>
+                            }
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button" data-bind="click: Search">@Localizer["Search"]</button>
+                            </div>
+                        </div>
+                    }
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="move">
+        <!-- <img class="previous" src="dist/images/arrow-up.png" alt="" class=""> -->
+        <span class="next "></span>
+    </div>
+
+</div>
+
+
+
+@if (!Model.IsLawyer)
+{
+    <section id="call-action" class="call-action d-flex align-items-center section">
+        <div class="container">
+            <div class="py-5">
+                <div class="main-ttl text-center">
+                    <h2>@Localizer["CallToActions"]</h2>
+                    <p class="lead">@Localizer["CallToActions_desc"]</p>
+                </div>
+                <div class="row text-center" data-bind="foreach: serviceCategories">
+                    <div class="col-lg col-sm-6 col-12 mb-3 mb-lg-0">
+                        <div class="call-action-item d-flex align-items-center">
+                            <div class="w-100">
+                                <!-- <i class="main-icon call-action-icon1"></i> -->
+                                <img src="/images/icons/buy-sell-icon.png" data-bind="attr:{src:IconPath}" alt="">
+                                @{
+                                    var nn = Model.IsLtr ? "NameEn" : "Name";
+                                    <h6 class="text-uppercase my-3" data-bind="text: @nn"></h6>
+                                }
+                                <!-- Button trigger modal -->
+                                <button href="#" class="btn btn-light" data-toggle="modal" data-target="#exampleModal" data-bind="click: $root.showServices">
+                                    @Localizer["getstarted"]
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class=" seeMore-div d-none">
+                    <div class="row text-center mt-4" data-bind="foreach: serviceCategoriesMore">
+                        <div class="col-lg col-sm-6 col-12 mb-3 mb-lg-0">
+                            <div class="call-action-item d-flex align-items-center">
+                                <div class="w-100">
+                                    <!-- <i class="main-icon call-action-icon1"></i> -->
+                                    <img src="/images/icons/trademark-icon.png" alt="" data-bind="attr:{src:IconPath}">
+                                    <h6 class="text-uppercase my-3" data-bind="text: @nn"></h6>
+                                    <!-- Button trigger modal -->
+                                    <button href="#" class="btn btn-light" data-toggle="modal" data-target="#exampleModal" data-bind="click: $root.showServices">
+                                        @Localizer["getstarted"]
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-center mt-4">
+                        <button href="#" class="button  button-reveal more-btn">
+                            <i class="fas fa-chevron-down"></i>
+                            <span>@Localizer["Loadmore"]</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ask_question">
+        <div class="container">
+            <div class=" text-center py-5">
+                <div class="main-ttl text-center">
+                    <h2>@Localizer["askQuest_Title"]</h2>
+                    <p class="lead">@Localizer["askQuest_desc"]</p>
+                </div>
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-6">
+                        <div class="ask_question_content">
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-sm-4 col-6 text-center">
+                                    <img class="shadow card-img-top rounded-circle" src="http://s3.eu-west-3.amazonaws.com/elasticbeanstalk-eu-west-3-937138779294/IMG-20190327-WA0006.jpg">
+                                    @*<img src="/images/personal-img.jpg" alt="">*@
+                                    <a href="http://mohamy.co/Lawyer/Details/8">
+                                        <h6 class="mt-2 mb-0">@Localizer["LawyerNo_2"]</h6>
+                                    </a>
+                                        <p>@Localizer["LawyerNo_2Specialized"]</p>
+                                </div>
+                                <div class="col-sm-4 col-6 text-center">
+                                    <img class="shadow card-img-top rounded-circle" src="http://s3.eu-west-3.amazonaws.com/elasticbeanstalk-eu-west-3-937138779294/IMG-20190407-WA0011.jpg">
+                                    @*<img src="/images/personal-img.jpg" alt="">*@
+                                    <a href="http://mohamy.co/Lawyer/Details/30">
+                                        <h6 class="mt-2 mb-0">@Localizer["LawyerNo_3"]</h6>
+                                    </a>
+                                        <p>@Localizer["LawyerNo_3Specialized"]</p>
+                                </div>
+                                <div class="col-sm-4 col-6 text-center">
+                                    <img class="shadow card-img-top rounded-circle" src="http://s3.eu-west-3.amazonaws.com/elasticbeanstalk-eu-west-3-937138779294/IMG-20190405-WA0000.jpg">
+                                    @*<img src="/images/personal-img.jpg" alt="">*@
+                                <a href="http://mohamy.co/Lawyer/Details/29">
+                                    <h6 class="mt-2 mb-0">@Localizer["LawyerNo_1"]</h6>
+                                </a>
+                                    <p>@Localizer["LawyerNo_1Specialized"]</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="ask_question_form">
+                            <div class="form-group shadow-sm">
+                                @{
+                                    var val = Model.IsLtr ? "'valueEn'" : "'value'";
+                                    <select class="custom-select" id="select-category"
+                                            data-bind="options: categories,
+                                                optionsText: @val,
+                                                optionsValue :'id',
+                                                value: questionModel.categoryId,
+                                                optionsCaption: '@Localizer["QuestionCategory"]'"></select>
+                                }
+                            </div>
+                            <div class="form-group shadow-sm">
+                                <!-- <label for="exampleFormControlTextarea1">Example textarea</label> -->
+                                <textarea class="form-control" id="txt-question" rows="3" maxlength="200" data-bind="value: questionModel.question" placeholder="@Localizer["Your Question"]"></textarea>
+                            </div>
+                            <div class="row">
+                                <span id="characters" style="color: orangered;margin-left: 5%;">200</span> &nbsp; <span style="color:#999;"> @Localizer["characterleft"]</span>
+                            </div>
+                            @if (Model.IsAuthenticated)
+                            {
+                                <button class="button  btn-primary" data-bind="click: submit">
+                                    <i class="fa fa-refresh fa-spin mr-1 d-none"></i>
+                                    <span>@Localizer["Send"]</span>
+                                </button>
+                            }
+                            else
+                            {
+                                <button class="button  btn-primary" data-bind="click: submitAnonimous">
+                                    <i class="fas fa-check"></i>
+                                    <span>@Localizer["Send"]</span>
+                                </button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section id="how_it_works" class="section section_bg transitionSec  d-flex align-items-center">
+        <div class="container">
+            <div class=" text-center py-5">
+                <div class="main-ttl">
+                    <h2>@Localizer["Body_Title"]</h2>
+                    <p class="lead">@Localizer["body_desc"]</p>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="how_work_content">
+                            <div class="how_work_border mb-3">
+                                <i class="fas fa-search how_work_icon shadow-sm"></i>
+                            </div>
+                            <h4 class="how_work_title">@Localizer["lawyer_step1"]</h4>
+                            <p class="">
+                                @Localizer["lawyer_step1_desc"]
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="how_work_content">
+                            <div class="how_work_border mb-3">
+                                <i class="far fa-calendar-alt how_work_icon shadow-sm mb-3"></i>
+                            </div>
+                            <h4 class="how_work_title">@Localizer["lawyer_step2"]</h4>
+                            <p class="">
+                                @Localizer["lawyer_step2_desc"]
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="how_work_content">
+                            <div class="how_work_border mb-3">
+                                <i class="far fa-comments how_work_icon shadow-sm mb-3"></i>
+                            </div>
+                            <h4 class="how_work_title">@Localizer["lawyer_step3"]</h4>
+                            <p class="">
+                                @Localizer["lawyer_step3_desc"]
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <a href="/Lawyer">
+                    <button class="button  button-reveal">
+                        <i class="fas fa-play"></i>
+                        <span>@Localizer["getstarted"]</span>
+                    </button>
+                </a>
+
+            </div>
+        </div>
+    </section>
+}
+else
+{
+
+    <br />
+    <br />
+    <br />
+    <br />
+
+}
+
+<section id="about_us" class="about_us d-flex align-items-center">
+    <div class="row">
+        <div class="col-12 col-lg-8 col-md-12 about_us_carousel d-flex align-items-center">
+            <div class="container">
+                <div id="carouselContent" class="carousel slide " data-ride="carousel">
+                    <div class="main-ttl" style="margin-bottom:-45px !important;">
+                        <h2>@Localizer["ourcustomer_title"]</h2>
+                        <br />
+                        <br />
+                    </div>
+                    @*<div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+                <p>@Localizer["ourcustomer_desc"]</p>
+            </div>
+            <div class="carousel-item">
+                <p>@Localizer["ourcustomer_desc"]</p>
+            </div>
+        </div>*@
+                    @*<a class="carousel-control-prev" href="#carouselContent" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">@Localizer["Previous"]</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselContent" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">@Localizer["Next"]</span>
+        </a>*@
+                    <div class="py-5">
+                        <div class="row d-flex align-items-center">
+                            <div class="col-lg-12">
+                                <h1 style="color:white; text-align:right; font-size: 3.8rem !important;">@Localizer["TrustedWords"]</h1>
+                                <br />
+                                <br />
+                                <h2 style="color:white; text-align: right">@Localizer["Signature"]</h2>
+                                <h3 style="color:white; text-align: right">@Localizer["PrevWork"]</h3>
+                                <h3 style="color:white; text-align: right">@Localizer["PrevWork1"]</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 about_us_image">
+            <div class="container">
+            </div>
+        </div>
+    </div>
+</section>
+<section id="newSection" class="d-flex align-items-center">
+    <div class="container">
+        <div class="py-5">
+            <div class="row d-flex align-items-center">
+                <div class="col-lg-7">
+                    <img src="/images/PIC6.jpg" alt="">
+                </div>
+                <div class="col-lg-5">
+                    <h1>@Localizer["newSection_title"]</h1>
+                    @*<p>
+                            @Localizer["newSection_desc"]
+                        </p>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@*<section id="icon_option" class="mb-5">
+        <div class="container">
+            <div class=" text-center py-5">
+                <div class="row">
+                    <div class="col-md-4 mb-4 mb-md-0">
+                        <div class="icon_option_option">
+                            <img src="/images/contract.png" alt="">
+                        </div>
+                        <p>@Localizer["simple hero"]</p>
+                        <button href="#" class="button  button-reveal">
+                            <i class="far fa-file-alt"></i>
+                            <span>@Localizer["LegalDoc"]</span>
+                        </button>
+                    </div>
+                    <div class="col-md-4 mb-4 mb-md-0">
+                        <div class="icon_option_option">
+                            <img src="/images/icon-1.png" alt="">
+                        </div>
+                        <p>@Localizer["simple hero"]</p>
+                        <button href="#" class="button  button-reveal">
+                            <i class="far fa-question-circle"></i>
+                            <span>@Localizer["askLawyer"]</span>
+                        </button>
+                    </div>
+                    <div class="col-md-4 mb-4 mb-md-0">
+                        <div class="icon_option_option">
+                            <img src="/images/registered-sign.png" alt="">
+                        </div>
+                        <p>@Localizer["simple hero"]</p>
+                        <button href="#" class="button  button-reveal">
+                            <i class="far fa-registered"></i>
+                            <span>@Localizer["RegisterCompany"]</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>*@
+<section id="sponsors">
+    <div class="container">
+        <div class="item my-4">
+
+            <ul id="content-slider" class="content-slider">
+                <li>
+                    <img src="~/images/PIC2.png" />
+                </li>
+                <li>
+                    <img src="/images/PIC3.png" />
+                </li>
+                <li>
+                    <img src="/images/PIC4.png" />
+                </li>
+                <li>
+                    <img src="/images/PIC5.png" />
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</section>
+@if (!Model.IsAuthenticated)
+{
+    <div class="modal" tabindex="-1" role="dialog" id="myModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">@Localizer["SendQuestion"]</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="padding:30px">
+                    <form>
+                        <div class="form-group row">
+                            <input type="text" class="form-control" placeholder="@Localizer["Name"]" data-bind="value: questionModel.anonymousName">
+                        </div>
+                        <div class="form-group row">
+                            <input type="email" class="form-control" placeholder="@Localizer["Email"]" data-bind="value: questionModel.anonymousEmail">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bind="click: sendQuestion">
+                        <i class="fa fa-refresh fa-spin mr-1 d-none"></i>
+                        @Localizer["Send"]
+                    </button>
+                    <button type="button" data-class="btn btn-secondary" data-dismiss="modal">@Localizer["Close"]</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<div class="modal fade services-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">@Localizer["Chooseservices"]</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" data-bind="foreach: selectedCategoryService().Services">
+                <div class="custom-control custom-radio custom-control-inline mb-3 col-md-12">
+                    <input type="radio" name="service-radio" class="custom-control-input" data-bind="attr:{id:'service-radio-'+Id, value:Id}, checked: $root.selectedService">
+                    @{
+                        var title = Model.IsLtr ? "TitleEn" : "Title";
+                        <label class="custom-control-label" data-bind="text: @title, attr:{for:'service-radio-'+Id}"></label>
+
+                    }
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">@Localizer["Close"]</button>
+                <button type="button" class="btn btn-primary" data-bind="click: submitService">@Localizer["Submit"]</button>
+            </div>
+        </div>
+    </div>
+</div>
+@Html.HiddenFor(s => s.Token)
+<script>
+    //alert($("#Token").val());
+    localStorage.setItem("token", $("#Token").val())
+    jQuery(document).ready(function ($) {
+
+        $("#content-slider").lightSlider({
+            loop: true,
+            keyPress: true
+        });
+
+        $('#txt-question').keyup(updateCount);
+        $('#txt-question').keydown(updateCount);
+
+        function updateCount() {
+            if ($(this).val().length == 201) {
+                return;
+            }
+            var cs = [200 - $(this).val().length];
+            $('#characters').text(cs);
+        }
+
+        $(".more-btn").on("click", function () {
+            $(".seeMore-div")
+                .removeClass("d-done")
+                .hide();
+            $(".seeMore-div").addClass("d-block ");
+        });
+    });
+</script>
+<script src="~/app/home.js?id=1"></script>

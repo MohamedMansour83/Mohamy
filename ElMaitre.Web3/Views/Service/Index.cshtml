@@ -1,0 +1,278 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+@{
+    ViewData["Title"] = Localizer["title"];
+}
+
+
+
+<style>
+
+    .cd-auto-hide-header {
+        background-color: #ffffff
+    }
+</style>
+<section id="header_image_inner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="main-ttl inner_pages_ttl text-center my-4 py-3">
+                    <h2>@Localizer["title"]</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@{
+    Microsoft.Extensions.Primitives.StringValues queryVal;
+    if (Context.Request.Query.TryGetValue("amount_cents", out queryVal))
+    {
+    }
+}
+@if (queryVal.FirstOrDefault() != null)
+{
+    var val = double.Parse(queryVal.FirstOrDefault()) / 100;
+    <p></p>
+
+
+    <div class="alert alert-success alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>تمت عملية الدفع بنجاح</strong>
+        <strong>@val جم</strong>
+    </div>
+    <hr />
+    <div class="alert alert-info">
+        <span>المحامى <strong>@Model.Lawyer.User.Name</strong></span>
+        <br />
+        <span>الهاتف <strong>@Model.Lawyer.User.PhoneNumber</strong></span>
+    </div>
+}
+else
+{
+
+<div class="inner_pages">
+    <section class="services-page">
+        <div class="container">
+            <div class="services-content my-5">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="services-desc  p-4">
+                            <div class="pricing-title mb-4">
+                                <h3 data-bind="text: service().Title"></h3>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="d-flex align-items-center">
+                                        <i class="far fa-clock mr-1" style="margin-left:7px;"></i>
+                                        <h6 class="mb-0 font-weight-bold">@Localizer["Duration"]</h6>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <p data-bind="text: service().Duration"></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-phone mr-1" style="margin-left:7px;"></i>
+                                        <h6 class="mb-0 font-weight-bold">@Localizer["Contact"]</h6>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <p data-bind="text: service().ContactNumber"></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="d-flex align-items-center">
+                                        <i class="far fa-file-alt mr-1" style="margin-left:7px;"></i>
+                                        <h6 class="mb-0 font-weight-bold">@Localizer["Paperwork"]</h6>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <ul class="p-0" data-bind="foreach: paperWork">
+                                        <li data-bind="text: $data"></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="d-flex align-items-center">
+                                        <i class="far fa-file-alt mr-1" style="margin-left:7px;"></i>
+                                        <h6 class="mb-0 font-weight-bold">@Localizer["Steps"]</h6>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <ul class="p-0">
+                                        <li> بعد دفع قيمة الخدمة،سيظهرلك علي الشاشة تفاصيل إكمال التوكيل للمحامي و بياناته كما سيظهرلك أرقام المحامي المختلفة وجميع بيانات الاتصال به.</li>
+                                        <li>
+                                             سيقوم أحد أفراد خدمة عملاء "محامي.كو" بالتواصل معك في اسرع وقت لشرح تفاصيل أداة الخدمة
+                                            والرد على جميع استفساراتك بخصوص الخدمة المقدمة.
+                                        </li>
+                                        <li> ستتابع شركة "محامي.كو" جميع خطوات تقديم الخدمة مع المحامي المختار من العميل وفقاً للقواعد المتعارف عليها مهنياً حتى إنتهاء الخدمة.</li>
+                                        <li> إذا تم مخالفة أي من هذه البنود ستقوم شركة "محامي.كو" برد كامل المبلغ المدفوع للعميل أو (إذا أراد العميل)  باختيار محامي أخر لأداة الخدمة.</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 d-flex align-items-center justify-content-center pricing-action-content">
+                        <div class="pricing-action-area w-100">
+                            <div class="pricing-price">
+                                <span id="PriceType1" style="font-size:15px !important;"></span>
+                                <span class="price-unit" id="PriceLawyer" data-bind="text: service().PriceLawyer"></span>
+                                <button type="button" class="btn btn-primary" hidden id="PriceLawyerbtn" data-toggle="modal" data-target="#pay1ModalCenter">
+                                    @Localizer["Pay"]
+                                </button>
+
+                                <hr  hidden />
+                                <span id="PriceType2" style="font-size:15px !important;"></span>
+                                <span class="price-unit" id="PriceLevel2Lawyer" data-bind="text: service().PriceLevel2Lawyer"></span>
+                                <button type="button" class="btn btn-primary" hidden id="PriceLevel2Lawyerbtn" data-toggle="modal" data-target="#pay1ModalCenter">
+                                    @Localizer["Pay"]
+                                </button>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+</div>
+
+    <div class="modal fade" id="pay1ModalCenter" tabindex="-1" role="dialog" aria-labelledby="pay1ModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="pay1ModalCenterTitle">@Localizer["Pay"]</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @*<div class="modal-body">
+                        ...
+                    </div>*@
+                <div class="modal-footer">
+                    @*<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>*@
+                    <form asp-controller="Service" asp-action="PayAction" data-ajax-begin="AjaxBegin" data-ajax-complete="AjaxComplete" data-ajax="true" data-ajax-method="POST"
+                          asp-route-pType="1" id="frm1" data-ajax-mode="replace" data-ajax-update="#content">
+                        <input type="hidden" value="1" name="type_drp"
+                                    id="type_drp"/>
+                        @*<select class="form-control" name="type_drp"
+                                    id="type_drp" style="padding:0 !important">
+                                <option data-bind="value: service().PriceLawyer" selected="selected">
+                                    @Localizer["PriceLawyer"]
+                                </option>
+                                <option data-bind="value: service().PriceLevel2Lawyer">@Localizer["PriceLevel2Lawyer"]</option>
+                            </select>*@
+
+                        <button class="btn btn-secondary" type="submit">
+                            <i class="far fa-money-bill-alt"></i>
+                            بطاقة ائتمان
+
+
+                        </button>
+                    </form>
+                    @*<button type="button" class="btn btn-secondary" data-dismiss="modal">بطاقة ائتمان</button>*@
+                    @*<button type="button" class="btn btn-primary">دفع فورى</button>*@
+
+                    <form asp-controller="Service" asp-action="PayAction"
+                          asp-route-pType="2" data-ajax-begin="AjaxBegin" data-ajax-complete="AjaxComplete" data-ajax="true" data-ajax-method="POST"
+                          data-ajax-mode="replace" id="frm2" data-ajax-update="#content">
+                        <input type="hidden" value="2" name="type_drp"
+                               id="type_drp" />
+
+                        @*<select class="form-control" name="type_drp"
+                id="type_drp" style="padding:0 !important">
+            <option data-bind="value: service().PriceLawyer" selected="selected">
+                @Localizer["PriceLawyer"]
+            </option>
+            <option data-bind="value: service().PriceLevel2Lawyer">@Localizer["PriceLevel2Lawyer"]</option>
+        </select>*@
+
+                        <button class="btn btn-secondary" type="submit">
+                            <i class="far fa-money-bill-alt"></i>
+                            كاش وانت فى مكانك لأى حد من مندوبينا
+
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="pay2ModalCenter" tabindex="-1" role="dialog" aria-labelledby="pay2ModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="pay2ModalCenterTitle">@Localizer["Pay"]</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @*<div class="modal-body">
+                    ...
+                </div>*@
+                <div class="modal-footer">
+                    @*<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>*@
+                    <form asp-controller="Service" asp-action="PayAction" data-ajax-begin="AjaxBegin" data-ajax-complete="AjaxComplete" data-ajax="true" data-ajax-method="POST"
+                          asp-route-pType="1" id="frm1" data-ajax-mode="replace" data-ajax-update="#content">
+                        <input type="hidden" value="1" name="type_drp"
+                               id="type_drp" />
+
+                        @*<select class="form-control" name="type_drp"
+                id="type_drp" style="padding:0 !important">
+            <option data-bind="value: service().PriceLawyer" selected="selected">
+                @Localizer["PriceLawyer"]
+            </option>
+            <option data-bind="value: service().PriceLevel2Lawyer">@Localizer["PriceLevel2Lawyer"]</option>
+        </select>*@
+
+                        <button class="btn btn-secondary" type="submit">
+                            <i class="far fa-money-bill-alt"></i>
+                            بطاقة ائتمان
+
+
+                        </button>
+                    </form>
+                    @*<button type="button" class="btn btn-secondary" data-dismiss="modal">بطاقة ائتمان</button>*@
+                    @*<button type="button" class="btn btn-primary">دفع فورى</button>*@
+
+                    <form asp-controller="Service" asp-action="PayAction"
+                          asp-route-pType="2" data-ajax-begin="AjaxBegin" data-ajax-complete="AjaxComplete" data-ajax="true" data-ajax-method="POST"
+                          data-ajax-mode="replace" id="frm2" data-ajax-update="#content">
+                        <input type="hidden" value="2" name="type_drp"
+                               id="type_drp" />
+
+                        @*<select class="form-control" name="type_drp"
+                id="type_drp" style="padding:0 !important">
+            <option data-bind="value: service().PriceLawyer" selected="selected">
+                @Localizer["PriceLawyer"]
+            </option>
+            <option data-bind="value: service().PriceLevel2Lawyer">@Localizer["PriceLevel2Lawyer"]</option>
+        </select>*@
+
+                        <button class="btn btn-secondary" type="submit">
+                            <i class="far fa-money-bill-alt"></i>
+                            كاش وانت فى مكانك لأى حد من مندوبينا
+
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+@Html.Partial("~/Views/Shared/UserNotification.cshtml")
+<script src="~/app/services.js"></script>
+<script src="~/app/ServicePaymentAction.js"></script>

@@ -1,0 +1,124 @@
+/*
+
+.section {
+        position: relative;
+        text-align: center;
+        margin: 0;
+}
+
+
+
+.text-wr {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+}
+
+#section1 {
+        background: #5c53aa;
+        color: #8d86c3;
+}
+
+#section2 {
+        background: #4bbfc3;
+        color: #81d2d5;
+}
+
+#section3 {
+        background: #283044;
+        color: #686e7c;
+}
+
+#section4 {
+        background: #ebf5ee;
+        color: #aeb9b9;
+}
+
+
+
+.title-top {
+        font-size: 60px;
+        padding-bottom: 30px;
+}
+
+.title-bottom {
+        font-size: 30px;
+}
+
+.title-tx {
+        font-size: 20px;
+        opacity: 0.8;
+}
+
+.nav {
+        position: fixed; left: 50%;
+        width: 100%;
+        top: 20px;
+        z-index: 9;
+        padding-left: 10px;
+}
+
+.nav a {
+        padding: 7px 20px;
+        border-radius: 7px;
+        margin-right: 10px;
+        background: rgba(255, 255, 255, 0.5);
+        -webkit-transition: all 0.2s ease-out;
+        -moz-transition: all 0.2s ease-out;
+        -ms-transition: all 0.2s ease-out;
+        -o-transition: all 0.2s ease-out;
+        transition: all 0.2s ease-out;
+        text-decoration: none;
+        color: black;
+        font-family: sans-serif, arial;
+        font-weight: 100;
+}
+
+.nav a.active {
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+}
+
+.nav a:hover {
+        background: rgba(255, 255, 255, 0.7);
+}
+*/
+.inner_tabs4 nav {
+    background-color: #506a85;
+}
+.inner_tabs4 nav ul {
+    list-style: none;
+    text-align: center;
+    overflow: hidden;
+}
+.inner_tabs4 nav ul li {
+    display: inline-block;
+    margin: 0 -4px;
+    padding: 5px 0;
+}
+.inner_tabs4 nav ul li a {
+    padding: 5px 20px;
+    font: normal 1em / normal 'Open Sans Condensed', sans-serif;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+       -webkit-transition: all 0.2s ease-out;
+        -moz-transition: all 0.2s ease-out;
+        -ms-transition: all 0.2s ease-out;
+        -o-transition: all 0.2s ease-out;
+        transition: all 0.2s ease-out;
+}
+.inner_tabs4 nav ul li a:hover,
+.inner_tabs4 nav ul li a.active {
+    background: #343434;
+}
+
+.contentPanel section {
+    height: 400px;
+    overflow: hidden;
+}

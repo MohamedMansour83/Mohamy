@@ -1,0 +1,706 @@
+﻿
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    Layout = null;
+    ViewData["Title"] = Localizer["LoginTitle"];
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="stylesheet" href="~/css/lightslider.min.css">
+    <link rel="stylesheet" href="~/css/index.css">
+    <link rel="stylesheet" href="~/css/jquery-ui-calender.css">
+    <link rel="stylesheet" href="http://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+
+    @if (!Model.IsLtr)
+    {
+        <link rel="stylesheet" href="~/css/style_rtl.css">
+    }
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+
+    
+
+</head>
+<body>
+    <div id="fb-root"></div>
+    @*<script src="//connect.facebook.net/en_US/all.js#appId=588635874900758" type="text/javascript"></script>*@
+    <script async defer crossorigin="anonymous" src="http://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=588635874900758&autoLogAppEvents=1"></script>
+
+    <section id="login_page">
+        <div class="row">
+            <div class="col-md-6 d-none d-md-block">
+                <div class="login_page_slider">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                        @*<ol class="carousel-indicators">
+                                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                            </ol>*@
+                        <div class="carousel-caption d-none d-md-block text-center">
+                            <a href="/">
+                                <img src="../images/logo-footer.png" alt="logo">
+                            </a>
+                        </div>
+                        <div class="carousel-inner">
+                            @*<div class="carousel-item active">
+                                    <div class="login_img_bg"></div>
+                                    <div class="login_img" style="background-image: url('/images/login_img_1.jpg')"></div>
+                                    <div class="carousel-caption d-none d-md-block text-center">
+                                        <h2>@Localizer["HowLawyerWork"]</h2>
+                                    </div>
+                                </div>*@
+                            <div class="carousel-item active">
+                                <div class="login_img_bg"></div>
+                                <div class="login_img" style="background-image: url('/images/PIC1.jpg')"></div>
+                                <div class="carousel-caption d-none d-md-block text-center">
+                                    <h2>@Localizer["OurAttorneys"]</h2>
+                                </div>
+                            </div>
+                            @*<div class="carousel-item">
+                                    <div class="login_img_bg"></div>
+                                    <div class="login_img" style="background-image: url('/images/login_img_1.jpg')"></div>
+                                    <div class="carousel-caption d-none d-md-block text-center">
+                                        <h2>@Localizer["OurAttorneys"]</h2>
+                                    </div>
+                                </div>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="login_form d-flex justify-content-center align-items-center my-5">
+                    <div class="container">
+                        <a href="/">
+                            <img class="login_logo d-block mb-4" src="../images/logo.png" alt="logo">
+                        </a>
+                        <!-- Nav tabs -->
+                        <div class=" d-flex justify-content-center align-items-center">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="m-1"><a id="h" href="#home" aria-controls="home" role="tab" data-toggle="tab">@Localizer["Login"]</a></li>
+                                <li role="presentation" class="m-1"><a id="reg" href="#register" aria-controls="register" role="tab" data-toggle="tab">@Localizer["Register"]</a></li>
+                            </ul>
+                        </div>
+                        <!-- Tab panes -->
+                        <div id="bdy">
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane active" id="home">
+                                    <div class="main-ttl text-center">
+                                        <h2>@Localizer["Login"]</h2>
+                                        <p class="lead">@Localizer["LoginToAccount"]</p>
+                                    </div>
+
+                                    <form class="shadow-sm">
+                                        <div class="form-group" style="text-align:center">
+                                            @*<a class="fb connect" id="fblogin1" href="javascript:void(0);">@Localizer["Login"]</a>*@
+                                            <fb:login-button scope="public_profile,email"
+                                                             onlogin="checkLoginState();" data-size="large" data-use-continue-as="true" data-button-type="continue_with" data-auto-logout-link="true">
+                                            </fb:login-button>
+                                            @*<div class="fb-login-button" data-size="large" data-button-type="continue_with" data-auto-logout-link="true" data-use-continue-as="true" data-scope="email"></div>*@
+                                        </div>
+                                        @*<div class="text-center mb-3">
+                                                <div class="custom-control custom-radio custom-control-inline">
+                                                    <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input" data-bind="checked: loginModel.IsLawyer, checkedValue: false">
+                                                    <label class="custom-control-label" for="customRadioInline1">Client</label>
+                                                </div>
+                                                <div class="custom-control custom-radio custom-control-inline">
+                                                    <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input" data-bind="checked: loginModel.IsLawyer, checkedValue: true">
+                                                    <label class="custom-control-label" for="customRadioInline2">Lawyer</label>
+                                                </div>
+                                            </div>*@
+                                        <div class="form-group">
+                                            <label for="exampleFormControlInput1">@Localizer["Email"]</label>
+                                            <input type="email" data-bind="textInput: loginModel.UserName" class="form-control" id="email" placeholder="name@example.com">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">@Localizer["Password"]</label>
+                                            <input type="password" data-bind="textInput: loginModel.Password" class="form-control" id="password" placeholder="@Localizer["Password"]" />
+                                            <i id="show-pass" class="show fas fa-eye" style="left: 94%;position: relative;top: -30px;font-size: large;"></i>
+                                        </div>
+                                        <div class="text-center">
+                                            <a id="forgotpass" href="#">@Localizer["ForgotPassword"]</a>
+                                        </div>
+                                        <div class="text-center my-2">
+                                            <button class="btn btn-primary" type="button" data-bind="click: Login">
+                                                <i class="fa fa-refresh fa-spin mr-1 d-none"></i>
+                                                @Localizer["Login"]
+                                            </button>
+                                        </div>
+                                        <!-- <div class="text-center">
+                                          <a href="#"> Create new account</a>
+                                        </div> -->
+                                    </form>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="register">
+                                    <div class="main-ttl text-center">
+                                        <h2>@Localizer["RegisterToNewAccount"]</h2>
+                                        <p class="lead">@Localizer["CreateAccount"]</p>
+                                    </div>
+
+                                    <form class="shadow-sm">
+                                        <div class="form-group" style="text-align:center">
+                                            @*<a class="fb connect" id="fblogin2" href="javascript:void(0);">@Localizer["RegisterToNewAccount"]</a>*@
+                                            <fb:login-button scope="public_profile,email"
+                                                             onlogin="checkLoginStateRegister();" data-size="large" data-use-continue-as="true" data-button-type="continue_with" data-auto-logout-link="true">
+                                            </fb:login-button>
+                                            @*<div class="fb-login-button" data-size="large" data-button-type="continue_with" data-auto-logout-link="true" data-use-continue-as="true" data-scope="email"></div>*@
+                                        </div>
+                                        <div class="form-group" style="display:none">
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" id="reg-radio1" name="reg-radio1" class="custom-control-input" data-bind="checked: registerModel.IsLawyer, checkedValue: false">
+                                                <label class="custom-control-label" for="reg-radio1">@Localizer["Client"]</label>
+                                            </div>
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" id="reg-radio2" name="reg-radio1" class="custom-control-input" data-bind="checked: registerModel.IsLawyer, checkedValue: true">
+                                                <label class="custom-control-label" for="reg-radio2">@Localizer["Lawyer"]</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" style="display:none">
+                                            <label for="exampleFormControlInput1">@Localizer["Username"]</label>
+                                            <input type="text" class="form-control" id="name" placeholder="@Localizer["Username"]" data-bind="value: registerModel.UserName">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleFormControlInput1">@Localizer["EnterEmail"]</label>
+                                            <input type="email" class="form-control" id="reg-email" placeholder="name@example.com" data-bind="textInput: registerModel.Email">
+                                            <span class="reg-Email danger" style="display:none">@Localizer["EmailFailed"]</span>
+                                            @*<input type="text" class="form-control" id="reg-fbid" data-bind="textInput: self1.registerModel.FbId">*@
+                                            <input type="hidden" id="fbid" data-bind="value: registerModel.FbId">
+                                            <div style="text-align:center">
+                                                <img src="" style="height:80px; display:none" id="fb_url" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group" style="display:none">
+                                            <label for="exampleFormControlInput1">@Localizer["PhoneNumber"]</label>
+                                            <input type="tel" class="form-control" id="reg-phone" placeholder="@Localizer["PhoneNumberEx"]" data-bind="textInput: registerModel.PhoneNumber">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">@Localizer["Password"]</label>
+                                            <input type="password" class="form-control" id="reg-password" placeholder="@Localizer["Password"]" data-bind="value: registerModel.Password">
+                                            <span class="reg-password danger"style="display:none">@Localizer["PasswordFailed"]</span>
+                                        </div>
+                                        <div class="form-group" style="display:none">
+                                            <label for="exampleInputPassword1">@Localizer["CPassword"]</label>
+                                            <input type="password" class="form-control" id="conf-pass" placeholder="@Localizer["Password"]" data-bind="value: registerModel.ConfirmPassword">
+                                        </div>
+                                        <div class="form-group" style="display:none">
+                                            <label for="exampleInputPassword1">@Localizer["Date"]</label>
+                                            <input type="date" id="datepicker" class="form-control" placeholder="MM / YY" data-bind="value: registerModel.DateOfBirth">
+                                        </div>
+                                        <div class="form-group row d-flex align-items-center" style="display:none">
+                                            <label for="staticEmail" class="col-sm-2 col-form-label" style="display:none">@Localizer["Gender"]</label>
+                                            <div class="col-sm-10" style="display:none">
+                                                <div class="custom-control custom-radio custom-control-inline">
+                                                    <input type="radio" id="customRadioInline3" name="customRadioInline3" class="custom-control-input" data-bind="checked: registerModel.Gender, checkedValue: false">
+                                                    <label class="custom-control-label" for="customRadioInline3">@Localizer["Male"]</label>
+                                                </div>
+                                                <div class="custom-control custom-radio custom-control-inline">
+                                                    <input type="radio" id="customRadioInline4" name="customRadioInline3" class="custom-control-input" data-bind="checked: registerModel.Gender, checkedValue: true">
+                                                    <label class="custom-control-label" for="customRadioInline4">@Localizer["Female"]</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck1" data-bind="checked: registerModel.AcceptTerms">
+                                            <label class="custom-control-label" for="customCheck1">@Localizer["AcceptTerms"]</label>
+                                        </div>
+                                        <div class="text-center my-2">
+                                            <button class="btn btn-primary" type="button" data-bind="click: Register">
+                                                <i class="fa fa-refresh fa-spin mr-1 d-none"></i>
+                                                @Localizer["RegisterToNewAccount"]
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="forgotpassword">
+                                    <div class="main-ttl text-center">
+                                        <h2>@Localizer["ForgotPassword"]</h2>
+                                    </div>
+                                    <form class="shadow-sm">
+                                        <div class="form-group">
+                                            <label for="f-email">@Localizer["Email"]</label>
+                                            <input type="email" data-bind="textInput: loginModel.UserName" class="form-control" id="f-email" placeholder="name@example.com">
+                                        </div>
+                                        <div class="text-center my-2">
+                                            <button class="btn btn-primary" type="button" data-bind="click: ForgotPassword">@Localizer["Submit"]</button>
+                                        </div>
+                                        <!-- <div class="text-center">
+                                          <a href="#"> Create new account</a>
+                                        </div> -->
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="modal" tabindex="-1" role="dialog" id="alert">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">@Localizer["Alert"]</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <span id="message"></span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="ok_btn">@Localizer["OK"]</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="~/js/lightslider.js" charset="utf-8"></script>
+    <script src="http://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    @*<script src="~/js/responsive-calendar.min.js" charset="utf-8"></script>*@
+    <script src="~/js/sticky-header.js" charset="utf-8"></script>
+    <script src="~/js/popper.min.js" charset="utf-8"></script>
+    <script src="~/lib/bootstrap/dist/bootstrap.min.js"></script>
+    <script src="~/lib/knockout/knockout-3.3.0.js"></script>
+    <script src="~/app/login.js?id=1"></script>
+    <script>
+        //jQuery(function ($) {
+        //    $("#datepicker").datepicker();
+        //});
+
+    </script>
+
+    <script>
+    function proceedToStep2() {
+		localStorage.setItem('p1', self1.registerModel.FbId);
+		localStorage.setItem('p2', self1.registerModel.UserName);
+		localStorage.setItem('p3', self1.registerModel.Email);
+		localStorage.setItem('p4', self1.registerModel.Password);
+		window.location = self1.baseUrl + "/Account/RegisterStep2";
+    }
+
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '588635874900758',
+                cookie: true,
+                xfbml: true,
+                version: 'v3.2'
+            });
+
+            FB.AppEvents.logPageView();
+
+
+            FB.getLoginStatus(function (response) {
+                statusChangeCallback(response);
+            });
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "http://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+
+        function statusChangeCallback(response) {
+            // // console.log('statusChangeCallback');
+            // // console.log(response);
+
+            //// The response object is returned with a status field that lets the
+            //// app know the current login status of the person.
+            //// Full docs on the response object can be found in the documentation
+            //// for FB.getLoginStatus().
+            //if (response.status === 'connected') {
+            //    // Logged into your app and Facebook.
+            //    //testAPI();
+
+            //    localStorage.removeItem('token');
+            //    localStorage.removeItem('UsrName');
+            //    localStorage.removeItem('isLawyer');
+
+            //    var uid = response.authResponse.userID;
+            //     // console.log({ "FbId": uid });
+            //    $.ajax({
+            //        type: "POST",
+            //        url: self1.baseUrl + "/api/Auth/TokenFB",
+            //        data: JSON.stringify({ "FbId": uid }),
+            //        contentType: "application/json",
+            //        success: function (data) {
+            //            localStorage.setItem('token', data.token);
+            //            localStorage.setItem('UsrName', data.userName);
+            //            localStorage.setItem('isLawyer', data.isLawyer);
+
+            //             // console.log(localStorage);
+            //            
+            //            if (localStorage.getItem("returnURL") !== null) {
+            //                window.location = self1.baseUrl + localStorage.getItem("returnURL");
+            //                localStorage.removeItem("returnURL");
+            //            } else
+            //                window.location = self1.baseUrl + "/";
+
+            //        },
+            //        error: function (res) {
+            //            //hideloading(e);
+            //             // console.log(res);
+            //        }
+            //    });
+
+            //    var imgtxt = 'http://graph.facebook.com/' + uid + '/picture?type=large';
+
+
+            //    FB.api('/me?fields=name,email', function (info) {
+            //         // console.log(info);
+            //        var arr = info.name.split(" ");
+            //         // console.log(info.name);
+            //        var fname = arr[0];
+            //         // console.log(fname);
+            //        var lname = arr[arr.length - 1];
+            //         // console.log(lname);
+
+            //        //$('#name').html(info.name);
+            //        //$('#reg-email').html(info.email);
+            //        $('#fb_url').attr('src', imgtxt);
+            //        $('#fb_url').show();
+            //        //$('#fbid').val(info.uid);
+            //        $('#fbid').val('' + info.id);
+            //        $('#reg-email').val(info.email);
+            //        $('#name').val(info.name);
+            //        self1.registerModel.FbId = '' + info.id;
+            //        self1.registerModel.Email = info.email;
+            //        self1.registerModel.UserName = info.name;
+            //         // console.log($('#fbid').val());
+            //         // console.log(self1.registerModel.FbId);
+            //        //self.registerModel.FbId = info.uid;
+            //    });
+
+            //} else {
+            //    // The person is not logged into your app or we are unable to tell.
+            //    //document.getElementById('status').innerHTML = 'Please log ' +
+            //    //	'into this app.';
+            //}
+            if (response.status === 'connected') {
+                var uid = response.authResponse.userID;
+                var imgtxt = 'http://graph.facebook.com/' + uid + '/picture';
+
+
+                FB.api('/me?fields=name,email', function (info) {
+                     // console.log(info);
+                    //var arr = info.name.split(" ");
+                    // // console.log(info.name);
+                    //var fname = arr[0];
+                    // // console.log(fname);
+                    //var lname = arr[arr.length - 1];
+                    // // console.log(lname);
+
+                    //$('#name').html(info.name);
+                    //$('#reg-email').html(info.email);
+                    $('#fb_url').attr('src', imgtxt);
+                    $('#fb_url').show();
+                    //$('#fbid').val(info.uid);
+                    $('#fbid').val('' + info.id);
+                    $('#reg-email').val(info.email);
+                    $('#name').val(info.name);
+                    self1.registerModel.FbId = '' + info.id;
+                    self1.registerModel.Email = info.email;
+                    self1.registerModel.Password = "123456Aa#";
+					self1.registerModel.UserName = info.email.substring(0, info.email.indexOf("@@"));
+                     // console.log($('#fbid').val());
+                     // console.log(self1.registerModel.FbId);
+                    //self.registerModel.FbId = info.uid;
+
+
+                    $.ajax({
+                        type: "POST",
+                        url: self1.baseUrl + "/api/Auth/TokenFB",
+                        data: JSON.stringify({ "FbId": uid }),
+                        contentType: "application/json",
+                        success: function (data) {
+                            if (data.token !== undefined) {
+
+                                localStorage.setItem('token', data.token);
+                                localStorage.setItem('UsrName', data.userName);
+                                localStorage.setItem('isLawyer', data.isLawyer);
+
+                                $("#home").addClass("active");
+                                $("#register").removeClass("active");
+                                $("#h").addClass("active show");
+                                $("#reg").removeClass("active show");
+
+                                 // console.log(localStorage);
+                                
+                                if (localStorage.getItem("returnURL") !== null) {
+                                    window.location = self1.baseUrl + localStorage.getItem("returnURL");
+                                    localStorage.removeItem("returnURL");
+                                } else
+                                    window.location = self1.baseUrl + "/";
+                            }
+                            else {
+                                //$('#register1ModalCenter').modal('show');
+                                //window.location = self1.baseUrl + "/Account/RegisterStep2";
+								proceedToStep2();
+                            }
+                        },
+                        error: function (res) {
+                            //hideloading(e);
+                             // console.log(res);
+                        }
+                    });
+
+                });
+
+            } else if (response.status === 'not_authorized') {
+                alert('not_authorized');
+                // the user is logged in to Facebook,
+                // but has not authenticated your app
+            } else {
+                // the user isn't logged in to Facebook.
+            }
+
+        }
+
+        function statusChangeCallbackRegister(response) {
+            if (response.status === 'connected') {
+                var uid = response.authResponse.userID;
+                var imgtxt = 'http://graph.facebook.com/' + uid + '/picture';
+
+
+                FB.api('/me?fields=name,email', function (info) {
+                     // console.log(info);
+                    //var arr = info.name.split(" ");
+                    // // console.log(info.name);
+                    //var fname = arr[0];
+                    // // console.log(fname);
+                    //var lname = arr[arr.length - 1];
+                    // // console.log(lname);
+
+                    //$('#name').html(info.name);
+                    //$('#reg-email').html(info.email);
+                    $('#fb_url').attr('src', imgtxt);
+                    $('#fb_url').show();
+                    //$('#fbid').val(info.uid);
+                    $('#fbid').val('' + info.id);
+                    $('#reg-email').val(info.email);
+                    $('#name').val(info.name);
+                    self1.registerModel.FbId = '' + info.id;
+                    self1.registerModel.Email = info.email;
+					self1.registerModel.UserName = info.email.substring(0, info.email.indexOf("@@"));
+                     // console.log($('#fbid').val());
+                     // console.log(self1.registerModel.FbId);
+                    //self.registerModel.FbId = info.uid;
+					//$('.nav-tabs a:[href="#register"]').tab('show');
+					$("#register").addClass("active");
+					$("#home").removeClass("active");
+					//$('#register1ModalCenter').modal('show');
+                    proceedToStep2();
+                });
+
+            } else if (response.status === 'not_authorized') {
+                alert('not_authorized');
+                // the user is logged in to Facebook,
+                // but has not authenticated your app
+            } else {
+                // the user isn't logged in to Facebook.
+            }
+
+        }
+
+
+        function checkLoginState() {
+            FB.getLoginStatus(function (response) {
+                statusChangeCallback(response);
+            });
+        }
+
+        function checkLoginStateRegister() {
+            FB.getLoginStatus(function (response) {
+                statusChangeCallbackRegister(response);
+            });
+        }
+
+    </script>
+    <script>
+        $(function () {
+            //document.getElementById('fblogin1').addEventListener('click', function () {
+            //    //do the login
+            //    FB.login(statusChangeCallback, { scope: 'email,public_profile', return_scopes: true });
+            //}, false);
+            //document.getElementById('fblogin2').addEventListener('click', function () {
+            //    //do the login
+            //    FB.login(statusChangeCallbackRegister, { scope: 'email,public_profile', return_scopes: true });
+            //}, false);
+            //$.ajax({
+            //            type: "POST",
+            //            url: self1.baseUrl + "/api/Auth/Token",
+            //            data: JSON.stringify({ "FbId": "10156972687740390" }),
+            //            contentType: "application/json",
+            //            success: function (data) {
+            //                localStorage.setItem('token', data.token);
+            //                localStorage.setItem('UsrName', data.userName);
+            //                localStorage.setItem('isLawyer', data.isLawyer);
+
+            //                $("#home").addClass("active");
+            //                $("#register").removeClass("active");
+            //                $("#h").addClass("active show");
+            //                $("#reg").removeClass("active show");
+
+            //                 // console.log(localStorage);
+            //                
+            //                if (localStorage.getItem("returnURL") !== null) {
+            //                    window.location = self1.baseUrl + localStorage.getItem("returnURL");
+            //                    localStorage.removeItem("returnURL");
+            //                } else
+            //                    window.location = self1.baseUrl + "/";
+
+            //            },
+            //            error: function (res) {
+            //                //hideloading(e);
+            //                 // console.log(res);
+            //            }
+            //        });
+            //                  // console.log(self1.registerModel);
+            //self1.registerModel.FbId = "sss@ss.com";
+            //$('#reg-fbid').val(self1.registerModel.FbId);
+            //                  // console.log(self1.registerModel);
+            var p = $(location).attr('hash');
+            if (p != '') {
+                $(p).addClass("active");
+                $("#reg").addClass("active show");
+                $("#home").removeClass("active");
+                $("#h").removeClass("active show");
+            }
+
+            $("#forgotpass").click(function () {
+                $("#home").removeClass("active");
+                $("#register").removeClass("active");
+                $("#forgotpassword").addClass("active");
+                $("#h").removeClass("active show");
+            });
+
+            $(".show").mousedown(function () {
+                $(this).prev().attr('type', 'text');
+            }).mouseup(function () {
+                $(this).prev().attr('type', 'password');
+            }).mouseout(function () {
+                $(this).prev().attr('type', 'password');
+            });
+        });
+
+
+
+
+        //FB.getLoginStatus(function (response) {
+        //    statusChangeCallback(response);
+        //});
+
+        //window.fbAsyncInit = function () {
+        //    FB.init({
+        //        appId: '588635874900758',
+        //        cookie: true,  // enable cookies to allow the server to access
+        //        // the session
+        //        xfbml: true,  // parse social plugins on this page
+        //        version: 'v3.2' // The Graph API version to use for the call
+        //    });
+
+
+        //    // Now that we've initialized the JavaScript SDK, we call
+        //    // FB.getLoginStatus().  This function gets the state of the
+        //    // person visiting this page and can return one of three states to
+        //    // the callback you provide.  They can be:
+        //    //
+        //    // 1. Logged into your app ('connected')
+        //    // 2. Logged into Facebook, but not your app ('not_authorized')
+        //    // 3. Not logged into Facebook and can't tell if they are logged into
+        //    //    your app or not.
+        //    //
+        //    // These three cases are handled in the callback function.
+
+        //    FB.getLoginStatus(function (response) {
+        //        statusChangeCallback(response);
+        //    });
+
+        //};
+
+        //window.fbAsyncInit = function () {
+        //    FB.init({
+        //        appId: '588635874900758', // App ID
+        //        status: true, // check login status
+        //        cookie: true, // enable cookies to allow the server to access the session
+        //        xfbml: true  // parse XFBML
+        //    });
+        //    //FB.Event.subscribe('auth.authResponseChange', function (response) {
+        //    //    if (response.status === 'connected') {
+        //    //        var uid = response.authResponse.userID;
+        //    //        var imgtxt = 'http://graph.facebook.com/' + uid + '/picture';
+
+
+        //    //        FB.api('/me?fields=name,email', function (info) {
+        //    //             // console.log(info);
+        //    //            var arr = info.name.split(" ");
+        //    //             // console.log(info.name);
+        //    //            var fname = arr[0];
+        //    //             // console.log(fname);
+        //    //            var lname = arr[arr.length - 1];
+        //    //             // console.log(lname);
+
+        //    //            //$('#name').html(info.name);
+        //    //            //$('#reg-email').html(info.email);
+        //    //            $('#fb_url').attr('src', imgtxt);
+        //    //            $('#fb_url').show();
+        //    //            //$('#fbid').val(info.uid);
+        //    //            $('#fbid').val('' + info.id);
+        //    //            $('#reg-email').val(info.email);
+        //    //            $('#name').val(info.name);
+        //    //            self1.registerModel.FbId = '' + info.id;
+        //    //            self1.registerModel.Email = info.email;
+        //    //            self1.registerModel.UserName = info.name;
+        //    //             // console.log($('#fbid').val());
+        //    //             // console.log(self1.registerModel.FbId);
+        //    //            //self.registerModel.FbId = info.uid;
+
+        //    //        });
+
+        //    //    } else if (response.status === 'not_authorized') {
+        //    //        alert('not_authorized');
+        //    //        // the user is logged in to Facebook,
+        //    //        // but has not authenticated your app
+        //    //    } else {
+        //    //        // the user isn't logged in to Facebook.
+        //    //    }
+        //    //});
+        //};
+    </script>
+
+    <div class="modal fade" id="register1ModalCenter" tabindex="-1" role="dialog" aria-labelledby="register1ModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="pay1ModalCenterTitle">@Localizer["Register"]</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @*<div class="modal-body">
+                        ...
+                    </div>*@
+                <div class="modal-footer">
+                    @*<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>*@
+                    <button class="btn btn-secondary" type="button" onclick="proceedToStep2(); return false;">
+                        <i class="far fa-facebook"></i>
+                        استكمال بيانات التسجيل
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+@import url(http://fonts.googleapis.com/css?family=Cairo:200,300,400,600,700,900&subset=arabic);.our_team .our_team_text,body{text-align:right!important}.contact_us .list-group,.user_profile .user_profile_tabs .card-header .nav{padding:0}body{direction:rtl!important;font-family:Cairo,sans-serif!important}.mr-2,.mx-2{margin-right:0!important;margin-left:.5rem!important}.ml-2,.ml-4,.mx-2,.mx-4{margin-left:0!important}@media (min-width:992px){.navbar-nav .ml-lg-5,.navbar-nav .mx-lg-5{margin-right:3rem!important;margin-left:0!important}}.ml-4,.mx-4{margin-right:1.5rem!important}.ml-2,.mx-2{margin-right:.5rem!important}.main-ttl h2::before{margin-left:25px;margin-right:0!important}.main-ttl h2::after{margin-left:0!important;margin-right:25px}.custom-control-label::after,.custom-control-label::before{right:0!important}.custom-control .custom-control-label{margin-right:2rem!important}#top_bar .nav-item{border-left:1px solid #dfdfdf!important;border-right:0!important}#about_us .about_us_carousel{-webkit-clip-path:polygon(0 0,100% 1%,100% 100%,31% 100%)!important;clip-path:polygon(0 0,100% 1%,100% 100%,21% 100%)!important}.lSSlideOuter{direction:ltr}footer .Contact_us ul li i{margin-right:0!important;margin-left:1.2rem}footer .bottom_bar .footer_links{display:flex}footer .bottom_bar .footer_links a{margin-right:0!important;margin-left:2rem}@media (max-width:992px){#about_us .about_us_carousel{-webkit-clip-path:none!important}}@media (max-width:575px){.our_team .our_team_text{text-align:center!important}}.all_lawyer_view .all_lawyer_view_list .lawyer_info,.user_booking_data .session_detail h5{text-align:right!important}@media (max-width:767px){.user_booking_data .session_detail h5{text-align:center!important}}.booking .accordion .card .card-header i,.user_profile .session_detail .payment-info i{transform:rotate(180deg)}.lawyer_details .lawyer_price .lawyer_price_content{border-left:1px solid #d5d5d5;border-right:0!important}.user_profile .user_profile_tabs .card-header .nav .nav-item .nav-link{text-align:right!important}.user_profile .user_profile_tabs .card-header .nav .nav-item .nav-link.active:hover{border-right-color:#51d3c3!important;border-left-color:0!important}.user_profile .user_profile_tabs .card-header .nav .nav-item .nav-link.active{border-left:0!important;border-right:5px solid #51d3c3!important}#login_page .login_page_slider{right:0!important;left:auto!important}
+button.close {
+    margin-right: 14.5em !important;
+}
+div.modal-footer button {
+    margin: 4px !important;
+}
+
+.text-md-left {
+    text-align: right !important;
+}
+#characters {
+    margin-right: 5%!important;
+    margin-left:0!important;
+}
+
+#show-pass {
+    right: 94%!important;
+}

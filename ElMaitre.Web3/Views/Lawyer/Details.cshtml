@@ -1,0 +1,355 @@
+﻿@model ElMaitre.Web.ViewModels.BaseViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@{
+	ViewData["Title"] = Localizer["title"];
+}
+<script>
+	$("header").removeClass("navbar-dark");
+	$("#menu_navbar").addClass("shadow");
+	$("#top_bar").addClass("shadow-sm");
+
+	$(document).ready(function () {
+		$('body').scrollspy({
+			target: '#test .navbar',
+			offset: 180
+		});
+
+		$('#test .nav-link').on('click', function () {
+			var clickedItem = $(this).attr('href');
+			$('html, body').animate({
+				scrollTop: $(clickedItem).offset().top - 170
+			}, 600);
+		});
+
+	});
+</script>
+<style>
+
+	.cd-auto-hide-header {
+		background-color: #ffffff
+	}
+	ul {
+		padding:0px !important;
+	}
+	.inner_tabs .nav-item .nav-link{
+		padding: 15px 43px;
+	}
+</style>
+<section id="header_image_inner">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="main-ttl inner_pages_ttl text-center my-4 py-3">
+					<h2>@Localizer["HowLawyerWork"]</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+@Html.Partial("~/Views/Shared/UserNotification.cshtml")
+<div class="inner_pages">
+	@*<section class="filter">
+			<div class="container">
+				<div class="row py-4">
+					<div class="col-md-12">
+						<div class="input-group rounded shadow">
+							<input type="text" class="form-control" placeholder="Name of lawyer" aria-label="Recipient's username" aria-describedby="basic-addon2">
+							<select class="custom-select" id="inputGroupSelect01">
+								<option selected>@Localizer["HowLawyerWork"]Name of specialization...</option>
+								<option value="1">One</option>
+								<option value="2">Two</option>
+								<option value="3">Three</option>
+							</select>
+							<div class="input-group-append">
+								<button class="btn btn-primary" type="button">Search</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>*@
+	<section class="lawyer_details">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-7  mb-4">
+					<div class="card shadow">
+						<div class="row d-flex align-items-center profile-content p-3">
+							<div class="col-sm-4  pd-10">
+								<img class="shadow card-img-top rounded-circle" data-bind="attr:{src:profileImg}" alt="Card image cap">
+							</div>
+							<div class="col-sm-8">
+								@{
+									var name = Model.IsLtr ? "nameEn" : "name";
+									var specialization = Model.IsLtr ? "specializationEn" : "specialization";
+									<h5 data-bind="text: @name"> </h5>
+									<h5><small data-bind="text: @specialization"></small></h5>
+								}
+								<ul class="rating p-0 mb-2" data-bind="foreach: rates">
+									<li class="fas fa-star" data-bind="css: name"></li>
+								</ul>
+							</div>
+						</div>
+						<div class="row my-4 mx-0">
+							<div class="col-md-12" style="padding:0px">
+								<div id="test" data-spy="scroll" data-target="#navbarNav">
+									<nav class="navbar navbar-expand-md p-0 inner_tabs">
+										<div class="" id="navbarNav">
+											<ul class="navbar-nav nav-pills mb-4" id="homenav">
+												<li class="nav-item ">
+													<a id="ss" class="nav-link active" href="#about">@Localizer["About"] <span class="sr-only">(current)</span></a>
+												</li>
+												<li class="nav-item">
+													<a class="nav-link" href="#services">@Localizer["Services"]</a>
+												</li>
+												<li class="nav-item">
+													<a class="nav-link" href="#review">@Localizer["Review"]</a>
+												</li>
+												<li class="nav-item">
+													<a class="nav-link" href="#video">@Localizer["Video"]</a>
+												</li>
+
+											</ul>
+										</div>
+									</nav>
+									@{
+										var n = Model.IsLtr ? "nameEn" : "name";
+										var cert = Model.IsLtr ? "certificatesEn" : "certificates";
+										var desc = Model.IsLtr ? "descriptionEn" : "description";
+									}
+									<div id="about" class="pt-4" style="min-height:300px; margin:15px;">
+										<div class="Primary_ttl">
+											<h3 class="Primary_ttl_h font-weight-bold">@Localizer["About"]</h3>
+										</div>
+										<h5>
+											@Localizer["About"]&nbsp;<span data-bind="text: @n"></span>
+										</h5>
+										<p data-bind="text: @desc"></p>
+										<h5>
+											@Localizer["Certificates"]
+										</h5>
+										<p data-bind="text: @cert">
+										</p>
+									</div>
+									@{
+										var p = Model.IsLtr ? "NameEn" : "Name";
+										var t = Model.IsLtr ? "TitleEn" : "Title";
+									}
+									<div id="services" class="pt-45" style="min-height:300px">
+										<div class="Primary_ttl">
+											<h3 class="Primary_ttl_h font-weight-bold">@Localizer["Services"]</h3>
+										</div>
+										<ul  data-bind="foreach: services" style="margin-right: 35px;">
+											<li data-bind="text: @t"></li>
+										</ul>
+
+									</div>
+									<div id="review" class="pt-4">
+										<div id="reviews" class="mb-4" style="min-height:300px">
+											<div class="Primary_ttl">
+												<h3 class="Primary_ttl_h font-weight-bold">@Localizer["Review"]</h3>
+											</div>
+											<ol class="commentlist clearfix" data-bind="foreach: reviews">
+												<li class="comment even thread-even depth-1" id="li-comment-1">
+													<div class="comment-wrap  d-flex">
+														<div class="comment-meta">
+															<div class="comment-author">
+																<span class="comment-avatar">
+																	<img alt="" src="http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=60"
+																		 height="60" width="60">
+																</span>
+															</div>
+														</div>
+
+
+														<div class="comment-content ml-3">
+															<div class="d-flex align-items-center justify-content-between">
+																<h5 class="comment-author" data-bind="text: @p"></h5>
+																<ul class="rating p-0 m-0">
+																	<li class="fas fa-star mt-0" data-bind="css: Rate > 0? 'active' : ''"></li>
+																	<li class="fas fa-star mt-0" data-bind="css: Rate > 1? 'active' : ''"></li>
+																	<li class="fas fa-star mt-0" data-bind="css: Rate > 2? 'active' : ''"></li>
+																	<li class="fas fa-star mt-0" data-bind="css: Rate > 3? 'active' : ''"></li>
+																	<li class="fas fa-star mt-0" data-bind="css: Rate > 4? 'active' : ''"></li>
+																</ul>
+															</div>
+															<p data-bind="text: Title"></p>
+														</div>
+													</div>
+												</li>
+											</ol>
+										</div>
+									</div>
+
+								</div>
+
+							</div>
+						</div>
+					</div>
+					@*<div id="video" class="card shadow p-4 mt-3">
+							<video width="100%" height="240" controls>
+								<source src="movie.mp4" type="video/mp4">
+								<source src="movie.ogg" type="video/ogg">
+								Your browser does not support the video tag.
+							</video>
+						</div>*@
+					<div id="video" class="card shadow p-4 mt-3">
+						<div data-bind="html: $root.embed"></div>
+					</div>
+
+				</div>
+				<div class="col-lg-5  mb-4">
+					<div class="profileCalander">
+						<div class="card shadow p-4">
+							<div class="row lawyer_price mx-0">
+								@*<div class="col-md-6 d-flex align-items-center lawyer_price_content">
+										<i class="far fa-clock"></i>
+										<p class="mb-0 price_time ml-2">@Localizer["45Minute"]</p>
+										<h6 class="mb-0 price_price ml-2"><span data-bind="text: fees60"></span> @Localizer["EGP"]</h6>
+									</div>
+									<div class="col-md-6 d-flex align-items-center lawyer_price_content">
+										<i class="far fa-clock"></i>
+										<p class="mb-0 price_time ml-2">@Localizer["30Minute"]</p>
+										<h6 class="mb-0 price_price ml-2"><span data-bind="text: fees"></span> @Localizer["EGP"]</h6>
+									</div>*@
+								<div class="col-md-12 d-flex align-items-center lawyer_price_content">
+
+									<div class=" price_time  m-auto">
+										<i class="far fa-clock"></i>
+										@Localizer["30Minute"]
+									</div>
+								</div>
+							</div>
+							<div class="all_lawyer_view">
+								<div class="card all_lawyer_view_list p-3 mb-3">
+									<div class="row">
+										<div class="col-md-12">
+											<div id="carouselExampleControls" class="carousel slide px-3" data-ride="carousel">
+												<div class="carousel-inner" data-bind="foreach: appointments">
+													<div class="carousel-item" data-bind="css: $index()=== 0? 'active' : ''">
+														<div class="card-group book_days">
+															<div class="card">
+																<div class="card-header">
+																	<span data-bind="text: dateTxt"></span>
+																</div>
+																<div class="card-body">
+																	<ul class="book_time" data-bind="foreach: times">
+																		<li><a data-bind="text: timeFrom, click: function() {$root.book($parents[0],$data)}"></a></li>
+																	</ul>
+																</div>
+																<div class="card-footer">
+																	<a href="#">@Localizer["BOOK"]</a>
+																</div>
+															</div>
+															@*<div class="card">
+																	<div class="card-header">
+																		Tomorrow
+																	</div>
+																	<div class="card-body">
+																		<ul class="book_time">
+																			<li><a>12:00 AM</a></li>
+																			<li><a>06:00 AM</a></li>
+																			<li><a>06:00 pM</a></li>
+																			<li><a>06:00 PM</a></li>
+																			<li><a>06:00 PM</a></li>
+																			<li><a>06:00 PM</a></li>
+																		</ul>
+																	</div>
+																	<div class="card-footer">
+																		<a href="#">BOOK</a>
+																	</div>
+																</div>*@
+														</div>
+													</div>
+												</div>
+												<a class="carousel-control-prev" data-bind="attr: {'href': '#carouselExampleControls'}" role="button" data-slide="prev">
+													<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+													<span class="sr-only">@Localizer["Previous"]</span>
+												</a>
+												<a class="carousel-control-next" data-bind="attr: {'href': '#carouselExampleControls'}" role="button" data-slide="next">
+													<span class="carousel-control-next-icon" aria-hidden="true"></span>
+													<span class="sr-only">@Localizer["Next"]</span>
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class=" mx-0 mt-4 lawyer-services" data-bind="foreach: services">
+								<div class="d-flex align-items-center justify-content-between mb-2">
+									<div class="d-flex align-items-center">
+										<i class="fas fa-clipboard-check"></i>
+										<p class="mb-0 ml-2 font-weight-bold" data-bind="text: Title"></p>
+										<h6 class="mb-0 price_price ml-2" style="display:none"><span data-bind="text: Price"></span> @Localizer["EGP"]</h6>
+									</div>
+									<button href="#" class="button button-sm" data-bind="click: $root.bookService">
+										<span>@Localizer["Request"]</span>
+									</button>
+								</div>
+							</div>
+							<!-- Responsive calendar - START -->
+							@*<div class="responsive-calendar">
+									<div class="controls">
+										<a class="float-left" data-go="prev">
+											<div class="d-inline"><i class="fas fa-chevron-left"></i></div>
+										</a>
+										<h4><span data-head-year></span> <span data-head-month></span></h4>
+										<a class="float-right" data-go="next">
+											<div class="d-inline"><i class="fas fa-angle-right"></i></div>
+										</a>
+									</div>
+									<div class="day-headers">
+										<div class="day header">Mon</div>
+										<div class="day header">Tue</div>
+										<div class="day header">Wed</div>
+										<div class="day header">Thu</div>
+										<div class="day header">Fri</div>
+										<div class="day header">Sat</div>
+										<div class="day header">Sun</div>
+									</div>
+									<div class="days" data-group="days">
+
+									</div>
+								</div>*@
+							<!-- Responsive calendar - END -->
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	</section>
+	@*Modal times*@
+	<div class="modal" tabindex="-1" role="dialog" id="myModal">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">@Localizer["ReservationTime"]</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<select class="custom-select"
+							data-bind="options: times,
+									optionsText: 'time',
+									optionsValue :'id',
+									value: selectedTime.id,
+									optionsCaption: '@Localizer["ReservationTime"]'"></select>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-bind="click: Reserve">@Localizer["Reserve"]</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">@Localizer["Close"]</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+@*<script src="~/js/sticky-header.js"></script>
+	<script src="~/js/responsive-calendar.min.js"></script>*@
+<script src="~/app/lawyerDetails.js?id=2"></script>
+
+
+

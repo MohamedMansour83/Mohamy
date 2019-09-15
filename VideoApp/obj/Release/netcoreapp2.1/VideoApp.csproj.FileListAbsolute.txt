@@ -1,0 +1,14 @@
+D:\28-08-19\f\ElMaitre\VideoApp\bin\Release\netcoreapp2.1\VideoApp.deps.json
+D:\28-08-19\f\ElMaitre\VideoApp\bin\Release\netcoreapp2.1\VideoApp.runtimeconfig.json
+D:\28-08-19\f\ElMaitre\VideoApp\bin\Release\netcoreapp2.1\VideoApp.runtimeconfig.dev.json
+D:\28-08-19\f\ElMaitre\VideoApp\bin\Release\netcoreapp2.1\VideoApp.dll
+D:\28-08-19\f\ElMaitre\VideoApp\bin\Release\netcoreapp2.1\VideoApp.pdb
+D:\28-08-19\f\ElMaitre\VideoApp\obj\Release\netcoreapp2.1\VideoApp.csprojAssemblyReference.cache
+D:\28-08-19\f\ElMaitre\VideoApp\obj\Release\netcoreapp2.1\VideoApp.csproj.CoreCompileInputs.cache
+D:\28-08-19\f\ElMaitre\VideoApp\obj\Release\netcoreapp2.1\VideoApp.RazorAssemblyInfo.cache
+D:\28-08-19\f\ElMaitre\VideoApp\obj\Release\netcoreapp2.1\VideoApp.RazorAssemblyInfo.cs
+D:\28-08-19\f\ElMaitre\VideoApp\obj\Release\netcoreapp2.1\VideoApp.AssemblyInfoInputs.cache
+D:\28-08-19\f\ElMaitre\VideoApp\obj\Release\netcoreapp2.1\VideoApp.AssemblyInfo.cs
+D:\28-08-19\f\ElMaitre\VideoApp\obj\Release\netcoreapp2.1\VideoApp.RazorTargetAssemblyInfo.cache
+D:\28-08-19\f\ElMaitre\VideoApp\obj\Release\netcoreapp2.1\VideoApp.dll
+D:\28-08-19\f\ElMaitre\VideoApp\obj\Release\netcoreapp2.1\VideoApp.pdb

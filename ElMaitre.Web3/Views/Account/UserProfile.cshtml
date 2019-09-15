@@ -1,0 +1,314 @@
+﻿@model ElMaitre.Web.ViewModels.ProfileViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Newtonsoft.Json
+@using Newtonsoft.Json.Serialization
+@inject IViewLocalizer Localizer
+@{
+	ViewData["Title"] = Localizer["Profile"];
+}
+
+<script>
+	$("header").removeClass("navbar-dark");
+	$("#menu_navbar").addClass("shadow");
+	$("#top_bar").addClass("shadow-sm");
+</script>
+<style>
+
+	.cd-auto-hide-header {
+		background-color: #ffffff
+	}
+</style>
+<section id="header_image_inner">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="main-ttl inner_pages_ttl text-center my-4 py-3">
+					<h2>@Localizer["HowLawyerWork"]</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+@Html.Partial("~/Views/Shared/UserNotification.cshtml")
+<div class="inner_pages">
+	<section class="user_profile">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4 my-4">
+					<div class="card shadow user_profile_image px-3 py-4">
+						<img id="img-profile" class="shadow card-img-top rounded-circle" data-bind="attr:{src:ProfileImg}" style="height: 180px;" />
+						@*<a id="img-upload" href="#" style="font-size: 20px;color: black;position: absolute;right: 24%;"><i class="fas fa-camera"></i></a>
+							<input id="file-profile" style="display:none" type="file" data-bind="event: { change: function() { uploadImageProfile($element.files[0]) } }" />
+						*@
+						@{
+							var username = Model.IsLtr ? "NameEn" : "Name";
+							<h4 class="font-weight-bold" data-bind="text: @username"></h4>
+						}
+						<p class="m-0"><i class="far fa-envelope mr-2"></i><span data-bind="text: Email"></span></p>
+						<p class="m-0 mt-2"><i class="far fa-calendar-alt mr-2"></i><span data-bind="text: Age"></span>&nbsp;@Localizer["years"]</p>
+						<div class="card user_profile_tabs">
+							<div class="card-header">
+								<ul class="nav nav-tabs card-header-tabs" id="outerTab" role="tablist">
+									<li class="nav-item">
+										<a class="nav-link active" data-toggle="tab" href="#tabc" aria-controls="tabc" role="tab" aria-expanded="true"><i class="fas fa-calendar-alt mx-3"></i>@Localizer["Reservations"]</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" data-toggle="tab" href="#tabb" aria-controls="tabb" role="tab"><i class="fas fa-cogs mx-3"></i>@Localizer["Settings"]</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" data-toggle="tab" href="#tab-documents" aria-controls="tab-documents" role="tab"><i class="far fa-file-alt mx-3"></i>@Localizer["Documents"]</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" data-toggle="tab" href="#taba" aria-controls="taba" role="tab"><i class="fas fa-microphone mx-3"></i>@Localizer["Systemtest"]</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-8 my-4">
+					<div class="card shadow">
+						<div class="row py-3 mx-0 h-100">
+							<div class="col-md-12">
+								<div class="tab-content">
+									<div class="tab-pane active" id="tabc" role="tabpanel">
+										<div class="card mb-2" data-bind="foreach: Sessions">
+											<div class="row user_booking_data mx-0 d-flex align-items-center py-3">
+												<div class="col-md-3 text-center">
+													<div class="lawyer_image">
+														<img class="shadow card-img-top rounded-circle" src="/images/personal-img.jpg" alt="Card image cap">
+													</div>
+												</div>
+												<div class="col-md-9">
+
+													<div class="row">
+														<div class="col-md-10">
+															<div class="session_detail">
+																@{
+																	var lName = Model.IsLtr ? "Appointment.LawyerNameEn" : "Appointment.LawyerName";
+																	<h5 class="text-center text-md-left mt-3 mt-md-0"><strong data-bind="text: @lName"></strong></h5>
+																}
+																<div class="payment-info d-flex align-items-center justify-content-center justify-content-md-start">
+																	<p>
+																		<i class="far fa-calendar-alt mr-2"></i>
+																	</p><p data-bind="text: Appointment.DateTxt">
+																	</p>
+																</div>
+																<div class="payment-info d-flex align-items-center  justify-content-center justify-content-md-start">
+																	<i class="far fa-calendar mr-2"></i>
+																	<p>
+																		@Localizer["From"] &nbsp;<strong data-bind="text: Appointment.TimeFrom"></strong>&nbsp;@Localizer["To"]&nbsp;<strong data-bind="text: Appointment.TimeTo"></strong>
+																	</p>
+																</div>
+																<div class="payment-info d-flex align-items-center  justify-content-center justify-content-md-start">
+																	<i class="far fa-clock mr-2"></i>
+																	<p>@Localizer["SessionDuration"] <label class="label label-success">&nbsp;<span data-bind="text: Duration"></span>&nbsp; @Localizer["Mins"] </label></p>
+																</div>
+															</div>
+														</div>
+														<div class="col-md-2">
+															<div class="col-md-2">
+																<span data-bind="click: $parent.openSession"><i class="fas fa-sign-in-alt" style="font-size: 48px; cursor:pointer"></i></span>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="tab-pane" id="tabb" role="tabpanel">
+										<div class="inner_tabs">
+											<ul class="nav nav-tabs" id="myTab" role="tablist">
+												<li class="nav-item">
+													<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">@Localizer["Personalinformation"]</a>
+												</li>
+												<li class="nav-item">
+													<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">@Localizer["Changpassword"]</a>
+												</li>
+											</ul>
+										</div>
+										<div class="tab-content p-3" id="myTabContent">
+											<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+												<form class="">
+													<div class="form-group">
+														<label for="exampleFormControlInput1">@Localizer["Name"]</label>
+														<input type="text" class="form-control" id="exampleFormControlInput1" data-bind="value: Name">
+													</div>
+													<div class="form-group">
+														<label for="exampleFormControlInput1">@Localizer["NameEn"]</label>
+														<input type="text" class="form-control" id="exampleFormControlInput1" data-bind="value: NameEn">
+													</div>
+													<div class="form-group">
+														<label for="datepicker">@Localizer["Date"]</label>
+														<input type="text" id="datepicker" class="form-control hasDatepicker" data-bind="value: DateOfBirth">
+													</div>
+													<div class="form-group">
+														<label for="province">@Localizer["Province"]</label>
+														@{
+															var prop2 = Model.IsLtr ? "'ValueEn'" : "'Value'";
+															<select class="custom-select" id="province"
+																	data-bind="options: Provinces,
+																optionsText: @prop2,
+																optionsValue :'Id',
+																value: ProvinceId,
+																optionsCaption: '@Localizer["ProvinceCaption"]'"></select>
+														}
+													</div>
+													<div class="form-group">
+														<label for="phone-number">@Localizer["Phone"]</label>
+														<input type="text" id="phone-number" class="form-control" data-bind="value: PhoneNumber" />
+													</div>
+													<div class="form-group">
+														<label for="customRadioInline1">@Localizer["Gender"]</label>
+														<div class="">
+															<div class="custom-control custom-radio custom-control-inline">
+																<input type="radio" id="customRadioInline3" name="customRadioInline3" class="custom-control-input" data-bind="checked: Gender, checkedValue: 0">
+																<label class="custom-control-label" for="customRadioInline3">@Localizer["Male"]</label>
+															</div>
+															<div class="custom-control custom-radio custom-control-inline">
+																<input type="radio" id="customRadioInline4" name="customRadioInline3" class="custom-control-input" data-bind="checked: Gender, checkedValue: 1">
+																<label class="custom-control-label" for="customRadioInline4">@Localizer["Female"]</label>
+															</div>
+														</div>
+													</div>
+													<button href="#" class="button  button-reveal w-100" data-bind="click: SaveSetting">
+														<i class="fas fa-check"></i>
+														<span>@Localizer["Save"]</span>
+													</button>
+												</form>
+											</div>
+											<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+												<form class="">
+													<div class="form-group">
+														<label for="password">@Localizer["Currentpassword"]</label>
+														<input type="password" class="form-control" id="currentpassword" data-bind="value: ChangePasswordModel.OldPassword">
+													</div>
+													<div class="form-group">
+														<label for="password">@Localizer["Newpassword"]</label>
+														<input type="password" class="form-control" id="newpassword" data-bind="value: ChangePasswordModel.Password">
+													</div>
+													<div class="form-group">
+														<label for="cpassword">@Localizer["Confirmpassword"]</label>
+														<input type="password" class="form-control" id="cpassword" data-bind="value: ChangePasswordModel.ConfirmPassword">
+													</div>
+													<button href="#" class="button  button-reveal w-100" data-bind="click: ChangePassword">
+														<i class="fas fa-check"></i>
+														<span>@Localizer["Save"]</span>
+													</button>
+												</form>
+											</div>
+										</div>
+									</div>
+									<div class="tab-pane" id="taba" role="tabpanel">
+										<div class="row system-feature-box my-4 mx-0">
+											<div class="col-md-4">
+												<div class="feature-box fbox-center fbox-border fbox-dark fbox-effect noborder">
+													<div class="fbox-icon">
+														<a href="#"><i class="fas fa-video"></i></a>
+													</div>
+													<h6>@Localizer["TestCamera"]</h6>
+													<button href="#" class="button  button-reveal">
+														<i class="fas fa-video"></i>
+														<span>@Localizer["Test"]</span>
+													</button>
+												</div>
+											</div>
+											<div class="col-md-4">
+												<div class="feature-box fbox-center fbox-border fbox-dark fbox-effect noborder">
+													<div class="fbox-icon">
+														<a href="#"><i class="fas fa-microphone"></i></a>
+													</div>
+													<h6>@Localizer["TestMicrophone"]</h6>
+													<button href="#" class="button  button-reveal">
+														<i class="fas fa-microphone"></i>
+														<span>@Localizer["Test"]</span>
+													</button>
+												</div>
+											</div>
+											<div class="col-md-4">
+												<div class="feature-box fbox-center fbox-border fbox-dark fbox-effect noborder">
+													<div class="fbox-icon">
+														<a href="#"><i class="fas fa-volume-up"></i></a>
+													</div>
+													<h6>@Localizer["TestSound"]</h6>
+													<button href="#" class="button  button-reveal">
+														<i class="fas fa-volume-up"></i>
+														<span>@Localizer["Test"]</span>
+													</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="tab-pane" id="tab-documents" role="tabpanel">
+										<div class="inner_tabs">
+											<ul class="nav nav-tabs" id="myTab" role="tablist">
+												<li class="nav-item">
+													<a class="nav-link active" id="sent-tab" data-toggle="tab" href="#sent" role="tab" aria-controls="sent" aria-selected="true">@Localizer["Sent"]</a>
+												</li>
+												<li class="nav-item">
+													<a class="nav-link" id="received-tab" data-toggle="tab" href="#received" role="tab" aria-controls="received" aria-selected="false">@Localizer["Received"]</a>
+												</li>
+											</ul>
+										</div>
+										<div class="tab-content p-3" id="myTabContent">
+											<div class="tab-pane fade show active" id="sent" role="tabpanel" aria-labelledby="sent-tab">
+												<dv class="row" data-bind="foreach: Documents">
+													<div class="row col-12" style="padding:10px">
+														<div class="col-2">
+															<i class="far fa-file-alt" style="font-size: x-large;"></i>
+														</div>
+														<div class="col-6" data-bind="text: Name">
+														</div>
+														<div class="col-3" data-bind="text: Date">
+														</div>
+														<div class="col-1">
+															<a data-bind="attr:{href:Path}" download><i class="fas fa-download"></i></a>
+														</div>
+													</div>
+												</dv>
+											</div>
+											<div class="tab-pane fade" id="received" role="tabpanel" aria-labelledby="received-tab">
+												<dv class="row" data-bind="foreach: Documents">
+													<div class="row col-12" style="padding:10px">
+														<div class="col-2">
+															<i class="far fa-file-alt" style="font-size: x-large;"></i>
+														</div>
+														<div class="col-6" data-bind="text: Name">
+														</div>
+														<div class="col-3" data-bind="text: Date">
+														</div>
+														<div class="col-1">
+															<a data-bind="attr:{href:Path}" download><i class="fas fa-download"></i></a>
+														</div>
+													</div>
+												</dv>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>
+@Html.Hidden("saveMsg", Localizer["saveMsg"].Value)
+<script src="~/app/user-profile.js?id=1"></script>
+<script type="text/javascript">
+    debugger
+
+        var data = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.User));
+
+        var viewmodel = new UserProfileViewModel();
+        viewmodel.init(data);
+        ko.applyBindings(viewmodel, document.getElementById('bdy'));
+
+
+    $(document).ready(function () {
+        $("#img-upload").click(function () {
+            $("#file-profile").trigger('click');
+        })
+    })
+</script>

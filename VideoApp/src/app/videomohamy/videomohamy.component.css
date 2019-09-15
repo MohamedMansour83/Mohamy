@@ -1,0 +1,47 @@
+.end-metting {
+  position: absolute;
+  top: 80px;
+  right: 10px;
+}
+.align-items-center {
+  align-items: center !important;
+}
+.d-flex {
+  display: flex !important;
+}
+.end-metting p {
+  color: #fff;
+}
+.mb-0, .my-0 {
+  margin-bottom: 0 !important;
+}
+@media (min-width: 768px) .d-md-block {
+  display: block!important;
+}
+.end-metting .btn {
+  height: 60px;
+  border-radius: 30px;
+  width: 60px;
+  background: #eb2c2c;
+  padding: 0 .5rem .2rem;
+  color: #fff;
+  border: 0;
+}
+.btn {
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: .25rem;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.fa, .fas {
+  font-weight: 900;
+}
+.fa, .far, .fas {
+  font-family: "Font Awesome 5 Free";
+}

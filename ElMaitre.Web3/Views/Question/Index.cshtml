@@ -1,0 +1,142 @@
+﻿@model ElMaitre.Web.ViewModels.BaseViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@{
+    ViewData["Title"] = Localizer["title"];
+}
+<script>
+    $("header").removeClass("navbar-dark");
+    $("#menu_navbar").addClass("shadow");
+    $("#top_bar").addClass("shadow-sm");
+</script>
+<style>
+
+    .cd-auto-hide-header {
+        background-color: #ffffff
+    }
+    a.active, a.active:hover {
+        color: #3a4e61 !important;
+    }
+    
+</style>
+<section id="header_image_inner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="main-ttl inner_pages_ttl text-center my-4 py-3">
+                    <h2>@Localizer["title"]</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="inner_pages">
+    <section class="questions">
+        <div class="container">
+            <div class="row py-4">
+                <div class="col-md-12 mb-4">
+                    <div class="inner_tabs">
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">@Localizer["Allquestions"]</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">@Localizer["myanswers"]</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"  aria-selected="false">@Localizer["Non-answeredquestions"]</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card shadow">
+                        <div class="tab-content p-3" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <section class="filter mb-3">
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-6">
+                                            <div class="input-group rounded shadow">
+                                                @{
+                                                    var prop = Model.IsLtr ? "'valueEn'" : "'value'";
+                                                    <select class="custom-select" id="select-category"
+                                                            data-bind="options: categories,
+                                            optionsText: @prop,
+                                            optionsValue :'id',
+                                            value: filterModel.categoryId,
+                                            optionsCaption: '@Localizer["Category"]'"></select>
+                                                }
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-primary" type="button" data-bind="click: search">@Localizer["Search"]</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                                <div class="question_card p-3 mb-3" data-bind="foreach: questions">
+                                    <div class="user_question d-flex align-items-center mb-3">
+                                        <img class="mr-2 shadow card-img-top rounded-circle" data-bind="attr:{src:profileImg}" alt="Card image cap" height="60">
+                                        <h5 class="mr-1" data-bind="text: userName"></h5>:
+                                        <p data-bind="text: title"></p>
+                                    </div>
+                                    <form class="text-right" data-bind="ifnot: isAnswered">
+                                        <textarea class="form-control" rows="3" placeholder="@Localizer["Reply"]" data-bind="value: answer, attr: { id: 'txt-quest'+id }"></textarea>
+                                        <button href="#" class="button" data-bind="click: $root.reply">
+                                            <i class="fa fa-refresh fa-spin mr-1 d-none"></i>
+                                            <span>@Localizer["Send"]</span>
+                                        </button>
+                                    </form>
+                                    <div class="question_card p-3 mb-3" data-bind="foreach: answers">
+                                        <div style="padding-left:70px" class="user_question d-flex align-items-center mb-3">
+                                            <img class="mr-2 shadow card-img-top rounded-circle" data-bind="attr:{src:profileImg}" alt="Card image cap" height="50">
+                                            <h8 class="mr-1" data-bind="text: userName"></h8>:
+                                            <p data-bind="text: title" style="font-size:medium"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                <div class="question_card p-3 mb-3" data-bind="foreach: questions">
+                                    <div class="user_question d-flex align-items-center mb-3">
+                                        <img class="mr-2 shadow card-img-top rounded-circle" data-bind="attr:{src:profileImg}" alt="Card image cap" height="60">
+                                        <h5 class="mr-1" data-bind="text: userName"></h5>:
+                                        <p data-bind="text: title"></p>
+                                    </div>
+                                    <div class="question_card p-3 mb-3" data-bind="foreach: answers">
+                                        <div style="padding-left:70px" class="user_question d-flex align-items-center mb-3">
+                                            <img class="mr-2 shadow card-img-top rounded-circle" data-bind="attr:{src:profileImg}" alt="Card image cap" height="50">
+                                            <h8 class="mr-1" data-bind="text: userName"></h8>:
+                                            <p data-bind="text: title" style="font-size:small"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                                <div class="question_card p-3 mb-3" data-bind="foreach: questions">
+                                    <div class="user_question d-flex align-items-center mb-3">
+                                        <img class="mr-2 shadow card-img-top rounded-circle" data-bind="attr:{src:profileImg}" alt="Card image cap" height="60">
+                                        <h5 class="mr-1" data-bind="text: userName"></h5>:
+                                        <p data-bind="text: title"></p>
+                                    </div>
+                                    <form class="text-right" data-bind="ifnot: isAnswered">
+                                        <textarea class="form-control" rows="3" placeholder="@Localizer["Reply"]" data-bind="value: answer, attr: { id: 'txt-unanswer-quest'+id }"></textarea>
+                                        <button href="#" class="button" data-bind="click: $root.reply">
+                                            <i class="fa fa-refresh fa-spin mr-1 d-none"></i>
+                                            <span>@Localizer["Send"]</span>
+                                        </button>
+                                    </form>
+                                    <div class="question_card p-3 mb-3" data-bind="foreach: answers">
+                                        <div style="padding-left:70px" class="user_question d-flex align-items-center mb-3">
+                                            <img class="mr-2 shadow card-img-top rounded-circle" data-bind="attr:{src:profileImg}" alt="Card image cap" height="50">
+                                            <h8 class="mr-1" data-bind="text: userName"></h8>:
+                                            <p data-bind="text: title" style="font-size:medium"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<script src="~/app/questions.js?id=1"></script>

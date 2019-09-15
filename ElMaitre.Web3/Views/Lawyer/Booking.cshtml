@@ -1,0 +1,398 @@
+﻿@model ElMaitre.Web.ViewModels.BaseViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@{
+    ViewData["Title"] = Localizer["title"];
+}
+<script>
+    $("header").removeClass("navbar-dark");
+    $("#menu_navbar").addClass("shadow");
+    $("#top_bar").addClass("shadow-sm");
+</script>
+<script type="text/javascript">
+    function getCookie(name) {
+        let cookie = {};
+        document.cookie.split(';').forEach(function (el) {
+            let [k, v] = el.split('=');
+            cookie[k.trim()] = v;
+        })
+        return cookie[name];
+    }
+    function AjaxBegin() {
+        if (getCookie('token') === undefined) {
+            alert('تحتاج إلى تسجيل الدخول أولا');
+            return false;
+        }
+        var $form = $('form').first();
+        var result = $form.valid();
+        if (result == true) {
+            //$('#err_Desc').html('<img src="/Images/1.png" />' + '&nbsp;&nbsp;' + '<img src="/Images/ellipsis.gif" />')
+            //    .css({ 'background-color': '#171B21', 'padding': '10px' }).fadeIn(400);
+            //$('#sumbitBtn').attr('disbaled', true);
+            //alert('loading');
+            $('#cover-spin').show(0);
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    function AjaxComplete(response) {
+         // console.log(response);
+        //alert('loaded');
+        if (response.responseJSON.ptype == 1) {
+            location.href = 'http://accept.paymobsolutions.com/api/acceptance/iframes/7127?payment_token='
+                + response.responseJSON.token;
+        }
+        else {
+            //location.href = 'http://accept.paymobsolutions.com/api/acceptance/iframes/7126?payment_token='
+            //    + response.responseJSON.token;
+            location.href = response.responseJSON.redirect_url;
+        }
+ 
+    }
+    function navigateToVideoApp(sessionId) {
+        localStorage.removeItem('sessionId');
+        localStorage.setItem('sessionId', sessionId);
+        eraseCookie('sessioncookie');
+        setCookie('sessioncookie', sessionId, 21);
+        window.location.href = 'http://s3-us-west-2.amazonaws.com/video.mohamy.co/app1/index.html';
+        //window.location.href = 'http://localhost:4200';
+    }
+    function setCookie(name, value, days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    }
+    function getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+    function eraseCookie(name) {
+        document.cookie = name + '=; Max-Age=-99999999;';
+    }
+</script>
+<style>
+
+    .cd-auto-hide-header {
+        background-color: #ffffff
+    }
+</style>
+
+@{
+    Microsoft.Extensions.Primitives.StringValues queryVal;
+    if (Context.Request.Query.TryGetValue("amount_cents", out queryVal))
+    {
+    }
+}
+@if (queryVal.FirstOrDefault() != null)
+{
+    var val = double.Parse(queryVal.FirstOrDefault()) / 100;
+    <p id="sessionId" hidden>@Model.Session.Id</p>
+    <div class="inner_pages">
+        <section class="booking">
+            <div class="container">
+                <hr />
+                <div class="row">
+                    <div class="col-md-12 mt-4 ">
+                        <div class="alert alert-success text-center" role="alert">
+
+                        </div>
+                    </div>
+                    @*<div class="modal" tabindex="-1" role="dialog" id="alert">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">@Localizer["Alert"]</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <i class="far fa-check-circle"></i>
+                                    <span id="message">@Localizer["SuccessBookingDesc"]</span>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="ok_btn">@Localizer["OK"]</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>*@
+                    <div class="col-md-12 mt-4 ">
+            <div class="alert alert-success text-center" role="alert">
+                <i class="far fa-check-circle"></i>
+                @Localizer["SuccessBookingDesc"]
+            </div>
+        </div>
+                    <div class="col-md-12  mb-5">
+                        <div class="card shadow text-center p-4">
+                            @Localizer["OneStepRemaining"]
+
+                            <div class="form-group">
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="@Localizer["Message"]" data-bind="value: Note"></textarea>
+                            </div>
+                            <div class="text-center my-2">
+                                <button href="#" class="button  button-reveal w-50" data-bind="click: SendNote">
+                                    <i class="fas fa-check"></i>
+                                    <span>@Localizer["Send"]</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+<script src="~/app/success-booking.js"></script>
+}
+else
+{
+
+    <section id="header_image_inner">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="main-ttl inner_pages_ttl text-center my-4 py-3">
+                        <h2>@Localizer["title"]</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    @Html.Partial("~/Views/Shared/UserNotification.cshtml")
+
+    <div class="inner_pages">
+        <section class="booking">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 my-4 ">
+                        <div class="card shadow">
+                            <div class="p-4">
+                                <div class="Primary_ttl">
+                                    <h4 class="Primary_ttl_h">@Localizer["Bookinginformation"]</h4>
+                                </div>
+                                <div class="row user_booking_data">
+                                    <div class="col-md-3">
+                                        <div class="lawyer_image text-center">
+                                            <img class="shadow card-img-top rounded-circle" src="/images/personal-img.jpg" alt="Card image cap">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="session_detail">
+                                            @{
+                                                var name = Model.IsLtr ? "lawyerNameEn" : "lawyerName";
+                                                <h5 class="text-center text-md-left mt-3 mt-md-0"><strong data-bind="text: @name"></strong></h5>
+                                            }
+                                            <div class="payment-info d-flex align-items-center justify-content-center justify-content-md-start">
+                                                <p>
+                                                    <i class="far fa-calendar-alt mr-2"></i>
+                                                </p><p data-bind="text: dateTxt">
+                                                </p>
+                                            </div>
+                                            <div class="payment-info d-flex align-items-center justify-content-center justify-content-md-start">
+                                                <i class="far fa-calendar mr-2"></i>
+                                                <p>
+                                                    @Localizer["From"] &nbsp;<strong data-bind="text: timeFrom"></strong>&nbsp; @Localizer["To"] &nbsp;<strong data-bind="text: timeTo"></strong>
+                                                </p>
+                                            </div>
+                                            <div class="payment-info d-flex align-items-center justify-content-center justify-content-md-start">
+                                                <i class="far fa-clock mr-2"></i>
+                                                <p>@Localizer["SessionDuration"]<label class="label label-success">&nbsp; @Localizer["45Mins"] </label></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-5">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="Primary_ttl">
+                                                    <h4 class="Primary_ttl_h">@Localizer["PaymentAmount"]</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-7 col-md-8 col-sm-8">
+                                                <p>- @Localizer["PaymentAmount"]</p>
+                                            </div>
+                                            <div class="col-lg-5 col-md-4 col-sm-4 text-right pull-right">
+                                                <p><strong data-bind="text: amount"></strong></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-7 col-md-8 col-sm-8">
+                                                <p>- @Localizer["colgrouponDiscount"]</p>
+                                            </div>
+                                            <div class="col-lg-5 col-md-4 col-sm-4 text-right pull-right">
+                                                <p><strong data-bind="text: discount"></strong></p>
+                                            </div>
+                                        </div>
+                                        <div class="row has-top-border">
+                                            <div class="col-lg-7 col-md-8 col-sm-8">
+                                                <p>- @Localizer["TotalAmountAfterdiscount"]</p>
+                                            </div>
+                                            <div class="col-lg-5 col-md-4 col-sm-4 text-right pull-right">
+                                                <h5 class="main_color"><strong data-bind="text: total"></strong>&nbsp; @Localizer["EGP"]</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 my-4 ">
+                        <div class="card shadow">
+                            <div class="p-4">
+                                <div class="Primary_ttl">
+                                    <h4 class="Primary_ttl_h">@Localizer["Chooseyourpaymentmethod"]</h4>
+                                </div>
+                                <div class="accordion" id="accordion">
+                                    @*<div class="card">
+                                            <div class="card-header d-flex align-items-center justify-content-between" id="headingOne">
+                                                <h5 class="mb-0">
+                                                    <img class="" src="/images/fawry.png" alt="logo">
+                                                    <button data-bind="click: alertBooking" class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                        Fawry
+                                                    </button>
+                                                </h5>
+                                                <i class="fas fa-chevron-right"></i>
+                                            </div>
+                                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                            </div>
+                                        </div>*@
+                                    <div class="card">
+                                        <div class="card-header d-flex align-items-center justify-content-between" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                            <h5 class="mb-0">
+                                                <img src="~/dist/images/cash.png" />
+                                                <button class="btn btn-link collapsed" type="button">
+                                                    @Localizer["Cash"]
+                                                </button>
+                                            </h5>
+                                            <i class="fas fa-chevron-right"></i>
+                                        </div>
+                                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                                            <div class="card-body">
+                                                <form>
+                                                    <div class="form-group">
+                                                        <label class="sr-only" for="inlineFormInputGroupUsername">@Localizer["Username"]</label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <div class="input-group-text"><i class="fas fa-mobile-alt"></i></div>
+                                                            </div>
+                                                            <input type="text" class="form-control" id="inlineFormInputGroupUsername" placeholder=@Localizer["MobileNumber"]>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        @Localizer["description"]
+                                                    </div>
+                                                    <button href="#" class="button  button-reveal w-100">
+                                                        <i class="far fa-money-bill-alt"></i>
+                                                        <span>@Localizer["Checkout"]</span>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header d-flex align-items-center justify-content-between" id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                            <h5 class="mb-0">
+                                                <img src="~/dist/images/credit-card (2).png" />
+                                                <button class="btn btn-link collapsed" type="button">
+                                                    @Localizer["CreditCard"]
+                                                </button>
+                                            </h5>
+                                            <i class="fas fa-chevron-right"></i>
+                                        </div>
+                                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                                            <div class="card-body">
+                                                <button data-bind="click: PayWithCard" class="button  button-reveal w-100">
+                                                    <i class="far fa-credit-card"></i>
+                                                    <span>@Localizer["Checkout"]</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @*old version 16-8-19*@
+                                    @*<div class="card">
+                                            <div class="pricing-price">
+                                                <span>@Localizer["Paywithcard"]</span>
+                                                <span class="price-unit" data-bind="text: amount"></span>
+                                                <hr />
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pay1ModalCenter">
+                                                    @Localizer["Pay"]
+                                                </button>
+
+                                            </div>
+                                        </div>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="modal fade" id="pay1ModalCenter" tabindex="-1" role="dialog" aria-labelledby="pay1ModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="pay1ModalCenterTitle">@Localizer["Pay"]</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @*<div class="modal-body">
+                        ...
+                    </div>*@
+                <div class="modal-footer">
+                    @*<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>*@
+                    <form asp-controller="Lawyer" asp-action="PayAction" data-ajax-begin="AjaxBegin" data-ajax-complete="AjaxComplete" data-ajax="true" data-ajax-method="POST"
+                          asp-route-pType="1" id="frm1" data-ajax-mode="replace" data-ajax-update="#content">
+                        <input type="hidden" value="1" name="type_drp"
+                               id="type_drp" />
+                        <button class="btn btn-secondary" type="submit">
+                            <i class="far fa-money-bill-alt"></i>
+                            بطاقة ائتمان
+                        </button>
+                    </form>
+                    @*<button type="button" class="btn btn-secondary" data-dismiss="modal">بطاقة ائتمان</button>*@
+                    @*<button type="button" class="btn btn-primary">دفع فورى</button>*@
+
+                    <form asp-controller="Lawyer" asp-action="PayAction" asp-route-pType="2" data-ajax-begin="AjaxBegin" data-ajax-complete="AjaxComplete" data-ajax="true" data-ajax-method="POST"data-ajax-mode="replace" id="frm2" data-ajax-update="#content">
+                        <input type="hidden" value="2" name="type_drp"id="type_drp" />
+
+                        @*<select class="form-control" name="type_drp"
+                                    id="type_drp" style="padding:0 !important">
+                                <option data-bind="value: service().PriceLawyer" selected="selected">
+                                    @Localizer["PriceLawyer"]
+                                </option>
+                                <option data-bind="value: service().PriceLevel2Lawyer">@Localizer["PriceLevel2Lawyer"]</option>
+                            </select>*@
+
+                        <button class="btn btn-secondary" type="submit">
+                            <i class="far fa-money-bill-alt"></i>
+                            كاش وانت فى مكانك لأى حد من مندوبينا
+
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @Html.Hidden("alertBooking", @Localizer["alertBooking"].Value)
+    <script src="~/app/lawyerBooking.js?id=1"></script>
+
+}
