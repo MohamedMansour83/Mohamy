@@ -306,3 +306,81 @@
    at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
    at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
    at ElMaitre.Web.Helpers.EmailSender.<Send>d__2.MoveNext() in F:\Freelance\Mohamy\ElMaitre.Web3\Helpers\EmailSender.cs:line 66
+2019-09-16 23:36:12.8815 INFO Failed to send the mail
+2019-09-16 23:36:12.9944 ERROR System.Net.Mail.SmtpException: The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.EndSend(IAsyncResult result)
+   at System.Net.Mail.SendMailAsyncResult.SendMailFromCompleted(IAsyncResult result)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Net.Mail.SendMailAsyncResult.End(IAsyncResult result)
+   at System.Net.Mail.SmtpClient.SendMailCallback(IAsyncResult result)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at ElMaitre.Web.Helpers.EmailSender.<Send>d__2.MoveNext() in F:\Freelance\Mohamy\ElMaitre.Web3\Helpers\EmailSender.cs:line 63
+2019-09-16 23:42:19.6767 INFO Failed to send the mail
+2019-09-16 23:42:19.8237 ERROR System.Net.Mail.SmtpException: The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.EndSend(IAsyncResult result)
+   at System.Net.Mail.SendMailAsyncResult.SendMailFromCompleted(IAsyncResult result)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Net.Mail.SendMailAsyncResult.End(IAsyncResult result)
+   at System.Net.Mail.SmtpClient.SendMailCallback(IAsyncResult result)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at ElMaitre.Web.Helpers.EmailSender.<Send>d__2.MoveNext() in F:\Freelance\Mohamy\ElMaitre.Web3\Helpers\EmailSender.cs:line 63
+2019-09-16 23:46:28.1701 INFO Failed to send the mail
+2019-09-16 23:46:28.2578 ERROR System.Net.Mail.SmtpException: The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.EndSend(IAsyncResult result)
+   at System.Net.Mail.SendMailAsyncResult.SendMailFromCompleted(IAsyncResult result)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Net.Mail.SendMailAsyncResult.End(IAsyncResult result)
+   at System.Net.Mail.SmtpClient.SendMailCallback(IAsyncResult result)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at ElMaitre.Web.Helpers.EmailSender.<Send>d__2.MoveNext() in F:\Freelance\Mohamy\ElMaitre.Web3\Helpers\EmailSender.cs:line 63
+2019-09-16 23:47:01.4367 INFO Failed to send the mail
+2019-09-16 23:47:01.4968 ERROR System.Net.Mail.SmtpException: The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.EndSend(IAsyncResult result)
+   at System.Net.Mail.SendMailAsyncResult.SendMailFromCompleted(IAsyncResult result)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Net.Mail.SendMailAsyncResult.End(IAsyncResult result)
+   at System.Net.Mail.SmtpClient.SendMailCallback(IAsyncResult result)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at ElMaitre.Web.Helpers.EmailSender.<Send>d__2.MoveNext() in F:\Freelance\Mohamy\ElMaitre.Web3\Helpers\EmailSender.cs:line 63
+2019-09-16 23:47:49.6489 INFO Failed to send the mail
+2019-09-16 23:47:49.7297 ERROR System.Net.Mail.SmtpException: The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.EndSend(IAsyncResult result)
+   at System.Net.Mail.SendMailAsyncResult.SendMailFromCompleted(IAsyncResult result)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Net.Mail.SendMailAsyncResult.End(IAsyncResult result)
+   at System.Net.Mail.SmtpClient.SendMailCallback(IAsyncResult result)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at ElMaitre.Web.Helpers.EmailSender.<Send>d__2.MoveNext() in F:\Freelance\Mohamy\ElMaitre.Web3\Helpers\EmailSender.cs:line 63
+2019-09-16 23:59:31.3123 INFO Failed to send the mail
+2019-09-16 23:59:31.3999 ERROR System.Net.Mail.SmtpException: The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.EndSend(IAsyncResult result)
+   at System.Net.Mail.SendMailAsyncResult.SendMailFromCompleted(IAsyncResult result)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Net.Mail.SendMailAsyncResult.End(IAsyncResult result)
+   at System.Net.Mail.SmtpClient.SendMailCallback(IAsyncResult result)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at ElMaitre.Web.Helpers.EmailSender.<Send>d__2.MoveNext()
