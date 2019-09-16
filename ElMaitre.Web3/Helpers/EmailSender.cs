@@ -38,18 +38,20 @@ namespace ElMaitre.Web.Helpers
             //};
 
             NetworkCredential networkCredentials = new
-            NetworkCredential("info@mohamy.co", "Ayman1988@");
+            NetworkCredential("noreplyuser2019@gmail.com‏", "allah1akbar");
+            //NetworkCredential("info@mohamy.co", "Ayman1988@");
 
             SmtpClient smtpClient = new SmtpClient();
             smtpClient.UseDefaultCredentials = false;
             smtpClient.Credentials = networkCredentials;
-            smtpClient.Host = "smtp.office365.com";
+            //smtpClient.Host = "smtp.office365.com";
+            smtpClient.Host = "smtp.gmail.com";
             smtpClient.Port = 587;
             smtpClient.EnableSsl = true;
             smtpClient.ServicePoint.MaxIdleTime = 1;
 
             //using (var message = new MailMessage("islam.apps123@gmail.com", mail)
-            using (var message = new MailMessage("info@mohamy.co", mail)
+            using (var message = new MailMessage("noreplyuser2019@gmail.com", mail)
             {
                 Subject = subject,
                 Body = $"<body>{body}</body>",
