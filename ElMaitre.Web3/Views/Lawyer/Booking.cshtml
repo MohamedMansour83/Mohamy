@@ -38,7 +38,7 @@
         }
     }
     function AjaxComplete(response) {
-         // console.log(response);
+        // console.log(response);
         //alert('loaded');
         if (response.responseJSON.ptype == 1) {
             location.href = 'http://accept.paymobsolutions.com/api/acceptance/iframes/7127?payment_token='
@@ -49,7 +49,7 @@
             //    + response.responseJSON.token;
             location.href = response.responseJSON.redirect_url;
         }
- 
+
     }
     function navigateToVideoApp(sessionId) {
         localStorage.removeItem('sessionId');
@@ -110,30 +110,30 @@
                         </div>
                     </div>
                     @*<div class="modal" tabindex="-1" role="dialog" id="alert">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">@Localizer["Alert"]</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <i class="far fa-check-circle"></i>
-                                    <span id="message">@Localizer["SuccessBookingDesc"]</span>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="ok_btn">@Localizer["OK"]</button>
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">@Localizer["Alert"]</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <i class="far fa-check-circle"></i>
+                                        <span id="message">@Localizer["SuccessBookingDesc"]</span>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="ok_btn">@Localizer["OK"]</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>*@
+                        </div>*@
                     <div class="col-md-12 mt-4 ">
-            <div class="alert alert-success text-center" role="alert">
-                <i class="far fa-check-circle"></i>
-                @Localizer["SuccessBookingDesc"]
-            </div>
-        </div>
+                        <div class="alert alert-success text-center" role="alert">
+                            <i class="far fa-check-circle"></i>
+                            @Localizer["SuccessBookingDesc"]
+                        </div>
+                    </div>
                     <div class="col-md-12  mb-5">
                         <div class="card shadow text-center p-4">
                             @Localizer["OneStepRemaining"]
@@ -153,7 +153,7 @@
             </div>
         </section>
     </div>
-<script src="~/app/success-booking.js"></script>
+    <script src="~/app/success-booking.js"></script>
 }
 else
 {
@@ -271,8 +271,48 @@ else
                                             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                                             </div>
                                         </div>*@
+
+                                    @*--------------------------------------------------------*@
+
+                                    @*old*@
+
+                                    @*<div class="card">
+                                            <div class="card-header d-flex align-items-center justify-content-between" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                <h5 class="mb-0">
+                                                    <img src="~/dist/images/cash.png" />
+                                                    <button class="btn btn-link collapsed" type="button">
+                                                        @Localizer["Cash"]
+                                                    </button>
+                                                </h5>
+                                                <i class="fas fa-chevron-right"></i>
+                                            </div>
+                                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                                                <div class="card-body">
+                                                    <form>
+                                                        <div class="form-group">
+                                                            <label class="sr-only" for="inlineFormInputGroupUsername">@Localizer["Username"]</label>
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <div class="input-group-text"><i class="fas fa-mobile-alt"></i></div>
+                                                                </div>
+                                                                <input type="text" class="form-control" id="inlineFormInputGroupUsername" placeholder=@Localizer["MobileNumber"]>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Localizer["description"]
+                                                        </div>
+                                                        <button href="#" class="button  button-reveal w-100">
+                                                            <i class="far fa-money-bill-alt"></i>
+                                                            <span>@Localizer["Checkout"]</span>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>*@
+                                    @*--------------------------------------------------------*@
+
                                     <div class="card">
-                                        <div class="card-header d-flex align-items-center justify-content-between" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        <div class="card-header d-flex align-items-center justify-content-between" id="headingTwo" data-toggle="modal" data-target="#PayCashModal" aria-expanded="false" aria-controls="collapseTwo">
                                             <h5 class="mb-0">
                                                 <img src="~/dist/images/cash.png" />
                                                 <button class="btn btn-link collapsed" type="button">
@@ -281,29 +321,88 @@ else
                                             </h5>
                                             <i class="fas fa-chevron-right"></i>
                                         </div>
-                                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                                            <div class="card-body">
-                                                <form>
-                                                    <div class="form-group">
-                                                        <label class="sr-only" for="inlineFormInputGroupUsername">@Localizer["Username"]</label>
-                                                        <div class="input-group">
-                                                            <div class="input-group-prepend">
-                                                                <div class="input-group-text"><i class="fas fa-mobile-alt"></i></div>
-                                                            </div>
-                                                            <input type="text" class="form-control" id="inlineFormInputGroupUsername" placeholder=@Localizer["MobileNumber"]>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        @Localizer["description"]
-                                                    </div>
-                                                    <button href="#" class="button  button-reveal w-100">
-                                                        <i class="far fa-money-bill-alt"></i>
-                                                        <span>@Localizer["Checkout"]</span>
+                                    </div>
+
+                                    <div class="modal fade" id="PayCashModal" tabindex="-1" role="dialog" aria-labelledby="PayCashModal" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="PayCashModalLabel">
+                                                        @Localizer["Cash"]
+                                                    </h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
                                                     </button>
-                                                </form>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form asp-controller="Lawyer" asp-action="PayAction" name="CashForm" id="CashForm">
+                                                        <div class="form-group text-center">
+                                                            @Localizer["ContactDetails"]
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <div class="input-group-text"><i class="fas fa-user"></i></div>
+                                                                </div>
+                                                                <input type="text" required class="form-control" id="FirstName" name="FirstName" placeholder="@Localizer["FirstName"]">
+                                                                <input type="text" required class="form-control" id="LastName" name="LastName" placeholder="@Localizer["LastName"]">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <div class="input-group-text"><i class="fas fa-envelope"></i></div>
+                                                                </div>
+                                                                <input type="email" required class="form-control" id="Email" name="Email" placeholder="@Localizer["Email"]">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <div class="input-group-text"><i class="fas fa-mobile-alt"></i></div>
+                                                                </div>
+                                                                <input type="text" required class="form-control" id="Mobile" name="Mobile" placeholder=@Localizer["MobileNumber"]>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <div class="input-group-text"><i class="fas fa-home"></i></div>
+                                                                </div>
+                                                                <input type="text" required class="form-control" id="BuildingNumber" name="BuildingNumber" placeholder="@Localizer["BuildingNumber"]">
+                                                                <input type="text" required class="form-control" id="Floor" name="Floor" placeholder="@Localizer["Floor"]">
+                                                                <input type="text" required class="form-control" id="Apartment" name="Apartment" placeholder="@Localizer["Apartment"]">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <div class="input-group-text"><i class="fas fa-map-marker-alt"></i></div>
+                                                                </div>
+                                                                <input type="text" required class="form-control" id="Address" name="Address" placeholder="@Localizer["Address"]">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <div class="input-group-text"><i class="fas fa-map-pin"></i></div>
+                                                                </div>
+                                                                <input type="text" class="form-control" id="PostalCode" name="PostalCode" placeholder="@Localizer["PostalCode"]">
+                                                            </div>
+                                                        </div>
+                                                        <button href="#" class="button  button-reveal w-100">
+                                                            <i class="far fa-money-bill-alt"></i>
+                                                            <span>@Localizer["Checkout"]</span>
+                                                        </button>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+
+                                    @*--------------------------------------------------------*@
+
                                     <div class="card">
                                         <div class="card-header d-flex align-items-center justify-content-between" id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                             <h5 class="mb-0">
@@ -370,8 +469,8 @@ else
                     @*<button type="button" class="btn btn-secondary" data-dismiss="modal">بطاقة ائتمان</button>*@
                     @*<button type="button" class="btn btn-primary">دفع فورى</button>*@
 
-                    <form asp-controller="Lawyer" asp-action="PayAction" asp-route-pType="2" data-ajax-begin="AjaxBegin" data-ajax-complete="AjaxComplete" data-ajax="true" data-ajax-method="POST"data-ajax-mode="replace" id="frm2" data-ajax-update="#content">
-                        <input type="hidden" value="2" name="type_drp"id="type_drp" />
+                    <form asp-controller="Lawyer" asp-action="PayAction" asp-route-pType="2" data-ajax-begin="AjaxBegin" data-ajax-complete="AjaxComplete" data-ajax="true" data-ajax-method="POST" data-ajax-mode="replace" id="frm2" data-ajax-update="#content">
+                        <input type="hidden" value="2" name="type_drp" id="type_drp" />
 
                         @*<select class="form-control" name="type_drp"
                                     id="type_drp" style="padding:0 !important">

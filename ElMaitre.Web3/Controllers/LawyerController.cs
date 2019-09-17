@@ -27,6 +27,7 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ElMaitre.Web3.Controllers
 {
@@ -89,7 +90,8 @@ namespace ElMaitre.Web3.Controllers
 			}
 			var bm = new BaseViewModel(Request);
 			bm.Session = con.Sessions.FirstOrDefault(o => o.merchant_order_id == order.ToString());
-			return View(bm);
+
+            return View(bm);
 		}
 
 		[Route("/Lawyer/Booking/{lawyerId}/{AppointmentId}")]
@@ -122,7 +124,7 @@ namespace ElMaitre.Web3.Controllers
 
         private async Task<PaymentTokenResult> GetToken()
         {
-            string apiUrl = "http://accept.paymobsolutions.com/api/auth/tokens";
+            string apiUrl = "https://accept.paymobsolutions.com/api/auth/tokens";
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new Uri(apiUrl);
@@ -144,22 +146,42 @@ namespace ElMaitre.Web3.Controllers
             return null;
         }
 
-        private async Task<OrderResult> OrderCreation(string token, long merchantId, double amount)
+        private async Task<OrderResult> OrderCreation(string token, long merchantId, double amount, int integration_Id,DeliveryDetailsModel model)
         {
-            string apiUrl = $"http://accept.paymobsolutions.com/api/ecommerce/orders";
+            string apiUrl = $"https://accept.paymobsolutions.com/api/ecommerce/orders";
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new Uri(apiUrl);
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
+                var ordId = Utilities.GetUniqueKeyNums(6);
+                order_id = int.Parse(ordId);
+
+                //var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
                 var bodyJS = JsonConvert.SerializeObject(new
                 {
                     auth_token = token,
-                    delivery_needed = false,
+                    delivery_needed = true,
                     merchant_id = merchantId,
                     amount_cents = amount,
                     currency = "EGP",
-                    merchant_order_id = Guid.NewGuid().ToString()
+                    merchant_order_id = ordId,
+                    shipping_data = new
+                    {
+                        apartment = model.Apartment,
+                        email = model.Email,
+                        floor = model.Floor,
+                        first_name = model.FirstName,//user.Name.Substring(0,user.Name.IndexOf(" ")),
+                        street = model.Address,
+                        building = model.BuildingNumber,
+                        phone_number = model.Mobile,
+                        postal_code = model.PostalCode,
+                        city="Cairo", //ToDo
+                        country="Egypt",
+                        last_name = model.LastName,//user.Name.Substring(user.Name.IndexOf(" ")),
+                        state ="Cairo" //ToDo
+                    }
                 });
                 var body = new StringContent(bodyJS, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsync(apiUrl, body);
@@ -167,7 +189,8 @@ namespace ElMaitre.Web3.Controllers
                 {
                     var data = await response.Content.ReadAsStringAsync();
                     var result = JsonConvert.DeserializeObject<OrderResult>(data);
-                    return result;
+                    //await GetPaymentKey(token, result.Id, amount, integration_Id);
+                    return result; ;
                 }
             }
             return null;
@@ -176,7 +199,7 @@ namespace ElMaitre.Web3.Controllers
 
         private async Task<PKeyResult> GetPaymentKey(string token, long orderid, double amount)
         {
-            string apiUrl = $"http://accept.paymobsolutions.com/api/acceptance/payment_keys";
+            string apiUrl = $"https://accept.paymobsolutions.com/api/acceptance/payment_keys";
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new Uri(apiUrl);
@@ -296,55 +319,86 @@ namespace ElMaitre.Web3.Controllers
         string redirectUrl;
         string fToken;
         int order_id;
-        [HttpPost]
-        [Route("/Lawyer/PayAction/{lawyerId}/{AppointmentId}/{pType}")]
-        public async Task<IActionResult> PayAction(int lawyerId, int AppointmentId, int pType, int type_drp)
+
+        #region Old PayAction
+        //[HttpPost]
+        //[Route("/Lawyer/PayAction/{lawyerId}/{AppointmentId}/{pType}")]
+        //public async Task<IActionResult> PayAction(int lawyerId, int AppointmentId, int pType, int type_drp)
+        //{
+        //    var details = await GetAppointmentDetails(AppointmentId);
+        //    //var details = await GetServiceDetails(serviceId, lawyerId);
+        //    await GetToken(details.Amount * 100, pType == 1 ? AppSettings.PaymentIntegrationId2 : AppSettings.PaymentIntegrationIdCash2
+        //        );
+        //    ////var userName = Request.Cookies["UserName"];
+        //    ////var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        //    ////var order = new Order
+        //    ////{
+        //    ////    merchant_order_id = order_id,
+        //    ////    serviceId = serviceId,
+        //    ////    lawyerId = lawyerId,
+        //    ////    clientId = userId
+        //    ////};
+        //    var token = Request.Cookies["token"];
+        //    //string apiUrl = $"http://{Request.Host}/api/ServiceApi/NewOrd/{serviceId}/{lawyerId}/{order_id}";
+        //    string apiUrl = $"http://{Request.Host}/api/LawyerApi/BookAppointment/{AppointmentId}/{order_id}";
+        //    using (HttpClient client = new HttpClient())
+        //    {
+        //        client.BaseAddress = new Uri(apiUrl);
+        //        client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+        //        client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+        //        HttpResponseMessage response = await client.GetAsync(apiUrl);
+        //        if (response.IsSuccessStatusCode)
+        //        {
+        //            var data = await response.Content.ReadAsStringAsync();
+        //            var result = JsonConvert.DeserializeObject<BookSessionResult>(data);
+
+        //        }
+        //        else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+        //        {
+        //            return null;
+        //        }
+        //    }
+        //    ////Redirect("http://accept.paymobsolutions.com/api/acceptance/iframes/7127?payment_token=" + fToken);
+        //    ////return View(new BaseViewModel(Request));
+        //    ////return (Redirect("http://accept.paymobsolutions.com/api/acceptance/iframes/7127?payment_token=" + fToken));
+        //    if (pType == 1)
+        //    {
+        //        return Ok(new { token = fToken, ptype = pType });
+        //    }
+        //    else
+        //    {
+        //        return Ok(new { redirect_url = redirectUrl, ptype = pType });
+        //    }
+        //}
+        #endregion
+
+        //[HttpPost]
+        [Route("/Lawyer/PayAction/{lawyerId}/{AppointmentId}")]
+        public async Task<IActionResult> PayAction(int lawyerId, int AppointmentId,[FromForm] DeliveryDetailsModel model)
         {
-			var details = await GetAppointmentDetails(AppointmentId);
-			//var details = await GetServiceDetails(serviceId, lawyerId);
-			await GetToken(details.Amount * 100, pType == 1 ? AppSettings.PaymentIntegrationId2 : AppSettings.PaymentIntegrationIdCash2
-				);
-			////var userName = Request.Cookies["UserName"];
-			////var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-			////var order = new Order
-			////{
-			////    merchant_order_id = order_id,
-			////    serviceId = serviceId,
-			////    lawyerId = lawyerId,
-			////    clientId = userId
-			////};
-			var token = Request.Cookies["token"];
-			//string apiUrl = $"http://{Request.Host}/api/ServiceApi/NewOrd/{serviceId}/{lawyerId}/{order_id}";
-			string apiUrl = $"http://{Request.Host}/api/LawyerApi/BookAppointment/{AppointmentId}/{order_id}";
-			using (HttpClient client = new HttpClient())
-			{
-				client.BaseAddress = new Uri(apiUrl);
-				client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-				client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
-
-				HttpResponseMessage response = await client.GetAsync(apiUrl);
-				if (response.IsSuccessStatusCode)
-				{
-					var data = await response.Content.ReadAsStringAsync();
-					var result = JsonConvert.DeserializeObject<BookSessionResult>(data);
-
-				}
-				else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
-				{
-					return null;
-				}
-			}
-			////Redirect("http://accept.paymobsolutions.com/api/acceptance/iframes/7127?payment_token=" + fToken);
-			////return View(new BaseViewModel(Request));
-			////return (Redirect("http://accept.paymobsolutions.com/api/acceptance/iframes/7127?payment_token=" + fToken));
-			if (pType == 1)
+            if (ModelState.IsValid)
             {
-                return Ok(new { token = fToken, ptype = pType });
+                var details = await GetAppointmentDetails(AppointmentId);
+                if (details != null && details.CanReserved)
+                {
+                    var res = await GetToken(details.Amount * 100, AppSettings.PaymentIntegrationIdCash2);
+                    var order = await OrderCreation(res.Token, res.Profile.Id, details.Amount * 100, AppSettings.PaymentIntegrationIdCash2,model);
+                    var pkey = await GetPaymentKey(res.Token, order.Id, details.Amount * 100, AppSettings.PaymentIntegrationIdCash2);
+
+                    if (!string.IsNullOrEmpty(pkey.Token))
+                    {
+
+                        var bookRes = await BookSession(AppointmentId, order.Id);
+                        if (bookRes == null)
+                            return RedirectToAction("Login", "Account");
+                    }
+                    return RedirectToAction("BookingSuccessful", new { txn_response_code = 0, success = true, order = order.Id, amount_cents=order.AmountCents });
+
+                }
+                //return Ok(new { token = fToken, ptype = 2 });
             }
-            else
-            {
-                return Ok(new { redirect_url = redirectUrl, ptype = pType });
-            }
+            return null;
         }
 
         [Route("/Lawyer/PayWithCard/{AppointmentId}")]
@@ -371,14 +425,15 @@ namespace ElMaitre.Web3.Controllers
 
         private async Task<PaymentTokenResult> GetToken(double price, int integration_Id)
         {
-            string apiUrl = "http://accept.paymobsolutions.com/api/auth/tokens";
+            string apiUrl = "https://accept.paymobsolutions.com/api/auth/tokens";
             using (HttpClient client = new HttpClient())
             {
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Clear();
                 client.BaseAddress = new Uri(apiUrl);
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
                 var paymentApiKey = AppSettings.PaymentApiKey;
-
 
                 var bodyJS = JsonConvert.SerializeObject(new { api_key = paymentApiKey });
                 var body = new StringContent(bodyJS, Encoding.UTF8, "application/json");
@@ -387,7 +442,7 @@ namespace ElMaitre.Web3.Controllers
                 {
                     var data = await response.Content.ReadAsStringAsync();
                     var result = JsonConvert.DeserializeObject<PaymentTokenResult>(data);
-                    await OrderCreation(result.Token, AppSettings.MerchantId, price, integration_Id);
+                    //await OrderCreation(result.Token, AppSettings.MerchantId, price, integration_Id);
                     return result;
                 }
             }
@@ -397,7 +452,7 @@ namespace ElMaitre.Web3.Controllers
         private async Task<OrderResult> OrderCreation(string token, long merchantId, double amount
             , int integration_Id)
         {
-            string apiUrl = $"http://accept.paymobsolutions.com/api/ecommerce/orders";
+            string apiUrl = $"https://accept.paymobsolutions.com/api/ecommerce/orders";
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new Uri(apiUrl);
@@ -430,7 +485,7 @@ namespace ElMaitre.Web3.Controllers
 
         private async Task<PKeyResult> GetPaymentKey(string token, long orderid, double amount, int integration_Id)
         {
-            string apiUrl = $"http://accept.paymobsolutions.com/api/acceptance/payment_keys";
+            string apiUrl = $"https://accept.paymobsolutions.com/api/acceptance/payment_keys";
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new Uri(apiUrl);
@@ -485,7 +540,7 @@ namespace ElMaitre.Web3.Controllers
 
         private async Task<CashPayResult> CashPayment(string token)
         {
-            string apiUrl = $"http://accept.paymobsolutions.com/api/acceptance/payments/pay";
+            string apiUrl = $"https://accept.paymobsolutions.com/api/acceptance/payments/pay";
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new Uri(apiUrl);
