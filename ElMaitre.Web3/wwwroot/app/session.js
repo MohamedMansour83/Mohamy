@@ -31,7 +31,7 @@ function SessionViewModel() {
 				}
 
                 var isConfirm = confirm($("#StartTheSessionAlert").val());
-                 // console.log('alo1');
+                 // //console.log('alo1');
 				if (isConfirm) {
 					startSession(data.sessionId);
 				}

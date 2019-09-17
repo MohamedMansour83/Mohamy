@@ -34,7 +34,7 @@ function LawyerDetailsViewModel() {
     self.videoUrl = ko.observable("");
     self.embed = ko.computed(function () {
         var EmbedCodeNew = "";
-         // console.log(self.videoUrl());
+         // //console.log(self.videoUrl());
         if (self.videoUrl() === null)
             return "";
         if (self.videoUrl().includes("youtube.com")) {
@@ -49,7 +49,7 @@ function LawyerDetailsViewModel() {
             }
         }
         EmbedCodeNew = EmbedCodeNew.replace("m.youtube.com", "www.youtube.com");
-         // console.log(EmbedCodeNew);
+         // //console.log(EmbedCodeNew);
 
         var str = '<object width="100%" height="334">';
         str += '<param name="movie" value="' + EmbedCodeNew + '"></param>';
@@ -81,7 +81,7 @@ function LawyerDetailsViewModel() {
             url: url,
             contentType: "application/json",
             success: function (data) {
-                 // console.log(data);
+                 // //console.log(data);
                 self.profileImg(data.profileImg);
                 self.name(data.name);
                 self.specialization(data.specialization);
@@ -98,10 +98,10 @@ function LawyerDetailsViewModel() {
                 self.fees60(parseFloat(data.fees * 2));
                 self.video(data.video);
                 self.videoUrl(data.videoURL);
-                 // console.log(data);
+                 // //console.log(data);
                 self.embed = ko.computed(function () {
                     var EmbedCodeNew = "";
-                     // console.log(self.videoUrl());
+                     // //console.log(self.videoUrl());
                     if (self.videoUrl() === null)
                         return "";
                     if (self.videoUrl().includes("youtube.com")) {
@@ -115,7 +115,7 @@ function LawyerDetailsViewModel() {
                             EmbedCodeNew = self.videoUrl().replace("/watch?feature=player_embedded&v=", "/v/");
                         }
                     }
-                     // console.log(EmbedCodeNew);
+                     // //console.log(EmbedCodeNew);
 
                     var str = '<object width="100%" height="334">';
                     str += '<param name="movie" value="' + EmbedCodeNew + '"></param>';
@@ -127,7 +127,7 @@ function LawyerDetailsViewModel() {
 
                     return str;
                 });
-                 // console.log(data.video);
+                 // //console.log(data.video);
 
                 for (var i = 0; i < 5; i++) {
                     if (data.rate > i)

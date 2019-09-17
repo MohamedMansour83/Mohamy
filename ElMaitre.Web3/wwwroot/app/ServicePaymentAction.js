@@ -1,5 +1,5 @@
 ﻿function AjaxBegin() {
-    debugger;
+     
     if (localStorage.getItem('token') === null) {
         alert('تحتاج إلى تسجيل الدخول أولا');
         return;
@@ -15,7 +15,7 @@
     }
 }
 function AjaxComplete(response) {
-    debugger;
+     
     if (response.responseJSON.ptype == 1) {
         location.href = 'http://accept.paymobsolutions.com/api/acceptance/iframes/7127?payment_token='
             + response.responseJSON.token;

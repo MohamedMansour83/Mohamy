@@ -30,7 +30,7 @@ $(function () {
     $(".move").on("click", function () {
         $(".section").each(function () {
             var pos = $(this).offset().top;
-             // console.log($window.scrollTop(), pos);
+             // //console.log($window.scrollTop(), pos);
             if ($window.scrollTop() < pos) {
                 $("html, body").animate({
                     scrollTop: pos-110

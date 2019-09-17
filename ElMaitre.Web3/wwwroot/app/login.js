@@ -29,7 +29,7 @@ function AccountViewModel() {
         Gender: false, DateOfBirth: "", AcceptTerms: false, IsLawyer: false,
         PhoneNumber: "", FbId: ""
     };
-    // console.log(self.registerModel);
+    // //console.log(self.registerModel);
 
     function Token(e) {
         //$.post(baseUrl + "/api/Auth/Token", function (data) {
@@ -40,7 +40,7 @@ function AccountViewModel() {
         localStorage.removeItem("UsrName");
         localStorage.removeItem("isLawyer");
 
-        // console.log(ko.toJSON(self.loginModel));
+        // //console.log(ko.toJSON(self.loginModel));
         $.ajax({
             type: "POST",
             url: self.baseUrl + "/Account/Login",
@@ -77,7 +77,7 @@ function AccountViewModel() {
     };
 
     self.Register = function (el, e) {
-        debugger;
+         
         if (isEmpty(self.registerModel.Email)) {
             $(".modal-body #message").text("من فضلك ادخل البريد الالكترزنى");
             $('#alert').modal('show');
@@ -109,7 +109,7 @@ function AccountViewModel() {
             localStorage.removeItem("isLawyer");
             localStorage.removeItem("returnURL");
             var fbIdChk = self.registerModel.FbId;
-            debugger;
+             
             let name = "";
             let str = self.registerModel.Email;
             for (var i = 0; i < str.length; i++) {
@@ -139,8 +139,8 @@ function AccountViewModel() {
         //                     localStorage.setItem('UsrName', self.registerModel.UserName);
         //                     localStorage.setItem('isLawyer', data.isLawyer);
 
-        //                      // console.log(localStorage);
-        //                      // console.log(data);
+        //                      // //console.log(localStorage);
+        //                      // //console.log(data);
 
         //                     window.location = self.baseUrl + "/";
         //                 }

@@ -44,8 +44,8 @@
             $.getJSON('/ChatVideo/Tokenization', {
                 name: $('#my-name').val()
             }, function (data) {
-                 // console.log('Token response:');
-                 // console.log(data);
+                 // //console.log('Token response:');
+                 // //console.log(data);
 
                 // Create the endpoint, and then initialize the main calling app
                 var endpoint = new Twilio.Endpoint('d3fe58223f08177d7d822a74e2945882');
@@ -57,8 +57,8 @@
 
         // Initialize video calling app with my endpoint
         function init(endpoint) {
-             // console.log('Endpoint Created:');
-             // console.log(endpoint);
+             // //console.log('Endpoint Created:');
+             // //console.log(endpoint);
 
             // Automatically accept any incoming calls
             endpoint.on('invite', function (invitation) {

@@ -9,7 +9,7 @@ $(function () {
         //pre.textContent = JSON.stringify(what) + " - " + JSON.stringify(obj || "");
         //$("#immediate").appendChild(pre);
 
-         // console.log(JSON.stringify(what) + " - " + JSON.stringify(obj || ""))
+         // //console.log(JSON.stringify(what) + " - " + JSON.stringify(obj || ""))
     };
     var main = (function () {
          
@@ -69,7 +69,7 @@ $(function () {
             jQuery("#notify-modal").modal('show');
         };
         var oncConnectionCreated = function () {
-             // console.log(arguments, rtc);
+             // //console.log(arguments, rtc);
             trace("oncconnectioncreated", arguments);
             jQuery("#chat").show();
         };
@@ -183,7 +183,7 @@ $(function () {
 
 
                         //var b = ab2str(theBytes);
-                        // // console.log(b);
+                        // // //console.log(b);
 
                         //dc.publishTo(peerIdToSend, "file-bytes", {
                         //    who: b,

@@ -131,7 +131,7 @@ else if (navigator.webkitGetUserMedia) {
             element.src = URL.createObjectURL(stream);
         }
         else {
-             // console.log('Error attaching stream to element.');
+             // //console.log('Error attaching stream to element.');
         }
     };
     reattachMediaStream = function (to, from) {
@@ -139,7 +139,7 @@ else if (navigator.webkitGetUserMedia) {
     };
 }
 else {
-     // console.log("Browser does not appear to be WebRTC-capable");
+     // //console.log("Browser does not appear to be WebRTC-capable");
 }
 
 window.requestAnimFrame = (function () {
@@ -547,7 +547,7 @@ XSockets.WebRTC = (function () {
         };
 
 
-        this.onerror = function (ex) {  // console.log(ex); };
+        this.onerror = function (ex) {  // //console.log(ex); };
 
         this.Connections = [];
         this.rtcPeerConnection = function (configuration, peerId, cb) {
@@ -630,7 +630,7 @@ XSockets.WebRTC = (function () {
                         if (self.PeerConnections[p].RTCDataChannels[dataChannel.name].readyState === "open") {
                             var msg = new XSockets.Message(topic, data || {}, dataChannel.name);
                             var blob = new XSockets.BinaryMessage(msg, bytes, function (result) {
-                                 // console.log(result);
+                                 // //console.log(result);
                                 self.PeerConnections[p].RTCDataChannels[dataChannel.name].send(result.buffer);
                             });
                         }
@@ -814,7 +814,7 @@ XSockets.WebRTC.MediaSource = (function () {
     var mediaSources = function () {
         this.getSources = function (cb) {
             if (typeof window.MediaStreamTrack === 'undefined') {
-                 // console.log('This browser does not support MediaStreamTrack');
+                 // //console.log('This browser does not support MediaStreamTrack');
                 return null;
             } else {
                 window.MediaStreamTrack.getSources(function (results) {
@@ -1071,7 +1071,7 @@ XSockets.WebRTC.MediaSourceChunksPlayer = (function() {
         function sourceOpenCallback() {
             sourceBuffer = mediaSource.addSourceBuffer('audio/mpeg');
             sourceBuffer.addEventListener('updateend', getNextBuffer, false);
-             // console.log("sourceOpenCallback");
+             // //console.log("sourceOpenCallback");
         }
 
         function sourceCloseCallback() {

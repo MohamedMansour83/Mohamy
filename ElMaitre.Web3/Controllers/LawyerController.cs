@@ -122,7 +122,7 @@ namespace ElMaitre.Web3.Controllers
 
         private async Task<PaymentTokenResult> GetToken()
         {
-            string apiUrl = "http://accept.paymobsolutions.com/api/auth/tokens";
+            string apiUrl = "https://accept.paymobsolutions.com/api/auth/tokens";
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new Uri(apiUrl);
@@ -146,7 +146,7 @@ namespace ElMaitre.Web3.Controllers
 
         private async Task<OrderResult> OrderCreation(string token, long merchantId, double amount)
         {
-            string apiUrl = $"http://accept.paymobsolutions.com/api/ecommerce/orders";
+            string apiUrl = $"https://accept.paymobsolutions.com/api/ecommerce/orders";
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new Uri(apiUrl);
@@ -176,7 +176,7 @@ namespace ElMaitre.Web3.Controllers
 
         private async Task<PKeyResult> GetPaymentKey(string token, long orderid, double amount)
         {
-            string apiUrl = $"http://accept.paymobsolutions.com/api/acceptance/payment_keys";
+            string apiUrl = $"https://accept.paymobsolutions.com/api/acceptance/payment_keys";
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new Uri(apiUrl);
@@ -334,9 +334,9 @@ namespace ElMaitre.Web3.Controllers
 					return null;
 				}
 			}
-			////Redirect("http://accept.paymobsolutions.com/api/acceptance/iframes/7127?payment_token=" + fToken);
+			////Redirect("https://accept.paymobsolutions.com/api/acceptance/iframes/7127?payment_token=" + fToken);
 			////return View(new BaseViewModel(Request));
-			////return (Redirect("http://accept.paymobsolutions.com/api/acceptance/iframes/7127?payment_token=" + fToken));
+			////return (Redirect("https://accept.paymobsolutions.com/api/acceptance/iframes/7127?payment_token=" + fToken));
 			if (pType == 1)
             {
                 return Ok(new { token = fToken, ptype = pType });
@@ -363,7 +363,7 @@ namespace ElMaitre.Web3.Controllers
                     if (bookRes == null)
                         return RedirectToAction("Login", "Account");
                     var iframeId = AppSettings.PaymentIframeId;
-                    return Redirect($"http://accept.paymobsolutions.com/api/acceptance/iframes/{iframeId}?payment_token={pkey.Token}");
+                    return Redirect($"https://accept.paymobsolutions.com/api/acceptance/iframes/{iframeId}?payment_token={pkey.Token}");
                 }
             }
             return null;
@@ -371,7 +371,7 @@ namespace ElMaitre.Web3.Controllers
 
         private async Task<PaymentTokenResult> GetToken(double price, int integration_Id)
         {
-            string apiUrl = "http://accept.paymobsolutions.com/api/auth/tokens";
+            string apiUrl = "https://accept.paymobsolutions.com/api/auth/tokens";
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new Uri(apiUrl);
@@ -397,7 +397,7 @@ namespace ElMaitre.Web3.Controllers
         private async Task<OrderResult> OrderCreation(string token, long merchantId, double amount
             , int integration_Id)
         {
-            string apiUrl = $"http://accept.paymobsolutions.com/api/ecommerce/orders";
+            string apiUrl = $"https://accept.paymobsolutions.com/api/ecommerce/orders";
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new Uri(apiUrl);
@@ -430,7 +430,7 @@ namespace ElMaitre.Web3.Controllers
 
         private async Task<PKeyResult> GetPaymentKey(string token, long orderid, double amount, int integration_Id)
         {
-            string apiUrl = $"http://accept.paymobsolutions.com/api/acceptance/payment_keys";
+            string apiUrl = $"https://accept.paymobsolutions.com/api/acceptance/payment_keys";
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new Uri(apiUrl);
@@ -485,7 +485,7 @@ namespace ElMaitre.Web3.Controllers
 
         private async Task<CashPayResult> CashPayment(string token)
         {
-            string apiUrl = $"http://accept.paymobsolutions.com/api/acceptance/payments/pay";
+            string apiUrl = $"https://accept.paymobsolutions.com/api/acceptance/payments/pay";
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new Uri(apiUrl);

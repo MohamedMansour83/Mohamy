@@ -295,7 +295,7 @@ namespace ElMaitre.Web3.Controllers
         public async Task UploadFileToS3(IFormFile file)
         {
             //using (var client = new AmazonS3Client("yourAwsAccessKeyId", "yourAwsSecretAccessKey", RegionEndpoint.USEast1))
-            using (var client = new AmazonS3Client("AKIAIIDPPHBSMOAPXSFQ", "/Ex96l3s1n/U1SoyVG1geg3bPI5+bTJSbsbOANFu", RegionEndpoint.USEast1))
+            using (var client = new AmazonS3Client("AKIAILF75E6OORKQCI2Q", "mJvf/ll+pJHQf5roKUyn1sHAb0lEWUOOuornntVO", RegionEndpoint.USEast1))
             {
                 using (var newMemoryStream = new MemoryStream())
                 {

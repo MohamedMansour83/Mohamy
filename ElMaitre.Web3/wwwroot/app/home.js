@@ -68,7 +68,7 @@
             url: self.baseUrl + "/api/HomeApi/GetServiceCategories",
             contentType: "application/json",
             success: function (data) {
-                console.log(data);
+                //console.log(data);
                 let array = data.slice(0, 5);
                 let arrayMore = data.slice(5, data.length);
 

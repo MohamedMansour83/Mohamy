@@ -71,4 +71,3 @@ D:\28-08-19\f\ElMaitre\ElMaitreDAL\obj\Debug\netcoreapp2.0\ElMaitre.DAL.Assembly
 D:\28-08-19\f\ElMaitre\ElMaitreDAL\obj\Debug\netcoreapp2.0\ElMaitre.DAL.AssemblyInfo.cs
 D:\28-08-19\f\ElMaitre\ElMaitreDAL\obj\Debug\netcoreapp2.0\ElMaitre.DAL.dll
 D:\28-08-19\f\ElMaitre\ElMaitreDAL\obj\Debug\netcoreapp2.0\ElMaitre.DAL.pdb
-D:\28-08-19\f\ElMaitre\ElMaitreDAL\obj\Debug\netcoreapp2.0\ElMaitre.DAL.csprojAssemblyReference.cache

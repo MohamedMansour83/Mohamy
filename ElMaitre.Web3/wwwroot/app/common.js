@@ -13,7 +13,10 @@ function CommonViewModel() {
             window.location.href = self.baseURL() + "/Account/Login";
         else
             if (res.status == 400) {
-                self.alert(res.responseJSON[0]);
+                if (res.responseJSON)
+                    self.alert(res.responseJSON[0]);
+                else
+                    self.alert(res.message)
             } else
                 if (res.status == 403)
                     window.location.href = self.baseURL() + "/Account/Login";
@@ -100,7 +103,7 @@ function CommonViewModel() {
     //getQACategories();
 
     self.getUserNotifications = function () {
-        debugger;
+         
         if (localStorage.getItem('token') !== null) {
             if (localStorage.getItem('isLawyer') === null || localStorage.getItem('isLawyer') === "false") {
                 self.isLawyer(false);
@@ -109,7 +112,7 @@ function CommonViewModel() {
                     url: self.baseURL() + "/api/UserApi/GetPendingLiveSesstions",
                     contentType: "application/json",
                     success: function (data) {
-                         // console.log(data);
+                         // //console.log(data);
                         if (data != "") {
                             self.notification(data);
                             self.hasNotification(true);
@@ -129,7 +132,7 @@ function CommonViewModel() {
                     url: self.baseURL() + "/api/LawyerApi/GetLawyerPendingLiveSesstions",
                     contentType: "application/json",
                     success: function (data) {
-                         // console.log(data);
+                         // //console.log(data);
                         if (data != "") {
                             self.notification(data);
                             self.hasNotification(true);

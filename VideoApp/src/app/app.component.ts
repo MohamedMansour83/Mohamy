@@ -43,15 +43,15 @@ export class AppComponent implements OnInit {
   constructor(
     private readonly renderer: Renderer2, private http: HttpClient, private activatedRoute: ActivatedRoute
     , private router: Router) {
-     // console.log(router.parseUrl(router.url));
+     // //console.log(router.parseUrl(router.url));
     }
 
   async ngOnInit() {
     let params: any = this.activatedRoute.snapshot.params;
-     // console.log(params.id);
+     // //console.log(params.id);
     this.activatedRoute.queryParams.subscribe(params => {
       const userId = params['userId'];
-       // console.log(userId);
+       // //console.log(userId);
     });
     await this.getIdFromUrl();
     //await this.getIdFromUrl2();
@@ -61,8 +61,8 @@ export class AppComponent implements OnInit {
   //  let that = this;
   //  await this.activatedRoute.params.subscribe(params => {
   //    that.sessionId = params["id"];
-  //     // console.log(params);
-  //     // console.log(that.sessionId);
+  //     // //console.log(params);
+  //     // //console.log(that.sessionId);
   //  });
   //}
 
@@ -70,8 +70,8 @@ export class AppComponent implements OnInit {
     let that = this;
     await this.activatedRoute.queryParams.subscribe(params => {
       that.sessionId = params['id'];
-       // console.log(that.sessionId);
-       // console.log(params);
+       // //console.log(that.sessionId);
+       // //console.log(params);
       if (that.sessionId !== undefined) {
         //that.router.navigateByUrl('/videomohamy/' + that.sessionId);
       }
@@ -84,7 +84,7 @@ export class AppComponent implements OnInit {
   //  //this.activatedRoute.queryParams.subscribe(params => {
   //  //  //const sessionId = params['sessionId'];
   //  //  that.sessionId = params['sessionId'];
-  //  //   // console.log(that.sessionId);
+  //  //   // //console.log(that.sessionId);
   //  //});
 
   //  await this.getIdFromUrl();
@@ -92,7 +92,7 @@ export class AppComponent implements OnInit {
   //    await this.checkTheSession();
   //    if (this.err == null) {
   //      if (this.previewElement && this.previewElement.nativeElement) {
-  //        // // console.log('gendy');
+  //        // // //console.log('gendy');
   //        await this.initializeDevice();
   //        this.loadRoom();
   //      }
@@ -126,7 +126,7 @@ export class AppComponent implements OnInit {
   //}
 
   //initializePreview(deviceInfo?: MediaDeviceInfo) {
-  //   // console.log(deviceInfo);  
+  //   // //console.log(deviceInfo);  
   //  if (deviceInfo) {
   //    this.initializeDevice(deviceInfo.kind, deviceInfo.deviceId);
   //  } else {
@@ -147,8 +147,8 @@ export class AppComponent implements OnInit {
 
   //private async initializeDevice(kind?: MediaDeviceKind, deviceId?: string) {
   //  try {
-  //     // console.log(kind);
-  //     // console.log(deviceId);
+  //     // //console.log(kind);
+  //     // //console.log(deviceId);
   //    this.isInitializing = true;
 
   //    //this.finalizePreview();
@@ -206,27 +206,27 @@ export class AppComponent implements OnInit {
   //    var obj = (data as TokenModel);
   //    connect(obj.token,
   //      { name: that.sessionId + "_room" }).then(room => {
-  //         // console.log(`Successfully joined a Room: ${room}`);
-  //        // // console.log(room);
+  //         // //console.log(`Successfully joined a Room: ${room}`);
+  //        // // //console.log(room);
 
 
   //        room.participants.forEach(participant1 => {
 
   //          //that.initializeDevice("videoinput", participant.identity, "300px");
 
-  //           // console.log(`Participant "${participant1.identity}" is connected to the Room`);
+  //           // //console.log(`Participant "${participant1.identity}" is connected to the Room`);
 
   //          participant1.on('trackSubscribed', function (track1) {
 
 
   //            if (track1.kind === 'video') {
 
-  //              // // console.log(track1.isStarted);
+  //              // // //console.log(track1.isStarted);
   //              that.top = that.top + 300;
-  //              // // console.log(track1.dimensions.height);
-  //              // // console.log(track1.mediaStreamTrack);
+  //              // // //console.log(track1.dimensions.height);
+  //              // // //console.log(track1.mediaStreamTrack);
   //              const videoElement2 = track1.attach();
-  //               // console.log(videoElement2.paused);
+  //               // //console.log(videoElement2.paused);
   //              that.renderer.setStyle(videoElement2, 'position', 'absolute');
   //              that.renderer.setStyle(videoElement2, 'top', that.top + 'px');
   //              that.renderer.setStyle(videoElement2, 'height', '250px');
@@ -238,7 +238,7 @@ export class AppComponent implements OnInit {
   //          });
 
   //          // 
-  //          //participant.videoTracks.forEach(videoTrack =>  // console.log(videoTrack));
+  //          //participant.videoTracks.forEach(videoTrack =>  // //console.log(videoTrack));
 
   //        });
 
@@ -247,23 +247,23 @@ export class AppComponent implements OnInit {
 
   //        //  //that.initializeDevice("videoinput", participant.identity, "300px");
 
-  //        //   // console.log(`Participant "${participant.identity}" is connected to the Room`);
+  //        //   // //console.log(`Participant "${participant.identity}" is connected to the Room`);
 
             
 
   //        //  // 
-  //        //  //participant.videoTracks.forEach(videoTrack =>  // console.log(videoTrack));
+  //        //  //participant.videoTracks.forEach(videoTrack =>  // //console.log(videoTrack));
 
   //        //});
 
   //        //room.localParticipant.on('trackSubscribed', function (track) {
 
-  //        //   // console.log(track);
+  //        //   // //console.log(track);
 
   //        //  if (track.kind === 'video') {
-  //        //     // console.log(track.kind);
+  //        //     // //console.log(track.kind);
   //        //    const videoElement2 = track.attach();
-  //        //     // console.log(videoElement2);
+  //        //     // //console.log(videoElement2);
   //        //    that.renderer.setStyle(videoElement2, 'position', 'absolute');
   //        //    that.renderer.setStyle(videoElement2, 'top', '0px');
   //        //    that.renderer.setStyle(videoElement2, 'height', '250px');
@@ -277,18 +277,18 @@ export class AppComponent implements OnInit {
 
   //        //  //that.initializeDevice("videoinput", participant.identity, "300px");
 
-  //        //   // console.log(`Participant "${participant.identity}" is connected to the Room`);
+  //        //   // //console.log(`Participant "${participant.identity}" is connected to the Room`);
 
   //        //  participant.on('trackSubscribed', function (track) {
 
-  //        //    // // console.log(track);
+  //        //    // // //console.log(track);
 
   //        //    if (track.kind === 'video') {
   //        //      if (track.isStarted) {
-  //        //         // console.log(track.kind);
-  //        //         // console.log(that.top);
+  //        //         // //console.log(track.kind);
+  //        //         // //console.log(that.top);
   //        //        const videoElement2 = track.attach();
-  //        //         // console.log(videoElement2);
+  //        //         // //console.log(videoElement2);
   //        //        that.renderer.setStyle(videoElement2, 'position', 'absolute');
   //        //        that.renderer.setStyle(videoElement2, 'top', that.top + 'px');
   //        //        that.renderer.setStyle(videoElement2, 'height', '250px');
@@ -302,24 +302,24 @@ export class AppComponent implements OnInit {
   //        //  });
 
   //        //  // 
-  //        //  //participant.videoTracks.forEach(videoTrack =>  // console.log(videoTrack));
+  //        //  //participant.videoTracks.forEach(videoTrack =>  // //console.log(videoTrack));
 
   //        //});
 
 
   //        room.on('participantConnected', participant => {
-  //           // console.log(`A remote Participant connected: ${participant}`);
-  //          // // console.log(participant);
+  //           // //console.log(`A remote Participant connected: ${participant}`);
+  //          // // //console.log(participant);
 
   //          //participant.on('trackSubscribed', function (track) {
 
-  //          //   // console.log(track);
+  //          //   // //console.log(track);
 
   //          //  if (track.kind === 'video') {
   //          //    that.top = that.top + 300;
-  //          //     // console.log(track.kind);
+  //          //     // //console.log(track.kind);
   //          //    const videoElement2 = track.attach();
-  //          //     // console.log(videoElement2);
+  //          //     // //console.log(videoElement2);
   //          //    that.renderer.setStyle(videoElement2, 'position', 'absolute');
   //          //    that.renderer.setStyle(videoElement2, 'top', that.top + 'px');
   //          //    that.renderer.setStyle(videoElement2, 'height', '250px');
@@ -333,22 +333,22 @@ export class AppComponent implements OnInit {
 
   //            //that.initializeDevice("videoinput", participant.identity, "300px");
 
-  //             // console.log(`Participant "${participant1.identity}" is connected to the Room`);
+  //             // //console.log(`Participant "${participant1.identity}" is connected to the Room`);
 
   //            participant1.on('trackPublished', track => {
-  //               // console.log(`Participant "${participant1.identity}" published ${track.kind} Track ${track.sid}`);
+  //               // //console.log(`Participant "${participant1.identity}" published ${track.kind} Track ${track.sid}`);
   //              if (track.kind === 'data') {
   //                track.on('message', data => {
-  //                   // console.log(data);
+  //                   // //console.log(data);
   //                });
   //              }
   //            });
 
   //            //participant1.on('trackRemoved', track => {
-  //            //   // console.log(`Participant "${participant1.identity}" removed ${track.kind} Track ${track.sid}`);
+  //            //   // //console.log(`Participant "${participant1.identity}" removed ${track.kind} Track ${track.sid}`);
   //            //  if (track.kind === 'data') {
   //            //    track.on('message', data => {
-  //            //       // console.log(data);
+  //            //       // //console.log(data);
   //            //    });
   //            //  }
   //            //});
@@ -358,12 +358,12 @@ export class AppComponent implements OnInit {
 
   //              if (track1.kind === 'video') {
 
-  //                // // console.log(track1.isStarted);
+  //                // // //console.log(track1.isStarted);
   //                that.top = that.top + 300;
-  //                // // console.log(track1.dimensions.height);
-  //                // // console.log(track1.mediaStreamTrack.muted);
+  //                // // //console.log(track1.dimensions.height);
+  //                // // //console.log(track1.mediaStreamTrack.muted);
   //                const videoElement2 = track1.attach();
-  //                 // console.log(videoElement2.paused);
+  //                 // //console.log(videoElement2.paused);
   //                that.renderer.setStyle(videoElement2, 'position', 'absolute');
   //                that.renderer.setStyle(videoElement2, 'top', that.top + 'px');
   //                that.renderer.setStyle(videoElement2, 'height', '250px');
@@ -375,22 +375,22 @@ export class AppComponent implements OnInit {
   //            });
 
   //            participant1.on('trackUnsubscribed', function (track1) {
-  //               // console.log('gendy');
+  //               // //console.log('gendy');
   //            });
 
   //            // 
-  //            //participant.videoTracks.forEach(videoTrack =>  // console.log(videoTrack));
+  //            //participant.videoTracks.forEach(videoTrack =>  // //console.log(videoTrack));
 
   //          });
 
   //          //participant.on('trackSubscribed', function (track) {
 
-  //          //   // console.log(track);
+  //          //   // //console.log(track);
 
   //          //  if (track.kind === 'video') {
-  //          //     // console.log(track.kind);
+  //          //     // //console.log(track.kind);
   //          //    const videoElement2 = track.attach();
-  //          //     // console.log(videoElement2);
+  //          //     // //console.log(videoElement2);
   //          //    that.renderer.setStyle(videoElement2, 'position', 'absolute');
   //          //    that.renderer.setStyle(videoElement2, 'top', '250px');
   //          //    that.renderer.setStyle(videoElement2, 'height', '250px');
@@ -401,11 +401,11 @@ export class AppComponent implements OnInit {
   //          //});
 
   //          //participant.videoTracks.forEach(videoTrack => {
-  //          //  // // console.log(videoTrack);
+  //          //  // // //console.log(videoTrack);
   //          //  ////var videoTrack2 = videoTrack as RemoteVideoTrackPublication;
-  //          //  //// // console.log(videoTrack2);
-  //          //  // // console.log(videoTrack.track);
-  //          //  // // console.log(videoTrack.trackSid);
+  //          //  //// // //console.log(videoTrack2);
+  //          //  // // //console.log(videoTrack.track);
+  //          //  // // //console.log(videoTrack.trackSid);
   //          //  //const videoElement2 = videoTrack.track.attach();
   //          //  //that.renderer.setStyle(videoElement2, 'position', 'absolute');
   //          //  //that.renderer.setStyle(videoElement2, 'top', top ? top : '250px');
@@ -429,11 +429,11 @@ export class AppComponent implements OnInit {
   //  //var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImN0eSI6InR3aWxpby1mcGE7dj0xIn0.eyJqdGkiOiJTSzZlNWM5MzgyOWUxODcxMzUzNDA5MzgwZWRkZjQ1NjQzLTE1NTg5NjE0MjkiLCJpc3MiOiJTSzZlNWM5MzgyOWUxODcxMzUzNDA5MzgwZWRkZjQ1NjQzIiwic3ViIjoiQUM0MmIxZDMyM2IxMmViY2ZkNzUwZDFkZTY4MWQ0N2Y4MCIsImV4cCI6MTU1ODk2NTAyOSwiZ3JhbnRzIjp7ImlkZW50aXR5IjoiQUM0MmIxZDMyM2IxMmViY2ZkNzUwZDFkZTY4MWQ0N2Y4MCIsInZpZGVvIjp7InJvb20iOiJteS1uZXctcm9vbSJ9fX0.bEO-wZDeCEoE1kwBEJPgx2TacFzCZ-EsT3AAwM6YleY';
   //  //connect(token,
   //  //  { name: 'my-new-room' }).then(room => {
-  //  //   // console.log(`Successfully joined a Room: ${room}`);
+  //  //   // //console.log(`Successfully joined a Room: ${room}`);
   //  //  room.on('participantConnected', participant => {
-  //  //     // console.log(`A remote Participant connected: ${participant}`);
+  //  //     // //console.log(`A remote Participant connected: ${participant}`);
   //  //    room.participants.forEach(participant => {
-  //  //       // console.log(`Participant "${participant.identity}" is connected to the Room`);
+  //  //       // //console.log(`Participant "${participant.identity}" is connected to the Room`);
   //  //    });   
 
   //  //  });
@@ -456,7 +456,7 @@ export class AppComponent implements OnInit {
   //}
 
   //handleError(error) {
-  //   // console.log(error);
+  //   // //console.log(error);
   //  let errorMessage = '';
   //  if (error.error instanceof ErrorEvent) {
   //    // client-side error

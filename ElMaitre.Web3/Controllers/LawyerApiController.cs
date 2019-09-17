@@ -411,7 +411,7 @@ namespace ElMaitre.Web3.Controllers
 
 		[HttpGet]
 		[Route("GetLawyerPendingLiveSesstions")]
-		[Authorize(Roles = "Lawyer")]
+		//[Authorize(Roles = "Lawyer")]
 		public async Task<IActionResult> GetLawyerPendingLiveSesstions()
 		{
 			var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;

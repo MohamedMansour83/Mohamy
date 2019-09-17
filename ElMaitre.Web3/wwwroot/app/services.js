@@ -24,7 +24,7 @@
             contentType: "application/json",
             success: function (data) {
                 self.service(data);
-                debugger;
+                 
                 if (self.service().CategoryId == 9) {
                     $('#PriceType1').html('رأس مال اكثر من 100000');
                     $('#PriceType2').html('رأس مال اقل من 100000');
@@ -47,7 +47,7 @@
                     $('.pricing-price hr').removeAttr('hidden');
                 }
                 
-                console.log(data);
+                //console.log(data);
                 self.paperWork(data.PaperWork.split(','));
             },
             error: function (res) {

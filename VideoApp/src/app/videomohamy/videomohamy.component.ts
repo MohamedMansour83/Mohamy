@@ -68,8 +68,8 @@ export class VideoMohamyComponent implements OnInit {
     let that = this;
     await this.activatedRoute.params.subscribe(params => {
       that.sessionId = params["id"];
-      console.log(params);
-      console.log(that.sessionId);
+      //console.log(params);
+      //console.log(that.sessionId);
     });
   }
 
@@ -85,7 +85,7 @@ export class VideoMohamyComponent implements OnInit {
     //this.activatedRoute.queryParams.subscribe(params => {
     //  //const sessionId = params['sessionId'];
     //  that.sessionId = params['sessionId'];
-    //  console.log(that.sessionId);
+    //  //console.log(that.sessionId);
     //});
 
     //await this.getIdFromUrl2();
@@ -94,7 +94,7 @@ export class VideoMohamyComponent implements OnInit {
     //  await this.checkTheSession();
     //  if (this.err == null) {
     //    if (this.previewElement && this.previewElement.nativeElement) {
-    //      //console.log('gendy');
+    //      ////console.log('gendy');
     //      await this.initializeDevice();
     //      this.loadRoom();
     //    }
@@ -118,7 +118,7 @@ export class VideoMohamyComponent implements OnInit {
         
       }
       else {
-        console.log('ss');
+        //console.log('ss');
       }
     }
   }
@@ -138,7 +138,7 @@ export class VideoMohamyComponent implements OnInit {
   }
 
   initializePreview(deviceInfo?: MediaDeviceInfo) {
-    console.log(deviceInfo);
+    //console.log(deviceInfo);
     if (deviceInfo) {
       this.initializeDevice(deviceInfo.kind, deviceInfo.deviceId);
     } else {
@@ -211,7 +211,7 @@ export class VideoMohamyComponent implements OnInit {
       var obj = (data as TokenModel);
       connect(obj.token, { name: that.sessionId + "_room" }).then(room => {
         this.activeRoom = room;
-        console.log(`Successfully joined a Room: ${room}`);
+        //console.log(`Successfully joined a Room: ${room}`);
         room.participants.forEach(participant1 => {
           
             participant1.on('trackSubscribed', function (track1) {
@@ -233,7 +233,7 @@ export class VideoMohamyComponent implements OnInit {
           room.participants.forEach(participant1 => {
            
               participant1.on('trackPublished', track => {
-                console.log(`Participant "${participant1.identity}" published ${track.kind} Track ${track.sid}`);
+                //console.log(`Participant "${participant1.identity}" published ${track.kind} Track ${track.sid}`);
                 if (track.kind === 'data') {
                   track.on('message', data => {
                   });
@@ -255,7 +255,7 @@ export class VideoMohamyComponent implements OnInit {
               });
               participant1.on('trackUnsubscribed', function (track1) {
                  
-                //console.log('gendy');
+                ////console.log('gendy');
               });
              
             });
@@ -268,7 +268,7 @@ export class VideoMohamyComponent implements OnInit {
   }
 
   async leaveRoom() {
-    console.log('Leaving room...');
+    //console.log('Leaving room...');
     if (this.activeRoom) {
       this.activeRoom.disconnect();
       window.location.href = `${environment.baseUrl}/home`;
@@ -277,8 +277,8 @@ export class VideoMohamyComponent implements OnInit {
   }
 
   async terminateRoomafterthirtyminutes() {
-    console.log("session ending ...");
-    debugger;
+    //console.log("session ending ...");
+     
     if (this.activeRoom) {
       this.activeRoom.disconnect();
       window.location.href = `${environment.baseUrl}/home`;
@@ -298,7 +298,7 @@ export class VideoMohamyComponent implements OnInit {
   }
 
   handleError(error) {
-    console.log(error);
+    //console.log(error);
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
       // client-side error

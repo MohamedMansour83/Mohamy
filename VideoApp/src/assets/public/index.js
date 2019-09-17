@@ -15428,11 +15428,11 @@ var didPrintSafariWarning = false;
  *   name: 'my-cool-room'
  * }).then(function(room) {
  *   room.on('participantConnected', function(participant) {
- *      // console.log(participant.identity + ' has connected');
+ *      // //console.log(participant.identity + ' has connected');
  *   });
 
  *   room.once('disconnected', function() {
- *      // console.log('You left the Room:', room.name);
+ *      // //console.log('You left the Room:', room.name);
  *   });
  * });
  * @example
@@ -15445,11 +15445,11 @@ var didPrintSafariWarning = false;
  *   audio: true
  * }).then(function(room) {
  *   room.on('participantConnected', function(participant) {
- *      // console.log(participant.identity + ' has connected');
+ *      // //console.log(participant.identity + ' has connected');
  *   });
  *
  *   room.once('disconnected', function() {
- *      // console.log('You left the Room:', room.name);
+ *      // //console.log('You left the Room:', room.name);
  *   });
  * });
  * @example
@@ -15467,11 +15467,11 @@ var didPrintSafariWarning = false;
  *   });
  * }).then(function(room) {
  *   room.on('participantConnected', function(participant) {
- *      // console.log(participant.identity + ' has connected');
+ *      // //console.log(participant.identity + ' has connected');
  *   });
  *
  *   room.once('disconnected', function() {
- *      // console.log('You left the Room:', room.name);
+ *      // //console.log('You left the Room:', room.name);
  *   });
  * });
  * @example
@@ -15485,7 +15485,7 @@ var didPrintSafariWarning = false;
  *   video: { name: 'camera' }
  * }).then(function(room) {
  *   room.localParticipants.trackPublications.forEach(function(publication) {
- *      // console.log('The LocalTrack "' + publication.trackName + '" was successfully published');
+ *      // //console.log('The LocalTrack "' + publication.trackName + '" was successfully published');
  *   });
  * });
  */
@@ -15928,7 +15928,7 @@ function createLocalTrack(kind, options) {
  *
  * // Request the default LocalAudioTrack with a custom name
  * Video.createLocalAudioTrack({ name: 'microphone' }).then(function(localTrack) {
- *    // console.log(localTrack.name); // 'microphone'
+ *    // //console.log(localTrack.name); // 'microphone'
  * });
  */
 function createLocalAudioTrack(options) {
@@ -15957,7 +15957,7 @@ function createLocalAudioTrack(options) {
  *
  * // Request the default LocalVideoTrack with a custom name
  * Video.createLocalVideoTrack({ name: 'camera' }).then(function(localTrack) {
- *    // console.log(localTrack.name); // 'camera'
+ *    // //console.log(localTrack.name); // 'camera'
  * });
  */
 function createLocalVideoTrack(options) {
@@ -16030,7 +16030,7 @@ var createLocalTrackCalls = 0;
  *   video: { name: 'camera' }
  * }).then(function(localTracks) {
  *   localTracks.forEach(function(localTrack) {
- *      // console.log(localTrack.name);
+ *      // //console.log(localTrack.name);
  *   });
  * });
  */
@@ -17477,7 +17477,7 @@ var LocalParticipant = function (_Participant) {
        *     name: 'camera'
        *   });
        * }).then(function(publication) {
-       *    // console.log('The LocalTrack "' + publication.trackName + '" was successfully published');
+       *    // //console.log('The LocalTrack "' + publication.trackName + '" was successfully published');
        * });
        */
 
@@ -18459,7 +18459,7 @@ var DefaultDataTrackSender = require('../../data/sender');
  * }).then(function(room) {
  *   room.on('trackSubscribed', function(track) {
  *     track.on('message', function(message) {
- *        // console.log(message); // { x: <number>, y: <number> }
+ *        // //console.log(message); // { x: <number>, y: <number> }
  *     });
  *   });
  * });
@@ -21822,7 +21822,7 @@ var RemoteParticipant = function (_Participant) {
  *   which represents the published {@link RemoteTrack}
  * @example
  * function trackPublished(publication) {
- *    // console.log(`Track ${publication.trackSid} was published`);
+ *    // //console.log(`Track ${publication.trackSid} was published`);
  * }
  *
  * room.on('participantConnected', participant => {
@@ -22146,7 +22146,7 @@ var Room = function (_EventEmitter) {
  * @example
  * myRoom.on('disconnected', function(room, error) {
  *   if (error) {
- *      // console.log('Unexpectedly disconnected:', error);
+ *      // //console.log('Unexpectedly disconnected:', error);
  *   }
  *   myRoom.localParticipant.tracks.forEach(function(track) {
  *     track.stop();
@@ -22161,7 +22161,7 @@ var Room = function (_EventEmitter) {
  * @event Room#participantConnected
  * @example
  * myRoom.on('participantConnected', function(participant) {
- *    // console.log(participant.identity + ' joined the Room');
+ *    // //console.log(participant.identity + ' joined the Room');
  * });
  */
 
@@ -22171,7 +22171,7 @@ var Room = function (_EventEmitter) {
  * @event Room#participantDisconnected
  * @example
  * myRoom.on('participantDisconnected', function(participant) {
- *    // console.log(participant.identity + ' left the Room');
+ *    // //console.log(participant.identity + ' left the Room');
  *   participant.tracks.forEach(function(track) {
  *     track.detach().forEach(function(mediaElement) {
  *       mediaElement.remove();
@@ -22186,7 +22186,7 @@ var Room = function (_EventEmitter) {
  * @event Room#reconnected
  * @example
  * myRoom.on('reconnected', () => {
- *    // console.log('Reconnected!');
+ *    // //console.log('Reconnected!');
  * });
  */
 
@@ -22275,7 +22275,7 @@ var Room = function (_EventEmitter) {
  *   published the {@link RemoteTrack}
  * @example
  * function trackPublished(publication, participant) {
- *    // console.log(`RemoteParticipant ${participant.sid} published Track ${publication.trackSid}`);
+ *    // //console.log(`RemoteParticipant ${participant.sid} published Track ${publication.trackSid}`);
  * }
  *
  * // Handle RemoteTracks published after connecting to the Room.
@@ -32512,7 +32512,7 @@ function getDeprecationWarnings(componentConstructor) {
 }
 
 /**
- * Selectively outputs messages to  // console.log based on specified minimum module
+ * Selectively outputs messages to  // //console.log based on specified minimum module
  * specific log levels.
  *
  * NOTE: The values in the logLevels object passed to the constructor is changed
@@ -32630,8 +32630,8 @@ var Log = function () {
     }
 
     /**
-     * Log a debug message using  // console.log
-     * @param {...String} messages - Message(s) to pass to  // console.log
+     * Log a debug message using  // //console.log
+     * @param {...String} messages - Message(s) to pass to  // //console.log
      * @returns {Log} This instance of {@link Log}
      * @public
      */
@@ -32761,7 +32761,7 @@ Object.defineProperties(Log, {
   ERROR: { value: 3 },
   OFF: { value: 4 },
   _levels: {
-    value: [{ name: 'DEBUG', logFn:  // console.log }, { name: 'INFO', logFn: console.info }, { name: 'WARN', logFn: console.warn }, { name: 'ERROR', logFn: console.error }, { name: 'OFF', logFn: function noop() {} }]
+    value: [{ name: 'DEBUG', logFn:  // //console.log }, { name: 'INFO', logFn: console.info }, { name: 'WARN', logFn: console.warn }, { name: 'ERROR', logFn: console.error }, { name: 'OFF', logFn: function noop() {} }]
   }
 });
 
@@ -36369,9 +36369,9 @@ function timestamp() {
 }
 
 
-// log is just a thin wrapper to  // console.log that prepends a timestamp
+// log is just a thin wrapper to  // //console.log that prepends a timestamp
 exports.log = function() {
-   // console.log('%s - %s', timestamp(), exports.format.apply(exports, arguments));
+   // //console.log('%s - %s', timestamp(), exports.format.apply(exports, arguments));
 };
 
 

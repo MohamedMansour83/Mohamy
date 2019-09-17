@@ -13,7 +13,7 @@ function LawyerProfileViewModel() {
     initData();
     self.VM.getUserNotifications();
     function initData() {
-        debugger;
+         
         var isltr = $("#IsLtr").val() == "True";
         var date = $('#myModal').data("date");
         //var quarterHours = ["00", "45"];
@@ -139,7 +139,7 @@ function LawyerProfileViewModel() {
         self.experiences(data.experiences);
         self.experienceId(data.experienceId);
         self.phoneNumber(data.phoneNumber);
-         // console.log(self.reviews());
+         // //console.log(self.reviews());
         self.lawyerRate(data.rating.lawyerRate);
         self.rate1(data.rating.rate1);
         self.rate2(data.rating.rate2);
@@ -198,7 +198,7 @@ function LawyerProfileViewModel() {
     }
 
 	self.Save = function (data,e) {
-        debugger;
+         
 		var url = self.baseUrl + "/api/LawyerApi/SetAppointments";
 
 		var date = $('#myModal').data("date");
@@ -273,14 +273,9 @@ function LawyerProfileViewModel() {
 	}
 
     self.SaveSetting = function (data) {
-
+         
         $('#cover-spin').show(0);
         var url = self.baseUrl + "/api/UserApi/SaveInfo";
-
-
-
-
-
         var model = {
             Name: self.Name(),
             NameEn: self.NameEn(),
@@ -298,9 +293,6 @@ function LawyerProfileViewModel() {
             PhoneNumber: self.PhoneNumber,
             ExperienceId: self.ExperienceId,
         }
-
-
-
 
         $.ajax({
             type: "Post",
@@ -327,11 +319,11 @@ function LawyerProfileViewModel() {
     };
 
     self.experienceChanged = function (obj) {
-         // console.log(obj.ExperienceId());
+         // //console.log(obj.ExperienceId());
         var exps = ko.toJS(self.Experiences());
         for (var i = 0; i < exps.length; i++) {
             if (exps[i].Id == obj.ExperienceId()) {
-                 // console.log(exps[i]);
+                 // //console.log(exps[i]);
                 self.Price(exps[i].Price);
                 break;
             }
@@ -348,7 +340,7 @@ function LawyerProfileViewModel() {
             //    url: url,
             //    contentType: "application/json",
             //    success: function (data) {
-            //         // console.log(data);
+            //         // //console.log(data);
             //        self.Services(data);
             //    },
             //    error: function (res) {
@@ -364,20 +356,20 @@ function LawyerProfileViewModel() {
 
         } else {
             var s1 = ko.toJS(self.Services());
-             // console.log(s1);
+             // //console.log(s1);
             var ind = 0;
             for (var i = 0; i < s1.length; i++) {
-                 // console.log(s1[i].Id);
-                 // console.log(data.Id());
+                 // //console.log(s1[i].Id);
+                 // //console.log(data.Id());
                 if (s1[i].Id === data.Id()) {
                     ind = i;
                     break;
                 }
                 ind++;
             }
-             // console.log(ind);
+             // //console.log(ind);
             s1.splice(ind, 1);
-             // console.log(s1);
+             // //console.log(s1);
             self.Services(ko.toJS(s1));
 
             var url = self.baseUrl + "/api/LawyerApi/RemoveServiceLawyer/" + data.Id();
@@ -403,7 +395,7 @@ function LawyerProfileViewModel() {
     };
 
     self.serviceClicked = function (data, el) {
-
+         
         $('#cover-spin').show(0);
 
         var url = self.baseUrl + "/api/LawyerApi/AddServiceToLawyer/" + data.Id() + "/" + data.PriceLawyer() + "/" + data.PriceLevel2Lawyer();
@@ -413,9 +405,9 @@ function LawyerProfileViewModel() {
             contentType: "application/json",
             success: function (data) {
                 $('#cover-spin').hide(0);
-                 // console.log(data);
+                 // //console.log(data);
                 if (data.responseStatus) {
-                     // console.log(data);
+                     // //console.log(data);
                     self.Services(data.data);
                 }
                 else {
@@ -452,7 +444,7 @@ function LawyerProfileViewModel() {
     };
 
     self.test = function (data) {
-         // console.log(data);
+         // //console.log(data);
         return data;
     };
 
@@ -482,10 +474,10 @@ function LawyerProfileViewModel() {
         });
     }
 
-
     self.uploadImageProfile = function (file) {
+         
         $('#cover-spin').show(0);
-         // console.log(self.baseUrl + "/api/UserApi/UploadProfileImg");
+         // //console.log(self.baseUrl + "/api/UserApi/UploadProfileImg");
         var data = new FormData();
         data.append("file", file);
 
@@ -529,7 +521,6 @@ function LawyerProfileViewModel() {
 
 		return year + "-" + month + "-" + day;
 	}
-
 	function remove(arr, item) {
 		for (var i = arr.length; i--;) {
 			if (arr[i].Id === item.Id) {
@@ -541,8 +532,8 @@ function LawyerProfileViewModel() {
 };
 LawyerProfileViewModel.prototype.init = function (data) {
     var self = this;
-     // console.log(data);
+     // //console.log(data);
     ko.mapping.fromJS(data, {}, self);
-     // console.log(ko.toJS(self.Services));
+     // //console.log(ko.toJS(self.Services));
 }
 //ko.applyBindings(new LawyerProfileViewModel());

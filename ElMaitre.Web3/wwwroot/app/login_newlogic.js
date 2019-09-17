@@ -23,7 +23,7 @@ function AccountViewModel() {
         AcceptTerms: true, IsLawyer: false,
         PhoneNumber: "", FbId: localStorage.getItem('p1')
     };
-    // console.log(self.registerModel);
+    // //console.log(self.registerModel);
 
     function Token(e) {
         //$.post(baseUrl + "/api/Auth/Token", function (data) {
@@ -34,7 +34,7 @@ function AccountViewModel() {
         localStorage.removeItem("UsrName");
         localStorage.removeItem("isLawyer");
 
-        // console.log(ko.toJSON(self.loginModel));
+        // //console.log(ko.toJSON(self.loginModel));
         $.ajax({
             type: "POST",
             url: self.baseUrl + "/Account/Login",
@@ -71,7 +71,7 @@ function AccountViewModel() {
     };
 
     self.Register = function (el, e) {
-        debugger;
+         
         $('.reg-mobileempty').css('display', 'none');
         $('.reg-mobile').css('display', 'none');
         $('.reg-CPasswordempty').css('display', 'none');
@@ -110,7 +110,7 @@ function AccountViewModel() {
             localStorage.removeItem("isLawyer");
             localStorage.removeItem("returnURL");
 
-            // // console.log(ko.toJSON(self.registerModel));
+            // // //console.log(ko.toJSON(self.registerModel));
 
             var fbIdChk = self.registerModel.FbId;
             $.ajax({

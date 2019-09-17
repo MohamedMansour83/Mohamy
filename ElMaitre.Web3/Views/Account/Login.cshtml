@@ -312,8 +312,8 @@
 
 
         function statusChangeCallback(response) {
-            // // console.log('statusChangeCallback');
-            // // console.log(response);
+            // // //console.log('statusChangeCallback');
+            // // //console.log(response);
 
             //// The response object is returned with a status field that lets the
             //// app know the current login status of the person.
@@ -328,7 +328,7 @@
             //    localStorage.removeItem('isLawyer');
 
             //    var uid = response.authResponse.userID;
-            //     // console.log({ "FbId": uid });
+            //     // //console.log({ "FbId": uid });
             //    $.ajax({
             //        type: "POST",
             //        url: self1.baseUrl + "/api/Auth/TokenFB",
@@ -339,7 +339,7 @@
             //            localStorage.setItem('UsrName', data.userName);
             //            localStorage.setItem('isLawyer', data.isLawyer);
 
-            //             // console.log(localStorage);
+            //             // //console.log(localStorage);
             //            
             //            if (localStorage.getItem("returnURL") !== null) {
             //                window.location = self1.baseUrl + localStorage.getItem("returnURL");
@@ -350,7 +350,7 @@
             //        },
             //        error: function (res) {
             //            //hideloading(e);
-            //             // console.log(res);
+            //             // //console.log(res);
             //        }
             //    });
 
@@ -358,13 +358,13 @@
 
 
             //    FB.api('/me?fields=name,email', function (info) {
-            //         // console.log(info);
+            //         // //console.log(info);
             //        var arr = info.name.split(" ");
-            //         // console.log(info.name);
+            //         // //console.log(info.name);
             //        var fname = arr[0];
-            //         // console.log(fname);
+            //         // //console.log(fname);
             //        var lname = arr[arr.length - 1];
-            //         // console.log(lname);
+            //         // //console.log(lname);
 
             //        //$('#name').html(info.name);
             //        //$('#reg-email').html(info.email);
@@ -377,8 +377,8 @@
             //        self1.registerModel.FbId = '' + info.id;
             //        self1.registerModel.Email = info.email;
             //        self1.registerModel.UserName = info.name;
-            //         // console.log($('#fbid').val());
-            //         // console.log(self1.registerModel.FbId);
+            //         // //console.log($('#fbid').val());
+            //         // //console.log(self1.registerModel.FbId);
             //        //self.registerModel.FbId = info.uid;
             //    });
 
@@ -393,13 +393,13 @@
 
 
                 FB.api('/me?fields=name,email', function (info) {
-                     // console.log(info);
+                     // //console.log(info);
                     //var arr = info.name.split(" ");
-                    // // console.log(info.name);
+                    // // //console.log(info.name);
                     //var fname = arr[0];
-                    // // console.log(fname);
+                    // // //console.log(fname);
                     //var lname = arr[arr.length - 1];
-                    // // console.log(lname);
+                    // // //console.log(lname);
 
                     //$('#name').html(info.name);
                     //$('#reg-email').html(info.email);
@@ -413,8 +413,8 @@
                     self1.registerModel.Email = info.email;
                     self1.registerModel.Password = "123456Aa#";
 					self1.registerModel.UserName = info.email.substring(0, info.email.indexOf("@@"));
-                     // console.log($('#fbid').val());
-                     // console.log(self1.registerModel.FbId);
+                     // //console.log($('#fbid').val());
+                     // //console.log(self1.registerModel.FbId);
                     //self.registerModel.FbId = info.uid;
 
 
@@ -435,7 +435,7 @@
                                 $("#h").addClass("active show");
                                 $("#reg").removeClass("active show");
 
-                                 // console.log(localStorage);
+                                 // //console.log(localStorage);
                                 
                                 if (localStorage.getItem("returnURL") !== null) {
                                     window.location = self1.baseUrl + localStorage.getItem("returnURL");
@@ -451,7 +451,7 @@
                         },
                         error: function (res) {
                             //hideloading(e);
-                             // console.log(res);
+                             // //console.log(res);
                         }
                     });
 
@@ -474,13 +474,13 @@
 
 
                 FB.api('/me?fields=name,email', function (info) {
-                     // console.log(info);
+                     // //console.log(info);
                     //var arr = info.name.split(" ");
-                    // // console.log(info.name);
+                    // // //console.log(info.name);
                     //var fname = arr[0];
-                    // // console.log(fname);
+                    // // //console.log(fname);
                     //var lname = arr[arr.length - 1];
-                    // // console.log(lname);
+                    // // //console.log(lname);
 
                     //$('#name').html(info.name);
                     //$('#reg-email').html(info.email);
@@ -493,8 +493,8 @@
                     self1.registerModel.FbId = '' + info.id;
                     self1.registerModel.Email = info.email;
 					self1.registerModel.UserName = info.email.substring(0, info.email.indexOf("@@"));
-                     // console.log($('#fbid').val());
-                     // console.log(self1.registerModel.FbId);
+                     // //console.log($('#fbid').val());
+                     // //console.log(self1.registerModel.FbId);
                     //self.registerModel.FbId = info.uid;
 					//$('.nav-tabs a:[href="#register"]').tab('show');
 					$("#register").addClass("active");
@@ -552,7 +552,7 @@
             //                $("#h").addClass("active show");
             //                $("#reg").removeClass("active show");
 
-            //                 // console.log(localStorage);
+            //                 // //console.log(localStorage);
             //                
             //                if (localStorage.getItem("returnURL") !== null) {
             //                    window.location = self1.baseUrl + localStorage.getItem("returnURL");
@@ -563,13 +563,13 @@
             //            },
             //            error: function (res) {
             //                //hideloading(e);
-            //                 // console.log(res);
+            //                 // //console.log(res);
             //            }
             //        });
-            //                  // console.log(self1.registerModel);
+            //                  // //console.log(self1.registerModel);
             //self1.registerModel.FbId = "sss@ss.com";
             //$('#reg-fbid').val(self1.registerModel.FbId);
-            //                  // console.log(self1.registerModel);
+            //                  // //console.log(self1.registerModel);
             var p = $(location).attr('hash');
             if (p != '') {
                 $(p).addClass("active");
@@ -643,13 +643,13 @@
 
 
         //    //        FB.api('/me?fields=name,email', function (info) {
-        //    //             // console.log(info);
+        //    //             // //console.log(info);
         //    //            var arr = info.name.split(" ");
-        //    //             // console.log(info.name);
+        //    //             // //console.log(info.name);
         //    //            var fname = arr[0];
-        //    //             // console.log(fname);
+        //    //             // //console.log(fname);
         //    //            var lname = arr[arr.length - 1];
-        //    //             // console.log(lname);
+        //    //             // //console.log(lname);
 
         //    //            //$('#name').html(info.name);
         //    //            //$('#reg-email').html(info.email);
@@ -662,8 +662,8 @@
         //    //            self1.registerModel.FbId = '' + info.id;
         //    //            self1.registerModel.Email = info.email;
         //    //            self1.registerModel.UserName = info.name;
-        //    //             // console.log($('#fbid').val());
-        //    //             // console.log(self1.registerModel.FbId);
+        //    //             // //console.log($('#fbid').val());
+        //    //             // //console.log(self1.registerModel.FbId);
         //    //            //self.registerModel.FbId = info.uid;
 
         //    //        });
