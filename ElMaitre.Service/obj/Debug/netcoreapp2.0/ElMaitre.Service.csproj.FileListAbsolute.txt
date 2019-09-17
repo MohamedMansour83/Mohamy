@@ -82,3 +82,15 @@ D:\28-08-19\f\ElMaitre\ElMaitre.Service\obj\Debug\netcoreapp2.0\ElMaitre.Service
 D:\28-08-19\f\ElMaitre\ElMaitre.Service\obj\Debug\netcoreapp2.0\ElMaitre.Service.csproj.CopyComplete
 D:\28-08-19\f\ElMaitre\ElMaitre.Service\obj\Debug\netcoreapp2.0\ElMaitre.Service.dll
 D:\28-08-19\f\ElMaitre\ElMaitre.Service\obj\Debug\netcoreapp2.0\ElMaitre.Service.pdb
+F:\Freelance\Mohamy\ElMaitre.Service\bin\Debug\netcoreapp2.0\ElMaitre.Service.deps.json
+F:\Freelance\Mohamy\ElMaitre.Service\bin\Debug\netcoreapp2.0\ElMaitre.Service.dll
+F:\Freelance\Mohamy\ElMaitre.Service\bin\Debug\netcoreapp2.0\ElMaitre.Service.pdb
+F:\Freelance\Mohamy\ElMaitre.Service\bin\Debug\netcoreapp2.0\ElMaitre.DAL.dll
+F:\Freelance\Mohamy\ElMaitre.Service\bin\Debug\netcoreapp2.0\ElMaitre.DAL.pdb
+F:\Freelance\Mohamy\ElMaitre.Service\obj\Debug\netcoreapp2.0\ElMaitre.Service.csprojAssemblyReference.cache
+F:\Freelance\Mohamy\ElMaitre.Service\obj\Debug\netcoreapp2.0\ElMaitre.Service.csproj.CoreCompileInputs.cache
+F:\Freelance\Mohamy\ElMaitre.Service\obj\Debug\netcoreapp2.0\ElMaitre.Service.AssemblyInfoInputs.cache
+F:\Freelance\Mohamy\ElMaitre.Service\obj\Debug\netcoreapp2.0\ElMaitre.Service.AssemblyInfo.cs
+F:\Freelance\Mohamy\ElMaitre.Service\obj\Debug\netcoreapp2.0\ElMaitre.Service.csproj.CopyComplete
+F:\Freelance\Mohamy\ElMaitre.Service\obj\Debug\netcoreapp2.0\ElMaitre.Service.dll
+F:\Freelance\Mohamy\ElMaitre.Service\obj\Debug\netcoreapp2.0\ElMaitre.Service.pdb

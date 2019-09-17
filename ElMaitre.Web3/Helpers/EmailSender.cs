@@ -37,19 +37,30 @@ namespace ElMaitre.Web.Helpers
             //    Credentials = new NetworkCredential("islam.apps123@gmail.com", "SOLOM19895050")
             //};
 
-            NetworkCredential networkCredentials = new
-            NetworkCredential("info@mohamy.co", "Ayman1988@");
+            //NetworkCredential networkCredentials = new
+            //NetworkCredential("noreplymohamy@gmail.com‏", "allah1akbar");
+            ////NetworkCredential("info@mohamy.co", "Ayman1988@");
 
-            SmtpClient smtpClient = new SmtpClient();
-            smtpClient.UseDefaultCredentials = false;
-            smtpClient.Credentials = networkCredentials;
-            smtpClient.Host = "smtp.office365.com";
-            smtpClient.Port = 587;
-            smtpClient.EnableSsl = true;
-            smtpClient.ServicePoint.MaxIdleTime = 1;
+            //SmtpClient smtpClient = new SmtpClient();
+            //smtpClient.UseDefaultCredentials = false;
+            //smtpClient.Credentials = networkCredentials;
+            ////smtpClient.Host = "smtp.office365.com";
+            //smtpClient.Host = "smtp.gmail.com";
+            //smtpClient.Port = 587;
+            //smtpClient.EnableSsl = true;
+            var smtp = new System.Net.Mail.SmtpClient();
+            {
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 587;
+                smtp.EnableSsl = true;
+                smtp.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
+                smtp.UseDefaultCredentials = false;
+                smtp.Credentials = new NetworkCredential("noreplymohamy@gmail.com", "P@ss123&P@ss123");
+                smtp.Timeout = 20000;
 
+            }
             //using (var message = new MailMessage("islam.apps123@gmail.com", mail)
-            using (var message = new MailMessage("info@mohamy.co", mail)
+            using (var message = new MailMessage("noreplymohamy@gmail.com", mail)
             {
                 Subject = subject,
                 Body = $"<body>{body}</body>",
@@ -58,7 +69,7 @@ namespace ElMaitre.Web.Helpers
             {
                 try
                 {
-                    await smtpClient.SendMailAsync(message);
+                    await smtp.SendMailAsync(message);
                 }
                 catch (Exception ex)
                 {

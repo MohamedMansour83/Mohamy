@@ -198,4 +198,31 @@
   <data name="OK" xml:space="preserve">
     <value>تأكيد</value>
   </data>
+  <data name="ContactDetails" xml:space="preserve">
+    <value>بيانات التواصل للدفع كاش</value>
+  </data>
+  <data name="Apartment" xml:space="preserve">
+    <value>رقم الشقة</value>
+  </data>
+  <data name="BuildingNumber" xml:space="preserve">
+    <value>رقم العمارة</value>
+  </data>
+  <data name="Floor" xml:space="preserve">
+    <value>رقم الدور</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>العنوان بالتفصيل</value>
+  </data>
+  <data name="PostalCode" xml:space="preserve">
+    <value>الرقم البريدى</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>الاسم الأول</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>إسم العائلة</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>البريد الإلكترونى</value>
+  </data>
 </root>

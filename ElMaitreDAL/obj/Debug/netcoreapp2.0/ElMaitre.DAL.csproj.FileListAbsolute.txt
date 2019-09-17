@@ -71,3 +71,18 @@ D:\28-08-19\f\ElMaitre\ElMaitreDAL\obj\Debug\netcoreapp2.0\ElMaitre.DAL.Assembly
 D:\28-08-19\f\ElMaitre\ElMaitreDAL\obj\Debug\netcoreapp2.0\ElMaitre.DAL.AssemblyInfo.cs
 D:\28-08-19\f\ElMaitre\ElMaitreDAL\obj\Debug\netcoreapp2.0\ElMaitre.DAL.dll
 D:\28-08-19\f\ElMaitre\ElMaitreDAL\obj\Debug\netcoreapp2.0\ElMaitre.DAL.pdb
+<<<<<<< HEAD
+=======
+D:\28-08-19\f\ElMaitre\ElMaitreDAL\obj\Debug\netcoreapp2.0\ElMaitre.DAL.csprojAssemblyReference.cache
+F:\Freelance\Mohamy\ElMaitreDAL\bin\Debug\netcoreapp2.0\ElMaitre.DAL.deps.json
+F:\Freelance\Mohamy\ElMaitreDAL\bin\Debug\netcoreapp2.0\ElMaitre.DAL.runtimeconfig.json
+F:\Freelance\Mohamy\ElMaitreDAL\bin\Debug\netcoreapp2.0\ElMaitre.DAL.runtimeconfig.dev.json
+F:\Freelance\Mohamy\ElMaitreDAL\bin\Debug\netcoreapp2.0\ElMaitre.DAL.dll
+F:\Freelance\Mohamy\ElMaitreDAL\bin\Debug\netcoreapp2.0\ElMaitre.DAL.pdb
+F:\Freelance\Mohamy\ElMaitreDAL\obj\Debug\netcoreapp2.0\ElMaitre.DAL.csprojAssemblyReference.cache
+F:\Freelance\Mohamy\ElMaitreDAL\obj\Debug\netcoreapp2.0\ElMaitre.DAL.csproj.CoreCompileInputs.cache
+F:\Freelance\Mohamy\ElMaitreDAL\obj\Debug\netcoreapp2.0\ElMaitre.DAL.AssemblyInfoInputs.cache
+F:\Freelance\Mohamy\ElMaitreDAL\obj\Debug\netcoreapp2.0\ElMaitre.DAL.AssemblyInfo.cs
+F:\Freelance\Mohamy\ElMaitreDAL\obj\Debug\netcoreapp2.0\ElMaitre.DAL.dll
+F:\Freelance\Mohamy\ElMaitreDAL\obj\Debug\netcoreapp2.0\ElMaitre.DAL.pdb
+>>>>>>> 1896dd95a8b5f9eefb0732141ac616e0ad80c1a8
