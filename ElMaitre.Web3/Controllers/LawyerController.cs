@@ -372,7 +372,7 @@ namespace ElMaitre.Web3.Controllers
         //    }
         //}
         #endregion
-
+            //
         //[HttpPost]
         [Route("/Lawyer/PayAction/{lawyerId}/{AppointmentId}")]
         public async Task<IActionResult> PayAction(int lawyerId, int AppointmentId,[FromForm] DeliveryDetailsModel model)
@@ -389,24 +389,6 @@ namespace ElMaitre.Web3.Controllers
                     if (!string.IsNullOrEmpty(pkey.Token))
                     {
 
-<<<<<<< HEAD
-				}
-				else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
-				{
-					return null;
-				}
-			}
-			////Redirect("https://accept.paymobsolutions.com/api/acceptance/iframes/7127?payment_token=" + fToken);
-			////return View(new BaseViewModel(Request));
-			////return (Redirect("https://accept.paymobsolutions.com/api/acceptance/iframes/7127?payment_token=" + fToken));
-			if (pType == 1)
-            {
-                return Ok(new { token = fToken, ptype = pType });
-            }
-            else
-            {
-                return Ok(new { redirect_url = redirectUrl, ptype = pType });
-=======
                         var bookRes = await BookSession(AppointmentId, order.Id);
                         if (bookRes == null)
                             return RedirectToAction("Login", "Account");
@@ -415,7 +397,6 @@ namespace ElMaitre.Web3.Controllers
 
                 }
                 //return Ok(new { token = fToken, ptype = 2 });
->>>>>>> 1896dd95a8b5f9eefb0732141ac616e0ad80c1a8
             }
             return null;
         }
@@ -436,7 +417,7 @@ namespace ElMaitre.Web3.Controllers
                     if (bookRes == null)
                         return RedirectToAction("Login", "Account");
                     var iframeId = AppSettings.PaymentIframeId;
-                    return Redirect($"https://accept.paymobsolutions.com/api/acceptance/iframes/{iframeId}?payment_token={pkey.Token}");
+                    return Redirect($"http://accept.paymobsolutions.com/api/acceptance/iframes/{iframeId}?payment_token={pkey.Token}");
                 }
             }
             return null;
